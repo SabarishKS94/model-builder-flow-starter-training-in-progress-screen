@@ -1,0 +1,148 @@
+:host {
+    display: block;
+}
+
+.ui-agent-chart {
+    box-sizing: border-box;
+    border: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-1, #c9c9c9);
+    border-radius: var(--slds-g-radius-border-3, 12px);
+    background-color: var(--slds-g-color-surface-1, #ffffff);
+    padding: var(--slds-g-spacing-3, 12px);
+}
+
+.ui-agent-chart__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--slds-g-spacing-1, 4px);
+    margin-bottom: var(--slds-g-spacing-3, 12px);
+}
+
+.ui-agent-chart__title {
+    margin: 0;
+    color: var(--slds-g-color-on-surface-2, #2e2e2e);
+    font-size: var(--slds-g-font-scale-1, 0.875rem);
+    font-weight: var(--slds-g-font-weight-7, 700);
+    line-height: var(--slds-g-font-lineheight-1, 1.1875);
+}
+
+.ui-agent-chart__subtitle {
+    margin: 0;
+    color: var(--slds-g-color-on-surface-1, #5c5c5c);
+    font-size: var(--slds-g-font-size-base, 0.8125rem);
+    font-weight: var(--slds-g-font-weight-4, 400);
+    line-height: var(--slds-g-font-lineheight-2, 1.25);
+}
+
+.ui-agent-chart__plot-layout {
+    display: flex;
+    align-items: stretch;
+    gap: var(--slds-g-spacing-2, 8px);
+    min-width: 0;
+}
+
+.ui-agent-chart__y-axis {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 var(--slds-g-sizing-7, 24px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: var(--slds-g-sizing-8, 28px);
+}
+
+.ui-agent-chart__y-axis-label {
+    margin: 0;
+    color: var(--slds-g-color-on-surface-2, #2e2e2e);
+    font-size: var(--slds-g-font-size-base, 0.8125rem);
+    font-weight: var(--slds-g-font-weight-4, 400);
+    line-height: var(--slds-g-font-lineheight-2, 1.25);
+    text-align: right;
+}
+
+.ui-agent-chart__chart-area {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.ui-agent-chart__bar-values {
+    list-style: none;
+    margin: 0 0 var(--slds-g-spacing-1, 4px);
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--slds-g-spacing-2, 8px);
+}
+
+.ui-agent-chart__bar-value {
+    margin: 0;
+    color: var(--slds-g-color-on-surface-2, #2e2e2e);
+    font-size: var(--slds-g-font-size-base, 0.8125rem);
+    font-weight: var(--slds-g-font-weight-6, 590);
+    line-height: var(--slds-g-font-lineheight-2, 1.25);
+    text-align: center;
+}
+
+.ui-agent-chart__bars {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    min-height: var(--slds-g-sizing-12, 64px);
+    border-left: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-1, #c9c9c9);
+    border-bottom: var(--slds-g-sizing-border-1, 1px) solid var(--slds-g-color-border-1, #c9c9c9);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--slds-g-spacing-2, 8px);
+    align-items: end;
+    padding: 0 var(--slds-g-spacing-2, 8px);
+}
+
+.ui-agent-chart__bar-column {
+    min-height: var(--slds-g-sizing-12, 64px);
+    display: flex;
+    align-items: end;
+    justify-content: center;
+}
+
+.ui-agent-chart__bar-fill {
+    width: var(--slds-g-sizing-8, 28px);
+    background-color: var(--slds-g-color-accent-2, #0250d9);
+    border-radius: var(--slds-g-radius-border-1, 4px) var(--slds-g-radius-border-1, 4px) 0 0;
+}
+
+.ui-agent-chart__bar-fill--xs {
+    height: var(--slds-g-sizing-7, 24px);
+}
+
+.ui-agent-chart__bar-fill--sm {
+    height: var(--slds-g-sizing-8, 28px);
+}
+
+.ui-agent-chart__bar-fill--md {
+    height: var(--slds-g-sizing-9, 32px);
+}
+
+.ui-agent-chart__bar-fill--lg {
+    height: var(--slds-g-sizing-10, 40px);
+}
+
+.ui-agent-chart__bar-fill--xl {
+    height: var(--slds-g-sizing-11, 48px);
+}
+
+.ui-agent-chart__x-axis {
+    list-style: none;
+    margin: var(--slds-g-spacing-2, 8px) 0 0;
+    padding: 0 var(--slds-g-spacing-2, 8px);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--slds-g-spacing-2, 8px);
+}
+
+.ui-agent-chart__x-axis-label {
+    margin: 0;
+    color: var(--slds-g-color-on-surface-2, #2e2e2e);
+    font-size: var(--slds-g-font-size-base, 0.8125rem);
+    font-weight: var(--slds-g-font-weight-4, 400);
+    line-height: var(--slds-g-font-lineheight-2, 1.25);
+    text-align: center;
+}

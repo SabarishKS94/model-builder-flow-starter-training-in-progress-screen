@@ -1,0 +1,68 @@
+<template>
+    <lightning-layout class="slds-global-header global-header" horizontal-align="spread" vertical-align="center">
+        <lightning-layout-item class="slds-global-header__item">
+            <lightning-icon icon-name="utility:salesforce1" alternative-text={labels.Salesforce} size="large"></lightning-icon>
+            <span class="slds-assistive-text">{labels.Salesforce}</span>
+        </lightning-layout-item>
+        <lightning-layout-item class="slds-global-header__item slds-global-header__item_search" flexibility="auto">
+            <lightning-input type="search" label={labels.Search} placeholder={labels.SearchPlaceholder} variant="label-hidden"
+                class="slds-container_small slds-container_center"></lightning-input>
+        </lightning-layout-item>
+        <lightning-layout-item class="slds-global-header__item">
+            <lightning-layout vertical-align="center">
+                <lightning-layout-item>
+                    <lightning-button-icon icon-name="utility:agent_astro" aria-haspopup="true" title={labels.Agentforce}
+                        variant="bare" size="large" onclick={handleAgentforceClick}
+                        class="header-icon-button slds-m-right_small">
+                    </lightning-button-icon>
+                </lightning-layout-item>
+                <lightning-layout-item class="slds-m-right_xx-small">
+                    <lightning-button-group>
+                        <lightning-button-icon-stateful icon-name="utility:favorite" alternative-text={labels.ToggleFavorites}
+                            size="small" class="header-icon-button">
+                        </lightning-button-icon-stateful>
+                        <lightning-button-menu alternative-text={labels.ViewFavorites} icon-size="small"
+                            class="header-icon-button">
+                            <lightning-menu-item label={labels.MenuItemOne} value="item1"></lightning-menu-item>
+                        </lightning-button-menu>
+                    </lightning-button-group>
+                </lightning-layout-item>
+                <lightning-layout-item class="slds-m-right_xx-small">
+                    <lightning-button-menu icon-name="utility:new" title={labels.GlobalActions} icon-size="large"
+                        variant="container" nubbin="true" menu-alignment="right"
+                        class="header-icon-button">
+                        <lightning-menu-item label={labels.MenuItemOne} value="item1"></lightning-menu-item>
+                    </lightning-button-menu>
+                </lightning-layout-item>
+                <lightning-layout-item>
+                    <lightning-button-icon icon-name="utility:trailhead_alt" aria-haspopup="true"
+                        title={labels.GuidanceCenter} variant="bare" size="large" onclick={handleTrailheadClick}
+                        class="header-icon-button">
+                    </lightning-button-icon>
+                </lightning-layout-item>
+                <lightning-layout-item>
+                    <lightning-button-menu icon-name="utility:help" title={labels.SalesforceHelp} icon-size="large"
+                        variant="container" nubbin="true" menu-alignment="right"
+                        class="header-icon-button">
+                        <lightning-menu-item label={labels.MenuItemOne} value="item1"></lightning-menu-item>
+                    </lightning-button-menu>
+                </lightning-layout-item>
+                <lightning-layout-item>
+                    <lightning-button-icon icon-name="utility:settings" aria-haspopup="true" title={labels.Setup}
+                        variant="bare" size="large" onclick={handleSettingsClick}
+                        class="header-icon-button slds-m-right_small">
+                    </lightning-button-icon>
+                </lightning-layout-item>
+                <lightning-layout-item class="slds-m-right_xx-small">
+                    <lightning-button-icon icon-name="utility:notification" aria-haspopup="true" title={labels.Notifications}
+                        variant="bare" size="large" onclick={handleNotificationClick}
+                        class="header-icon-button">
+                    </lightning-button-icon>
+                </lightning-layout-item>
+                <lightning-layout-item class="slds-p-left_small">
+                    <shell-user-menu user={user}></shell-user-menu>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>

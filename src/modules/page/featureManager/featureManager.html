@@ -1,0 +1,16 @@
+<template>
+    <div class="page-wrapper">
+        <ui-settings-tab-v2
+            org-level-enabled={orgLevelEnabled}
+            show-preview={showPreview}
+            auto-enabled={autoEnabled}
+            onfeatureenabled={handleFeatureEnabled}
+        ></ui-settings-tab-v2>
+    </div>
+    <ui-toast-message
+        message={toastMessage}
+        variant="success"
+        visible={showToast}
+        ondismiss={handleToastDismiss}
+    ></ui-toast-message>
+</template>

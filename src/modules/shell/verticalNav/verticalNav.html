@@ -1,0 +1,104 @@
+<!-- src/modules/shell/verticalNav/verticalNav.html -->
+<template>
+    <nav class={navClass} aria-label={labels.AppNavigation}>
+        <div class="vertical-nav__search slds-p-around_small slds-shrink-none">
+            <template if:false={isCollapsed}>
+                <lightning-input
+                    type="search"
+                    label={labels.QuickFind}
+                    variant="label-hidden"
+                    placeholder={labels.QuickFind}
+                    value={quickFindValue}
+                    onchange={handleQuickFindChange}>
+                </lightning-input>
+            </template>
+            <template if:true={isCollapsed}>
+                <button
+                    class="slds-button slds-button_reset slds-grid slds-align-items-center slds-align_absolute-center vertical-nav__search-icon"
+                    title={labels.QuickFind}
+                    data-tooltip-text={labels.QuickFind}
+                    onmouseenter={handleTooltipShow}
+                    onmouseleave={handleTooltipHide}
+                    onclick={handleCollapsedSearchClick}>
+                    <lightning-icon icon-name="utility:search" size="x-small"></lightning-icon>
+                </button>
+            </template>
+        </div>
+
+        <div class="vertical-nav__body">
+            <template for:each={filteredGroups} for:item="group">
+                <div key={group.id} class="slds-nav-vertical__section">
+                    <button
+                        class={group.headerClass}
+                        onclick={handleGroupToggle}
+                        data-group-id={group.id}
+                        data-tooltip-text={group.description}
+                        onmouseenter={handleTooltipShow}
+                        onmouseleave={handleTooltipHide}
+                        aria-expanded={group.isExpanded}>
+                        <lightning-icon
+                            icon-name={group.icon}
+                            size="x-small">
+                        </lightning-icon>
+                        <span class="slds-truncate slds-grow slds-text-align_left vertical-nav__group-label">{group.label}</span>
+                        <lightning-icon
+                            icon-name={group.chevronIcon}
+                            size="xx-small"
+                            class="vertical-nav__chevron">
+                        </lightning-icon>
+                    </button>
+
+                    <template if:true={group.showChildren}>
+                        <ul class="slds-nav-vertical__items">
+                            <template for:each={group.filteredChildren} for:item="item">
+                                <li key={item.id} class={item.itemClass}>
+                                    <a
+                                        href={item.path}
+                                        class="slds-nav-vertical__action"
+                                        aria-current={item.ariaCurrent}
+                                        data-path={item.path}
+                                        onclick={handleItemClick}>
+                                        <span class="slds-truncate">{item.label}</span>
+                                    </a>
+                                </li>
+                            </template>
+                        </ul>
+                    </template>
+                </div>
+            </template>
+        </div>
+
+        <div class="vertical-nav__footer">
+            <div class={quickStartLinkClass}>
+                <a
+                    href="/"
+                    class="slds-nav-vertical__action slds-grid slds-align-items-center slds-m-bottom_xx-small vertical-nav__footer-link"
+                    onclick={handleItemClick}
+                    data-path="/"
+                    data-tooltip-text={labels.QuickStartLibrary}
+                    data-tooltip-collapsed-only
+                    onmouseenter={handleTooltipShow}
+                    onmouseleave={handleTooltipHide}>
+                    <lightning-icon icon-name="utility:light_bulb" size="x-small"></lightning-icon>
+                    <template if:false={isCollapsed}>
+                        <span class="slds-truncate">{labels.QuickStartLibrary}</span>
+                    </template>
+                </a>
+            </div>
+            <button
+                class="slds-button slds-button_reset slds-grid slds-align-items-center slds-p-vertical_x-small slds-p-horizontal_small vertical-nav__collapse-btn"
+                onclick={handleCollapseToggle}
+                title={collapseLabel}
+                data-tooltip-text={collapseLabel}
+                data-tooltip-collapsed-only
+                onmouseenter={handleTooltipShow}
+                onmouseleave={handleTooltipHide}>
+                <lightning-icon icon-name={collapseIcon} size="x-small"></lightning-icon>
+                <template if:false={isCollapsed}>
+                    <span>{labels.Collapse}</span>
+                </template>
+            </button>
+        </div>
+
+    </nav>
+</template>

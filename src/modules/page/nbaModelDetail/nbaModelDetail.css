@@ -1,0 +1,244 @@
+/* Prototype Control Toolbar */
+.prototype-toolbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 7;
+    background: var(--slds-g-color-surface-container-1, #e5e5e5);
+    overflow: visible;
+}
+
+.toolbar-controls {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.page-wrapper {
+    padding: 0 1rem;
+}
+
+/* Page Header */
+.page-header {
+    background: var(--slds-g-color-surface-container-2, #f3f3f3);
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.header-title-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+}
+
+.header-breadcrumb {
+    font-size: 0.8125rem;
+    color: var(--slds-g-color-accent-2, #0250d9);
+    line-height: 1.125rem;
+}
+
+.header-title {
+    font-size: 1.75rem;
+    font-weight: 400;
+    color: var(--slds-g-color-on-surface-3, #03234d);
+    margin: 0;
+    line-height: 2.2rem;
+}
+
+.header-meta {
+    font-size: 0.8125rem;
+    color: var(--slds-g-color-on-surface-1, #5c5c5c);
+    line-height: 1.125rem;
+}
+
+.meta-link {
+    color: var(--slds-g-color-accent-2, #0250d9);
+    text-decoration: none;
+}
+
+.detail-row {
+    display: flex;
+    gap: 4rem;
+    padding-top: 1rem;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.detail-label {
+    font-size: 0.75rem;
+    color: var(--slds-g-color-on-surface-1, #5c5c5c);
+    line-height: 1.0625rem;
+}
+
+.detail-badges {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.detail-value {
+    font-size: 0.8125rem;
+    color: var(--slds-g-color-on-surface-3, #03234d);
+    line-height: 1.125rem;
+}
+
+/* Tabs */
+.tabs-container {
+    margin-top: 0;
+}
+
+.tab-body {
+    padding: 1rem 0;
+}
+
+/* Version Card */
+.version-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.version-body {
+    padding: 0 1rem 1rem;
+}
+
+.fields-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 3rem;
+}
+
+.field-item_wide {
+    grid-column: 1;
+}
+
+.field-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.field-label {
+    font-size: 0.75rem;
+    color: var(--slds-g-color-on-surface-1, #5c5c5c);
+    line-height: 1.0625rem;
+}
+
+.field-value {
+    font-size: 0.8125rem;
+    color: var(--slds-g-color-on-surface-3, #03234d);
+    line-height: 1.125rem;
+}
+
+.field-value-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.field-link {
+    color: var(--slds-g-color-accent-2, #0250d9);
+    text-decoration: none;
+}
+
+/* Nested Card */
+.nested-card {
+    margin-top: 1.5rem;
+    border: 1px solid var(--slds-g-color-border-1, #c9c9c9);
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.nested-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+}
+
+.nested-card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--slds-g-color-on-surface-3, #03234d);
+}
+
+.nested-card-body {
+    padding: 0 1rem 1rem;
+}
+
+/* Terms Modal */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9000;
+}
+
+.modal-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--slds-g-color-surface-container-1, #fff);
+    border-radius: 0.75rem;
+    width: 560px;
+    max-width: 90vw;
+    z-index: 9001;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1.5rem 1.5rem 0;
+}
+
+.modal-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--slds-g-color-on-surface-3, #03234d);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.modal-body {
+    padding: 1rem 1.5rem;
+}
+
+.modal-body-text {
+    font-size: 0.875rem;
+    color: var(--slds-g-color-on-surface-2, #444);
+    line-height: 1.5;
+    margin: 0 0 1rem;
+}
+
+.modal-checkbox {
+    background: var(--slds-g-color-surface-container-2, #f3f3f3);
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem 1.5rem;
+}

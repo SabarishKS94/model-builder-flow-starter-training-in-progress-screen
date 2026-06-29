@@ -1,0 +1,81 @@
+:host {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: var(--slds-g-color-surface-1, #ffffff);
+    color: var(--slds-g-color-on-surface-1, #181818);
+}
+
+.churn-page {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.left-panel,
+.center-panel,
+.right-panel {
+    background-color: var(--slds-g-color-surface-1, #ffffff);
+}
+
+.left-panel,
+.center-panel {
+    border-right: 1px solid var(--slds-g-color-border-1, #c9c9c9);
+}
+
+.back-link {
+    color: var(--slds-g-color-accent-2, #0250d9);
+}
+
+.steps-list {
+    overflow-y: auto;
+}
+
+.slds-progress_vertical .slds-progress__item_content.step-card {
+    width: 100%;
+    margin-bottom: var(--slds-g-spacing-2, 0.5rem);
+}
+
+.step-card,
+.support-card {
+    border: 1px solid var(--slds-g-color-border-1, #c9c9c9);
+    border-radius: var(--slds-g-radius-border-2, 0.5rem);
+    background-color: var(--slds-g-color-surface-1, #ffffff);
+}
+
+.checklist {
+    margin-left: 0;
+}
+
+.checklist li {
+    list-style: none;
+}
+
+.left-panel-footer {
+    margin-top: auto;
+    border-top: 1px solid var(--slds-g-color-border-1, #c9c9c9);
+}
+
+.footer-action {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    color: var(--slds-g-color-on-surface-2, #2e2e2e);
+}
+
+.footer-action_border {
+    border-top: 1px solid var(--slds-g-color-border-1, #c9c9c9);
+}
+
+.config-card {
+    border: 2px solid var(--slds-g-color-border-2, #939393);
+    border-radius: var(--slds-g-radius-border-4, 1.25rem);
+    background-color: var(--slds-g-color-surface-container-1, #ffffff);
+}
+
+.recommended-badge {
+    background-color: var(--slds-g-color-success-container-1, #e8f5e9);
+}
+
+.alt-method-link {
+    font-weight: var(--slds-g-font-weight-7, 700);
+}

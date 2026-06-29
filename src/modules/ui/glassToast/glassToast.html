@@ -1,0 +1,11 @@
+<template>
+    <div class={toastClasses}>
+        <template lwc:if={hasIcon}>
+            <span class={iconClasses}>
+                <lightning-icon icon-name={iconName} size="x-small" variant="inverse"></lightning-icon>
+            </span>
+        </template>
+        <span class="toast-message">{message}</span>
+        <button class="toast-close" aria-label={labels.Close} onclick={handleClose}>&times;</button>
+    </div>
+</template>

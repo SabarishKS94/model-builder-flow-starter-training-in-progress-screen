@@ -1,0 +1,56 @@
+<template>
+    <lightning-card title={labels.PlanBuilder}>
+        <div class="plan-builder-layout">
+            <div class={sidebarClass}>
+                <template for:each={steps} for:item="step">
+                    <div key={step.id}
+                         class={step.cssClass}
+                         style={step.stepStyle}
+                         data-step={step.id}
+                         onclick={handleStepClick}>
+                        <span class={step.dotClass}></span>
+                        <span class="pb-step-label">{step.label}</span>
+                    </div>
+                </template>
+            </div>
+            <div class={dividerClass} onclick={handleDividerClick} role="separator" aria-label={labels.ToggleSidebar}></div>
+            <div class="plan-builder-main">
+                <div class="pb-header">
+                    <div>
+                        <div class="pb-title">{activeStep.title}</div>
+                        <div class="pb-subtitle">{activeStep.subtitle}</div>
+                    </div>
+                    <div class="pb-header-actions">
+                        <button class="pb-btn-outline" onclick={handleSkip}>Skip Task</button>
+                        <button class="pb-btn-outline">Help</button>
+                    </div>
+                </div>
+                <div class="pb-content-area">
+                    <div class="pb-search-label">
+                        <span>Search for data across connectors related to your use case</span>
+                        <a href="#">Select Specific Data</a>
+                    </div>
+                    <lightning-input
+                        label={labels.DataSearch}
+                        variant="label-hidden"
+                        placeholder={labels.DescribeDataPlaceholder}>
+                    </lightning-input>
+                    <div class="pb-connector-label">Connectors to search across:</div>
+                    <lightning-input
+                        label={labels.ConnectorSearch}
+                        variant="label-hidden"
+                        placeholder={labels.SelectConnectorPlaceholder}>
+                    </lightning-input>
+                </div>
+                <div class="pb-footer">
+                    <span class="pb-step-count">{stepCountLabel}</span>
+                    <lightning-button
+                        label={labels.SearchForData}
+                        variant="brand"
+                        onclick={handleSearch}>
+                    </lightning-button>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

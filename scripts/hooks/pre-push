@@ -1,0 +1,18 @@
+#!/bin/sh
+echo "Running pre-push checks..."
+
+node scripts/lint-architecture-rules.mjs
+ARCH_EXIT=$?
+
+node scripts/lint-import-boundaries.mjs
+BOUNDARY_EXIT=$?
+
+if [ $ARCH_EXIT -ne 0 ] || [ $BOUNDARY_EXIT -ne 0 ]; then
+    echo ""
+    echo "❌ Pre-push checks failed. Fix violations above before pushing."
+    echo "   Run: npm run lint:arch && npm run lint:boundaries"
+    exit 1
+fi
+
+echo "✓ Pre-push checks passed"
+exit 0

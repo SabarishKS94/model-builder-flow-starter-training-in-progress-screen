@@ -1,0 +1,11 @@
+export const Breadcrumb = 'Predictive Models';
+export const PageTitle = 'Predictive Models';
+export const NewButton = 'New Predictive model';
+export const SearchPlaceholder = 'Search...';
+export const ColName = 'Name';
+export const ColSource = 'Source';
+export const ColCapability = 'Capability';
+export const ColStatus = 'Status';
+export const ColOrg = 'Org';
+export const ColLastModified = 'Last Modified';
+export const ColModifiedBy = 'Modified by';

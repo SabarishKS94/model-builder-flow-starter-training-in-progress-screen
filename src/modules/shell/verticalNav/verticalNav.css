@@ -1,0 +1,123 @@
+/* src/modules/shell/verticalNav/verticalNav.css */
+:host {
+    display: block;
+    overflow: hidden;
+    flex-shrink: 0;
+    height: 100%;
+    border-right: 1px solid var(--slds-g-color-border-1, #c9c9c9);
+}
+
+.vertical-nav {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: var(--slds-g-sizing-14, 15rem);
+    transition: width 0.2s ease;
+    background-color: var(--slds-g-color-surface-1, #ffffff);
+    overflow: hidden;
+}
+
+.vertical-nav_collapsed {
+    width: var(--slds-g-sizing-10, 3rem);
+    cursor: pointer;
+}
+
+.vertical-nav_collapsed .vertical-nav__search {
+    justify-content: center;
+}
+
+.vertical-nav__search-icon {
+    cursor: pointer;
+    color: var(--slds-g-color-on-surface-2, #444);
+}
+
+.vertical-nav__body {
+    flex: 1 1 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* ── Shared nav row styles ── */
+
+.vertical-nav__group-header,
+.vertical-nav__footer-link,
+.vertical-nav__collapse-btn {
+    gap: var(--slds-g-spacing-2, 0.5rem);
+    color: var(--slds-g-color-on-surface-2, #444);
+    transition: background-color 0.1s ease;
+}
+
+.vertical-nav__group-header:hover {
+    background-color: var(--slds-g-color-brand-base-95, #f2f4f8);
+    box-shadow: inset 2px 0 0 var(--slds-g-color-border-accent-1, #0176d3);
+}
+
+/* ── Collapsed nav row overrides ── */
+
+.vertical-nav_collapsed .vertical-nav__group-header,
+.vertical-nav_collapsed .vertical-nav__footer-link,
+.vertical-nav_collapsed .vertical-nav__collapse-btn {
+    justify-content: center;
+    padding: var(--slds-g-spacing-2, 0.5rem);
+}
+
+/* ── Group header ── */
+
+.vertical-nav__group-header {
+    width: 100%;
+    cursor: pointer;
+    font-weight: var(--slds-g-font-weight-4, 400);
+    border-radius: 0px;
+}
+
+.vertical-nav_collapsed .vertical-nav__group-label,
+.vertical-nav_collapsed .vertical-nav__chevron {
+    display: none;
+}
+
+.vertical-nav_collapsed .vertical-nav__group-header lightning-icon {
+    margin-right: 0;
+}
+
+.vertical-nav_collapsed .vertical-nav__group-header_active {
+    box-shadow: inset 3px 0 0 var(--slds-g-color-border-accent-1, #0176d3);
+    background-color: var(--slds-g-color-brand-base-95, #f2f4f8);
+    border-radius: 0px;
+}
+
+/* ── Footer ── */
+
+.vertical-nav__footer {
+    flex-shrink: 0;
+    border-top: 1px solid var(--slds-g-color-border-1, #c9c9c9);
+}
+
+.vertical-nav__footer-link {
+    padding-inline-start: var(--slds-g-spacing-3, 0.75rem);
+    text-decoration: none;
+    border-bottom: 1px solid var(--slds-g-color-border-1, #c9c9c9);
+}
+
+.vertical-nav__footer-link:hover {
+    text-decoration: none;
+}
+
+/* ── Collapse button ── */
+
+.vertical-nav__collapse-btn {
+    cursor: pointer;
+    font-weight: var(--slds-g-font-weight-4, 400);
+    width: 100%;
+}
+
+
+.nav-item-icon {
+    --slds-c-icon-color-foreground-default: var(--slds-g-color-on-surface-1, #5c5c5c);
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.slds-nav-vertical__action {
+    display: flex;
+    align-items: center;
+}

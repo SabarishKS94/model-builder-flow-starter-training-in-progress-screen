@@ -1,0 +1,118 @@
+/* cosmosApp.css — Layout + visual glass for elements owned by this component.
+   Consumes semantic tokens from public/cosmos-theme.css (set on body). */
+
+:host {
+    --cosmos-inset: 20px;
+    --cosmos-overlay-top: 120px;
+    --cosmos-nav-width-expanded: 15rem;
+    --cosmos-nav-width-collapsed: 3rem;
+
+    display: block;
+    position: relative;
+    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+    background-color: transparent;
+}
+
+/* ── Fixed header ── */
+.cosmos-shell-header {
+    display: block;
+    position: fixed;
+    top: var(--cosmos-inset);
+    left: var(--cosmos-inset);
+    right: var(--cosmos-inset);
+    z-index: 10;
+    border-radius: 12px;
+    background: var(--cos-color-surface);
+    border: 1px solid var(--cos-color-border);
+    -webkit-backdrop-filter: var(--cos-shell-blur, var(--cos-blur-heavy));
+    backdrop-filter: var(--cos-shell-blur, var(--cos-blur-heavy));
+    box-shadow: var(--cos-shadow-lg);
+}
+
+/* ── Fixed vertical nav ── */
+.cosmos-shell-nav {
+    display: block;
+    position: fixed;
+    top: var(--cosmos-overlay-top);
+    left: var(--cosmos-inset);
+    bottom: var(--cosmos-inset);
+    z-index: 8;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 83vh;
+    background: var(--cos-color-surface);
+    border: 1px solid var(--cos-color-border);
+    -webkit-backdrop-filter: var(--cos-shell-blur, var(--cos-blur-heavy));
+    backdrop-filter: var(--cos-shell-blur, var(--cos-blur-heavy));
+    box-shadow: var(--cos-shadow-lg);
+}
+
+/* ── Content area: scrolls behind fixed overlays ── */
+.cosmos-content {
+    height: 100%;
+    overflow: auto;
+    padding-top: var(--cosmos-overlay-top);
+    transition: padding-left 0.2s ease;
+}
+
+.cosmos-content_nav-expanded {
+    padding-left: calc(var(--cosmos-nav-width-expanded) + var(--cosmos-inset) + var(--cosmos-inset));
+}
+
+.cosmos-content_nav-collapsed {
+    padding-left: calc(var(--cosmos-nav-width-collapsed) + var(--cosmos-inset) + var(--cosmos-inset));
+}
+
+.cosmos-content_fullscreen {
+    padding-top: 0;
+    padding-left: 0;
+    overflow: visible;
+}
+
+.cosmos-content_fullscreen .cosmos-content__inner {
+    padding: 0;
+    height: 100%;
+    overflow: visible;
+}
+
+.cosmos-content__inner {
+    padding: var(--slds-g-spacing-4, 1rem);
+}
+
+/* ── Fixed right panel ── */
+.cosmos-panel-overlay {
+    position: fixed;
+    top: var(--cosmos-overlay-top);
+    right: var(--cosmos-inset);
+    bottom: var(--cosmos-inset);
+    width: 25rem;
+    z-index: 9;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(calc(100% + var(--cosmos-inset)));
+    transition: transform 0.25s ease;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--cos-color-surface);
+    border: 1px solid var(--cos-color-border);
+    -webkit-backdrop-filter: var(--cos-blur);
+    backdrop-filter: var(--cos-blur);
+    box-shadow: var(--cos-shadow);
+}
+
+.cosmos-panel-overlay_open {
+    transform: translateX(0);
+}
+
+/* ── Portaled nav tooltip (outside backdrop-filter container) ── */
+.cosmos-nav-tooltip {
+    position: fixed;
+    width: max-content;
+    max-width: 16rem;
+    z-index: 9100;
+    pointer-events: none;
+    white-space: normal;
+    transform: translateY(-50%);
+}

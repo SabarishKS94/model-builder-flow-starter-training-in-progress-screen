@@ -1,0 +1,12 @@
+export const Cancel = 'Cancel';
+export const Save = 'Save';
+export const Close = 'Close';
+export const Back = 'Back';
+export const Next = 'Next';
+export const Delete = 'Delete';
+export const Edit = 'Edit';
+export const Loading = 'Loading';
+export const Error = 'Error';
+export const Success = 'Success';
+export const Confirm = 'Confirm';
+export const Search = 'Search';

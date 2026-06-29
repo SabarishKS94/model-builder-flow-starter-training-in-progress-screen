@@ -1,0 +1,41 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Alice Johnson",
+      "email": "alice@example.com",
+      "role": "Admin",
+      "status": "Active"
+    },
+    {
+      "id": 2,
+      "name": "Bob Smith",
+      "email": "bob@example.com",
+      "role": "User",
+      "status": "Active"
+    },
+    {
+      "id": 3,
+      "name": "Carol Davis",
+      "email": "carol@example.com",
+      "role": "Editor",
+      "status": "Inactive"
+    }
+  ],
+  "projects": [
+    {
+      "id": 101,
+      "name": "Project Alpha",
+      "description": "Demo project for testing",
+      "status": "In Progress",
+      "progress": 65
+    },
+    {
+      "id": 102,
+      "name": "Project Beta",
+      "description": "Another demo project",
+      "status": "Completed",
+      "progress": 100
+    }
+  ]
+}

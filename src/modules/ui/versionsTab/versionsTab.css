@@ -1,0 +1,71 @@
+.table-container {
+    padding: 0 1rem 1rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--slds-g-color-on-surface-1, #5c5c5c);
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--slds-g-color-border-1, #c9c9c9);
+}
+
+td {
+    font-size: 0.8125rem;
+    color: var(--slds-g-color-on-surface-3, #03234d);
+    padding: 0.625rem 0.75rem;
+    border-bottom: 1px solid var(--slds-g-color-border-1, #e5e5e5);
+    vertical-align: middle;
+}
+
+.row-action-col {
+    width: 3rem;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.8125rem;
+}
+
+.status-inactive {
+    color: var(--slds-g-color-on-surface-1, #5c5c5c);
+}
+
+.status-active {
+    color: var(--slds-g-color-success-1, #2e844a);
+}
+
+.status-failed {
+    color: var(--slds-g-color-error-1, #ba0517);
+}
+
+.status-icon {
+    margin-right: 0.125rem;
+}
+
+.created-by-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+}
+
+.avatar-icon {
+    flex-shrink: 0;
+}
+
+.user-link {
+    color: var(--slds-g-color-accent-2, #0250d9);
+    text-decoration: none;
+}
+
+.user-link:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,176 @@
+export const AGENT_FEED_COMPONENT_SHOWCASE = [
+    {
+        id: 'demo-user-message',
+        variant: 'user_message',
+        messageText: 'Curabitur dapibus ut turpis at varius.',
+    },
+    {
+        id: 'demo-no-actions',
+        messageText: 'Message with no primary actions (footer actions empty).',
+        actions: [],
+    },
+    {
+        id: 'demo-one-action',
+        messageText: 'Message with one primary action.',
+        actions: [{ id: 'retry', label: 'Retry', variant: 'neutral' }],
+    },
+    {
+        id: 'demo-multi-actions',
+        messageText: 'Message with multiple primary actions (button group).',
+        actions: [
+            { id: 'save', label: 'Save', variant: 'neutral' },
+            { id: 'discard', label: 'Discard', variant: 'neutral' },
+        ],
+    },
+    {
+        id: 'demo-agent-message-input',
+        variant: 'agent_message_input',
+        messageText: 'Curabitur dapibus ut turpis at varius.',
+        fieldLabel: 'Field Label',
+        inputValue: '',
+        actions: [],
+    },
+    {
+        id: 'demo-agent-record-single',
+        variant: 'agent_record_single',
+        messageText: 'Curabitur dapibus ut turpis at varius.',
+        recordTitle: 'Vandelay Industries',
+        recordIconName: 'standard:account',
+        recordFields: [
+            { label: 'Name', value: 'Art Vandelay', isLink: true },
+            { label: 'Created Date', value: '7/17/2024, 12:00AM' },
+            { label: 'Stage', value: '01 - Identifying an Opportunity' },
+            { label: 'Close Date', value: '8/16/2024' },
+            { label: 'Amount', value: 'USD $7,680' },
+        ],
+        actions: [{ id: 'view', label: 'View', variant: 'neutral' }],
+    },
+    {
+        id: 'demo-agent-records-multiple',
+        variant: 'agent_records_multiple',
+        messageText: 'Curabitur dapibus ut turpis at varius.',
+        recordTitle: 'Title',
+        recordIconName: 'standard:account',
+        records: [
+            {
+                recordFields: [
+                    { label: 'Name', value: 'Vandelay Industries', isLink: true },
+                    { label: 'Created Date', value: '7/17/2024, 12:00AM' },
+                    { label: 'Stage', value: 'Value Proposition' },
+                    { label: 'Close Date', value: '8/16/2024' },
+                    { label: 'Amount', value: 'USD $7,680' },
+                ],
+            },
+            {
+                recordFields: [
+                    { label: 'Name', value: 'J. Peterman Company', isLink: true },
+                    { label: 'Created Date', value: '7/17/2024, 12:00AM' },
+                    { label: 'Stage', value: 'Prospecting' },
+                    { label: 'Close Date', value: '8/16/2024' },
+                    { label: 'Amount', value: 'USD $90,000' },
+                ],
+            },
+            {
+                recordFields: [
+                    { label: 'Name', value: 'Art Vandelay', isLink: true },
+                    { label: 'Created Date', value: '7/17/2024, 12:00AM' },
+                    { label: 'Stage', value: '01 - Identifying an Opportunity' },
+                    { label: 'Close Date', value: '8/16/2024' },
+                    { label: 'Amount', value: 'USD $7,680' },
+                ],
+            },
+        ],
+        actions: [{ id: 'viewAll', label: 'View All', variant: 'neutral' }],
+    },
+    {
+        id: 'demo-agent-record-select-single',
+        variant: 'agent_record_select_single',
+        messageText: 'Select the Acme account you want to view.',
+        recordTitle: 'Account',
+        recordIconName: 'standard:account',
+        recordSelectOptions: [
+            { label: 'Acme Billboard Signs Inc.', value: 'acme-billboard' },
+            { label: 'Acme United Corporation', value: 'acme-united' },
+            { label: 'Acme Tools', value: 'acme-tools' },
+            { label: 'Acme Roadrunner Traps LTD', value: 'acme-roadrunner' },
+            { label: 'Fast and Furry-ous', value: 'fast-furry-ous' },
+        ],
+        selectValue: 'acme-billboard',
+        actions: [{ id: 'submit', label: 'Submit', variant: 'neutral' }],
+    },
+    {
+        id: 'demo-agent-record-select-mixed',
+        variant: 'agent_record_select_mixed',
+        messageText: 'I found multiple records. Select the correct one.',
+        recordTitle: 'Records',
+        recordIconName: 'standard:account',
+        recordSelectOptions: [
+            {
+                label: 'Example Opportunity Title',
+                value: 'opp-1',
+                objectLabel: 'Opportunity',
+                iconName: 'standard:opportunity',
+            },
+            {
+                label: 'Example Account Title',
+                value: 'acc-1',
+                objectLabel: 'Account',
+                iconName: 'standard:account',
+            },
+            {
+                label: 'Example Contact Name',
+                value: 'con-1',
+                objectLabel: 'Contact',
+                iconName: 'standard:contact',
+            },
+            {
+                label: 'Example Lead Title',
+                value: 'lead-1',
+                objectLabel: 'Lead',
+                iconName: 'standard:lead',
+            },
+            {
+                label: 'Example Opportunity Title 2',
+                value: 'opp-2',
+                objectLabel: 'Opportunity',
+                iconName: 'standard:opportunity',
+            },
+        ],
+        selectValue: 'opp-1',
+        actions: [{ id: 'submit', label: 'Submit', variant: 'neutral' }],
+    },
+    {
+        id: 'demo-agent-rich-text',
+        variant: 'agent_rich_text',
+        messageText: 'Curabitur dapibus ut turpis at varius.',
+        richText:
+            'Suspendisse sagittis mollis risus. Sed cursus fermentum ex, at fermentum libero lobortis vel. Suspendisse a quam ac nulla gravid tincidunt.',
+        actions: [],
+    },
+    {
+        id: 'demo-agent-chart',
+        variant: 'agent_chart',
+        messageText:
+            '• Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ligula eros, eleifend at egestas non\n• Mauris eget turpis volutpat, lacinia ipsum sed, viverra justo.\n• Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        chartTitle: 'Viz Title',
+        chartSubtitle: 'Time Range',
+        chartYAxisLabels: ['##', '##', '##'],
+        chartBars: [
+            { id: 'demo-chart-bar-1', valueLabel: '##', xLabel: 'Label', height: 'lg' },
+            { id: 'demo-chart-bar-2', valueLabel: '##', xLabel: 'Label', height: 'md' },
+            { id: 'demo-chart-bar-3', valueLabel: '##', xLabel: 'Label', height: 'sm' },
+            { id: 'demo-chart-bar-4', valueLabel: '##', xLabel: 'Label', height: 'xl' },
+        ],
+        actions: [
+            { id: 'label-1', label: 'Label', variant: 'neutral' },
+            { id: 'label-2', label: 'Label', variant: 'neutral' },
+        ],
+    },
+    {
+        id: 'demo-agent-message-error',
+        variant: 'agent_message_error',
+        messageText: 'Oops! Something went wrong.',
+        errorText: 'Lorem ipsum',
+        actions: [],
+    },
+];

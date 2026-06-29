@@ -1,0 +1,44 @@
+.settings-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.settings-container lightning-card {
+    margin-bottom: 0;
+}
+
+.card-title-slot {
+    display: flex;
+    align-items: center;
+}
+
+
+.preview-img-container {
+    max-width: 450px;
+}
+
+.preview-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0.5rem;
+    border: 1px solid var(--slds-g-color-border-1, #e5e5e5);
+}
+
+/* Button hover swap: brand → destructive-text on hover */
+.actions-toggle_enabled .btn-hover {
+    display: none;
+}
+
+.actions-toggle_enabled .btn-default {
+    display: inline-flex;
+}
+
+.actions-toggle_enabled:hover .btn-hover {
+    display: inline-flex;
+}
+
+.actions-toggle_enabled:hover .btn-default {
+    display: none;
+}

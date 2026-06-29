@@ -1,0 +1,34 @@
+<template>
+    <section class="ui-agent-chart" aria-label="Chart insight">
+        <header class="ui-agent-chart__header">
+            <p class="ui-agent-chart__title">{title}</p>
+            <p class="ui-agent-chart__subtitle">{subtitle}</p>
+        </header>
+        <div class="ui-agent-chart__plot-layout">
+            <ul class="ui-agent-chart__y-axis" role="list" aria-label="Chart scale labels">
+                <template for:each={yAxisLabelsView} for:item="label">
+                    <li key={label} class="ui-agent-chart__y-axis-label">{label}</li>
+                </template>
+            </ul>
+            <div class="ui-agent-chart__chart-area">
+                <ul class="ui-agent-chart__bar-values" role="list" aria-label="Bar values">
+                    <template for:each={barsView} for:item="bar">
+                        <li key={bar.key} class="ui-agent-chart__bar-value">{bar.valueLabel}</li>
+                    </template>
+                </ul>
+                <ul class="ui-agent-chart__bars" role="list" aria-label="Chart bars">
+                    <template for:each={barsView} for:item="bar">
+                        <li key={bar.key} class="ui-agent-chart__bar-column">
+                            <span class={bar.fillClass} aria-hidden="true"></span>
+                        </li>
+                    </template>
+                </ul>
+                <ul class="ui-agent-chart__x-axis" role="list" aria-label="Chart categories">
+                    <template for:each={barsView} for:item="bar">
+                        <li key={bar.key} class="ui-agent-chart__x-axis-label">{bar.xLabel}</li>
+                    </template>
+                </ul>
+            </div>
+        </div>
+    </section>
+</template>

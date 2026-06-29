@@ -1,0 +1,12 @@
+export const Salesforce = 'Salesforce';
+export const Search = 'Search';
+export const SearchPlaceholder = 'Search...';
+export const Agentforce = 'Agentforce';
+export const ToggleFavorites = 'Toggle Favorites';
+export const ViewFavorites = 'View Favorites';
+export const GlobalActions = 'Global Actions';
+export const GuidanceCenter = 'Guidance Center';
+export const SalesforceHelp = 'Salesforce Help';
+export const Setup = 'Setup';
+export const Notifications = 'Notifications';
+export const MenuItemOne = 'Menu Item One';

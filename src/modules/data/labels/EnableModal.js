@@ -1,0 +1,12 @@
+export const DriftEnableTitle = 'Enable Predictive Model Drift Tracking?';
+export const NbaEnableTitle = 'Enable AI Models Next Best Actions?';
+export const EnableBodyText = 'Opting in to this feature is at your sole discretion. This feature consumes Agentforce credits each time a recommendation is generated.';
+export const EnableCheckboxLabel = 'I understand that by opting in to the feature, I agree to the usage of Data 360 credits for storing live inference data.';
+export const DriftDisableTitle = 'Disable Predictive Model Drift Tracking?';
+export const NbaDisableTitle = 'Disable AI Models Next Best Actions?';
+export const DisableBodyText = 'If you disable this feature, the system will stop recommending the next best action for your model.';
+export const DisableCheckboxLabel = 'I understand that disabling this feature will stop generating recommendations for the model.';
+export const CancelButton = 'Cancel';
+export const EnableButton = 'Enable';
+export const DisableButton = 'Disable';
+export const CloseAltText = 'Close';

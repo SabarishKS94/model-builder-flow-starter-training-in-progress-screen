@@ -1,0 +1,49 @@
+<template>
+    <div class="user-menu-trigger">
+        <button class="slds-button" onclick={handleAvatarClick} aria-haspopup="true" aria-expanded={ariaExpanded}>
+            <lightning-avatar
+                src={avatarSrc}
+                fallback-icon-name="standard:user"
+                alternative-text={userName}
+                size="small"
+                variant="circle">
+            </lightning-avatar>
+        </button>
+
+        <div class={dropdownClass}>
+            <!-- User info -->
+            <div class="user-info-section">
+                <div class="user-name slds-truncate">{userName}</div>
+                <div class="user-email slds-truncate">{userEmail}</div>
+                <div class="user-actions">
+                    <button class="user-action-link" disabled>{labels.Settings}</button>
+                    <button class="user-action-link" onclick={handleSignOut}>{labels.LogOut}</button>
+                </div>
+            </div>
+
+            <!-- Display Density -->
+            <div class="density-section slds-has-divider_top-space">
+                <div class="section-header">{labels.DisplayDensity}</div>
+                <div class="density-option">
+                    <lightning-icon icon-name="utility:check" size="xx-small" alternative-text={labels.Selected}></lightning-icon>
+                    <span>{labels.Comfy}</span>
+                </div>
+                <div class="density-option slds-p-left_medium">
+                    <span>{labels.Compact}</span>
+                </div>
+            </div>
+
+            <!-- Options -->
+            <div class="options-section slds-has-divider_top-space">
+                <div class="section-header">{labels.Options}</div>
+                <div class="options-link">
+                    <span>{labels.SwitchToClassic}</span>
+                    <lightning-icon icon-name="utility:info" size="xx-small" alternative-text={labels.Info}></lightning-icon>
+                </div>
+                <div class="options-link">
+                    <span>{labels.AddUsername}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

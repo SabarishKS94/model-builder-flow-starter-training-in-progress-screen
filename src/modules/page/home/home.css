@@ -1,0 +1,21 @@
+lightning-card {
+    --slds-c-card-body-spacing-inline: var(--slds-g-spacing-var-inline-4);
+}
+
+/* page/home - styles if needed */
+
+.spinner-demo {
+    height: 100px;
+}
+
+.toast-demo-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+@media (min-width: 48em) {
+    .home-input-item-second {
+        margin-top: 0;
+    }
+}

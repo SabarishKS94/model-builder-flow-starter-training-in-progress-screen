@@ -1,0 +1,8 @@
+.global-header {
+    --_slds-c-globalheader-color-background: var(--slds-g-color-surface-container-1, #ffffff);
+}
+
+.header-icon-button {
+    --slds-c-icon-color-foreground: var(--cosmos-icon-interactive-rest, light-dark(var(--slds-g-color-palette-neutral-60, #747474), var(--slds-g-color-palette-neutral-40, #aeaeae)));
+    --slds-c-button-text-color-hover: var(--cosmos-icon-interactive-hover, light-dark(var(--slds-g-color-palette-neutral-50, #5a5a5a), var(--slds-g-color-palette-neutral-30, #c9c9c9)));
+}

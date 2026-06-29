@@ -1,0 +1,22 @@
+<template>
+    <lightning-modal-header label={labels.ApiKeyModalTitle}></lightning-modal-header>
+    <lightning-modal-body>
+        <p class="slds-p-bottom_small">{labels.ApiKeyModalBody}</p>
+        <lightning-input
+            type="password"
+            label={labels.ApiKeyLabel}
+            placeholder={labels.ApiKeyPlaceholder}
+            value={_keyValue}
+            onchange={handleKeyChange}
+            onkeydown={handleKeydown}>
+        </lightning-input>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button
+            label={labels.ConnectButton}
+            variant="brand"
+            disabled={isConnectDisabled}
+            onclick={handleConnect}>
+        </lightning-button>
+    </lightning-modal-footer>
+</template>

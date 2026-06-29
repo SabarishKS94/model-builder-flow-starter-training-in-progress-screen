@@ -1,0 +1,12 @@
+export const ApiKeyModalTitle = 'Connect to LLM Gateway';
+export const ApiKeyModalBody = 'Enter your API key to enable Agentforce chat. The key is stored in your browser only.';
+export const ApiKeyPlaceholder = 'sk-...';
+export const ApiKeyLabel = 'API Key';
+export const ConnectButton = 'Connect';
+export const ChatPlaceholder = 'Ask Agentforce anything...';
+export const SendLabel = 'Send';
+export const AgentName = 'Agentforce';
+export const You = 'You';
+export const Thinking = 'Thinking...';
+export const ErrorPrefix = 'Error';
+export const ChangeKeyButton = 'Change API Key';

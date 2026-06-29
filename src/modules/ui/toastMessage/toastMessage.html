@@ -1,0 +1,9 @@
+<template>
+    <template lwc:if={visible}>
+        <div class={toastClasses} role="status" aria-live="polite">
+            <lightning-icon icon-name={iconName} size="x-small" variant="inverse" class="toast-icon"></lightning-icon>
+            <span class="toast-text">{message}</span>
+            <button class="toast-close" aria-label={labels.DismissLabel} onclick={handleDismiss}>&times;</button>
+        </div>
+    </template>
+</template>

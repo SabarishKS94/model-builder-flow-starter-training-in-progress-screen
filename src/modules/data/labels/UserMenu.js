@@ -1,0 +1,10 @@
+export const Settings = 'Settings';
+export const LogOut = 'Log Out';
+export const DisplayDensity = 'Display Density';
+export const Selected = 'Selected';
+export const Comfy = 'Comfy';
+export const Compact = 'Compact';
+export const Options = 'Options';
+export const SwitchToClassic = 'Switch to Salesforce Classic';
+export const Info = 'Info';
+export const AddUsername = 'Add Username';

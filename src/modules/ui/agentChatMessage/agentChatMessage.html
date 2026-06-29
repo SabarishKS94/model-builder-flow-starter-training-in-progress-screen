@@ -1,0 +1,242 @@
+<template>
+    <div class={rootClass}>
+        <template if:true={isUserMessageVariant}>
+            <div class="ui-agent-chat-message__avatar ui-agent-chat-message__avatar--user">
+                <template if:true={isUserAvatarCustomPhoto}>
+                    <img class="ui-agent-chat-message__user-avatar-photo" src={userAvatarSrc} alt={userAvatarAltText}
+                        width="32" height="32" />
+                </template>
+                <template if:false={isUserAvatarCustomPhoto}>
+                    <!-- Figma 46977:69041 — composite avatar (Vibrant Teal 50 + user), svg.slds-icon @ 32px -->
+                    <svg class="slds-icon ui-agent-chat-message__user-figma-avatar" width="32" height="32"
+                        viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                        <path
+                            d="M0 16C0 7.16344 7.16344 0 16 0C24.8366 0 32 7.16344 32 16C32 24.8366 24.8366 32 16 32C7.16344 32 0 24.8366 0 16Z"
+                            fill="var(--slds-c-icon-color-background, #0b827c)" />
+                        <path
+                            fill-rule="evenodd" clip-rule="evenodd"
+                            d="M23.3845 21.2308V21.9077C23.3845 22.7077 22.7075 23.3847 21.9075 23.3847H10.0922C9.29216 23.3847 8.61523 22.7077 8.61523 21.9077V21.2308C8.61523 19.4462 10.7075 18.3385 12.6768 17.477L12.8614 17.3847C13.0152 17.3231 13.1691 17.3231 13.3229 17.4154C14.1229 17.9385 15.0152 18.2154 15.9691 18.2154C16.9229 18.2154 17.846 17.9077 18.6152 17.4154C18.7691 17.3231 18.9229 17.3231 19.0768 17.3847L19.2614 17.477C21.2922 18.3385 23.3845 19.4154 23.3845 21.2308ZM15.9999 8.61523C18.0306 8.61523 19.6614 10.4306 19.6614 12.6768C19.6614 14.9229 18.0306 16.7383 15.9999 16.7383C13.9691 16.7383 12.3383 14.9229 12.3383 12.6768C12.3383 10.4306 13.9691 8.61523 15.9999 8.61523Z"
+                            fill="var(--slds-c-icon-color-foreground, #ffffff)" />
+                    </svg>
+                </template>
+            </div>
+        </template>
+        <template if:false={isUserMessageVariant}>
+            <div class="ui-agent-chat-message__avatar" aria-hidden="true">
+                <lightning-icon icon-name="utility:agent_astro" size="small" alternative-text=""
+                    class="ui-agent-chat-message__avatar-icon"></lightning-icon>
+            </div>
+        </template>
+        <div class="ui-agent-chat-message__main">
+            <p class="ui-agent-chat-message__text">{messageText}</p>
+            <template if:true={isAgentMessageErrorVariant}>
+                <div class="ui-agent-chat-message__error-notice" role="status" aria-live="polite">
+                    <lightning-icon icon-name="utility:error" size="x-small" alternative-text="Error"
+                        class="ui-agent-chat-message__error-icon"></lightning-icon>
+                    <p class="ui-agent-chat-message__error-text">{errorText}</p>
+                </div>
+            </template>
+            <template if:true={isAgentRichTextVariant}>
+                <div class="ui-agent-chat-message__rich-text">
+                    <p class="ui-agent-chat-message__rich-text-body">{richText}</p>
+                </div>
+            </template>
+            <template if:true={isAgentChartVariant}>
+                <ui-agent-chart title={chartTitle} subtitle={chartSubtitle}
+                    y-axis-labels={chartYAxisLabels} bars={chartBars}></ui-agent-chart>
+            </template>
+            <template if:true={isAgentRecordSingleVariant}>
+                <div class="ui-agent-chat-message__record">
+                    <lightning-card title={recordTitle} icon-name={recordIconName}
+                        class="ui-agent-chat-message__record-lbc">
+                        <div class="ui-agent-chat-message__record-card-body">
+                            <ul class="ui-agent-chat-message__record-fields" role="list" aria-label="Record fields">
+                                <template for:each={recordFieldsView} for:item="f">
+                                    <li key={f.key} class="ui-agent-chat-message__record-field" role="listitem">
+                                        <p class="ui-agent-chat-message__record-field-label">{f.label}</p>
+                                        <p class={f.valueClass} title={f.value}>{f.value}</p>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </lightning-card>
+                </div>
+            </template>
+            <template if:true={isAgentRecordsMultipleVariant}>
+                <div class="ui-agent-chat-message__record">
+                    <lightning-card title={recordTitle} icon-name={recordIconName}
+                        class="ui-agent-chat-message__record-lbc">
+                        <div class="ui-agent-chat-message__record-card-body">
+                            <template for:each={recordsListView} for:item="rec">
+                                <div key={rec.key} class="ui-agent-chat-message__record-multiple-group">
+                                    <ul class="ui-agent-chat-message__record-fields" role="list" aria-label="Record fields">
+                                        <template for:each={rec.fields} for:item="f">
+                                            <li key={f.key} class="ui-agent-chat-message__record-field" role="listitem">
+                                                <p class="ui-agent-chat-message__record-field-label">{f.label}</p>
+                                                <p class={f.valueClass} title={f.value}>{f.value}</p>
+                                            </li>
+                                        </template>
+                                    </ul>
+                                    <template if:true={rec.showDivider}>
+                                        <div class="ui-agent-chat-message__record-divider" aria-hidden="true"></div>
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
+                    </lightning-card>
+                </div>
+            </template>
+            <template if:true={isAgentRecordSelectListVariant}>
+                <div class="ui-agent-chat-message__record">
+                    <lightning-card title={recordTitle} icon-name={recordIconName}
+                        class="ui-agent-chat-message__record-lbc">
+                        <div class="ui-agent-chat-message__record-card-body">
+                            <fieldset class="slds-form-element ui-agent-chat-message__record-select-fieldset"
+                                aria-label="Select a record option">
+                                <legend class="slds-assistive-text">Select a record option</legend>
+                                <div class="slds-form-element__control">
+                                    <template for:each={recordSelectOptionsView} for:item="opt">
+                                        <div key={opt.key} class="ui-agent-chat-message__record-select-row">
+                                            <div class="ui-agent-chat-message__record-select-row-main">
+                                                <span class="slds-radio ui-agent-chat-message__record-select-radio-wrap">
+                                                    <input type="radio" id={opt.inputId} name={selectGroupName} value={opt.value}
+                                                        checked={opt.checked} onchange={handleRecordSelectChange} />
+                                                    <label for={opt.inputId} class={recordSelectLabelClass}>
+                                                        <span
+                                                            class="slds-radio_faux ui-agent-chat-message__record-select-faux"></span>
+                                                        <template if:true={isAgentRecordSelectMixedVariant}>
+                                                            <div class="ui-agent-chat-message__record-select-object-wrap" aria-hidden="true">
+                                                                <lightning-icon icon-name={opt.rowIconName} size="small" alternative-text=""
+                                                                    class="ui-agent-chat-message__record-select-object-lbc"></lightning-icon>
+                                                            </div>
+                                                            <div class="ui-agent-chat-message__record-select-mixed-text">
+                                                                <p
+                                                                    class="ui-agent-chat-message__record-select-mixed-title slds-truncate">{opt.label}</p>
+                                                                <template if:true={opt.hasObjectLabel}>
+                                                                    <p
+                                                                        class="ui-agent-chat-message__record-select-mixed-object slds-truncate">{opt.objectLabel}</p>
+                                                                </template>
+                                                            </div>
+                                                        </template>
+                                                        <template if:true={isAgentRecordSelectSingleVariant}>
+                                                            <span
+                                                                class="slds-form-element__label ui-agent-chat-message__record-select-text slds-truncate">{opt.label}</span>
+                                                        </template>
+                                                    </label>
+                                                </span>
+                                            </div>
+                                            <lightning-button-icon type="button" icon-name="utility:forward_up"
+                                                variant="bare" size="small" alternative-text="View record" title="View record"
+                                                data-value={opt.value} onclick={handleRecordSelectLinkClick}
+                                                class="ui-agent-chat-message__record-select-link-lbc">
+                                            </lightning-button-icon>
+                                        </div>
+                                    </template>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </lightning-card>
+                </div>
+            </template>
+            <template if:true={isAgentMessageInputVariant}>
+                <div class="ui-agent-chat-message__input-section" role="group" aria-label="Follow-up fields">
+                    <template for:each={inputFieldsView} for:item="field">
+                        <div key={field.rowKey} class="ui-agent-chat-message__input-field-block">
+                            <template if:true={field.isText}>
+                                <p id={field.labelId} class="ui-agent-chat-message__field-label">{field.label}</p>
+                                <div class="ui-agent-chat-message__input-field-wrap">
+                                    <lightning-input type="text" variant="label-hidden" value={field.value}
+                                        label={field.label} aria-labelledby={field.labelId} data-field-id={field.fieldId}
+                                        placeholder={field.placeholder} class="ui-agent-chat-message__follow-up-input"
+                                        onchange={handleInputFieldChange}>
+                                    </lightning-input>
+                                </div>
+                            </template>
+                            <template if:true={field.isCombobox}>
+                                <div class="ui-agent-chat-message__combobox-wrap">
+                                    <lightning-combobox name={field.fieldId} data-field-id={field.fieldId}
+                                        label={field.label} value={field.value} options={field.options}
+                                        placeholder={field.placeholder} onchange={handleInputFieldChange}>
+                                    </lightning-combobox>
+                                </div>
+                            </template>
+                            <template if:true={field.isDate}>
+                                <p id={field.labelId} class="ui-agent-chat-message__field-label">{field.label}</p>
+                                <div class="ui-agent-chat-message__input-field-wrap">
+                                    <lightning-input type="date" variant="label-hidden" value={field.value}
+                                        label={field.label} aria-labelledby={field.labelId} data-field-id={field.fieldId}
+                                        onchange={handleInputFieldChange}>
+                                    </lightning-input>
+                                </div>
+                            </template>
+                            <template if:true={field.isTime}>
+                                <p id={field.labelId} class="ui-agent-chat-message__field-label">{field.label}</p>
+                                <div class="ui-agent-chat-message__input-field-wrap">
+                                    <lightning-input type="time" variant="label-hidden" value={field.value}
+                                        label={field.label} aria-labelledby={field.labelId} data-field-id={field.fieldId}
+                                        onchange={handleInputFieldChange}>
+                                    </lightning-input>
+                                </div>
+                            </template>
+                            <template if:true={field.isDateTime}>
+                                <div class="ui-agent-chat-message__input-datetime-row">
+                                    <div class="ui-agent-chat-message__input-datetime-cell">
+                                        <p id={field.dateLabelId} class="ui-agent-chat-message__field-label">{field.dateLabel}</p>
+                                        <div class="ui-agent-chat-message__input-field-wrap">
+                                            <lightning-input type="date" variant="label-hidden" value={field.dateValue}
+                                                label={field.dateLabel} aria-labelledby={field.dateLabelId}
+                                                data-field-id={field.fieldId} data-part="date" onchange={handleInputFieldChange}>
+                                            </lightning-input>
+                                        </div>
+                                    </div>
+                                    <div class="ui-agent-chat-message__input-datetime-cell">
+                                        <p id={field.timeLabelId} class="ui-agent-chat-message__field-label">{field.timeLabel}</p>
+                                        <div class="ui-agent-chat-message__input-field-wrap">
+                                            <lightning-input type="time" variant="label-hidden" value={field.timeValue}
+                                                label={field.timeLabel} aria-labelledby={field.timeLabelId}
+                                                data-field-id={field.fieldId} data-part="time" onchange={handleInputFieldChange}>
+                                            </lightning-input>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                            <template if:true={field.isLookup}>
+                                <p id={field.labelId} class="ui-agent-chat-message__field-label">{field.label}</p>
+                                <div class="ui-agent-chat-message__input-field-wrap">
+                                    <lightning-input type="search" variant="label-hidden" value={field.value}
+                                        placeholder={field.placeholder} label={field.label} aria-labelledby={field.labelId}
+                                        data-field-id={field.fieldId} onchange={handleInputFieldChange}>
+                                    </lightning-input>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+            </template>
+            <template if:false={isUserMessageVariant}>
+                <div class="ui-agent-chat-message__footer">
+                    <div class="ui-agent-chat-message__footer-primary">
+                        <ui-agent-message-actions actions={resolvedActions}
+                            onagentmessageaction={handleAgentMessageAction}></ui-agent-message-actions>
+                    </div>
+                    <div class="ui-agent-chat-message__feedback" role="toolbar" aria-label="Message feedback">
+                        <lightning-button-icon icon-name="utility:like" variant="bare" size="small"
+                            alternative-text="Good response" title="Good response" aria-label="Good response"
+                            data-action="positive" onclick={handleFeedbackClick}
+                            class="ui-agent-chat-message__feedback-lbc"></lightning-button-icon>
+                        <lightning-button-icon icon-name="utility:dislike" variant="bare" size="small"
+                            alternative-text="Bad response" title="Bad response" aria-label="Bad response"
+                            data-action="negative" onclick={handleFeedbackClick}
+                            class="ui-agent-chat-message__feedback-lbc"></lightning-button-icon>
+                        <template if:true={showCopyInFeedback}>
+                            <lightning-button-icon icon-name="utility:copy_to_clipboard" variant="bare" size="small"
+                                alternative-text={copyButtonAssistiveText} title={copyButtonAssistiveText}
+                                aria-label={copyButtonAssistiveText} data-action="copy" onclick={handleFeedbackClick}
+                                class="ui-agent-chat-message__feedback-lbc"></lightning-button-icon>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>

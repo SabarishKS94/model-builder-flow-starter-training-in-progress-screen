@@ -1,0 +1,40 @@
+<template>
+    <div class="cluster-models-page">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="header-row">
+                <div class="header-left">
+                    <lightning-icon icon-name="standard:work_type_group" size="medium" class="header-icon"></lightning-icon>
+                    <div class="header-title-block">
+                        <span class="header-breadcrumb">{labels.Breadcrumb}</span>
+                        <h1 class="header-title">{labels.PageTitle}</h1>
+                        <span class="header-meta">{metaText}</span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <lightning-input
+                        type="search"
+                        placeholder={labels.SearchPlaceholder}
+                        variant="label-hidden"
+                        label={labels.SearchPlaceholder}
+                        onchange={handleSearch}
+                        class="search-input"
+                    ></lightning-input>
+                    <lightning-button
+                        label={labels.NewButton}
+                        variant="brand-outline"
+                        icon-name="utility:add"
+                        onclick={handleNewModel}
+                    ></lightning-button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Data Table -->
+        <ui-predict-models-table
+            data={filteredData}
+            onmodelclick={handleModelClick}
+            onsort={handleSort}
+        ></ui-predict-models-table>
+    </div>
+</template>

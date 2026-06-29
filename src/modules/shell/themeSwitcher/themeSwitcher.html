@@ -1,0 +1,45 @@
+<template>
+    <div class="theme-switcher slds-is-fixed slds-m-bottom_small slds-m-right_small">
+        <lightning-button-icon
+            icon-name="utility:palette"
+            variant="border-filled"
+            size="large"
+            alternative-text={labels.ThemeOptions}
+            title={labels.ThemeOptions}
+            aria-haspopup="true"
+            aria-expanded={isCardOpen}
+            onclick={handleIconClick}>
+        </lightning-button-icon>
+        <template if:true={isCardOpen}>
+            <div class="theme-switcher-backdrop" onclick={handleBackdropClick} role="presentation"></div>
+            <div class="theme-switcher-card-wrapper">
+                <lightning-card title={labels.Theme} class="theme-switcher-card">
+                    <div class="slds-p-around_small slds-grid slds-grid_vertical slds-grid_align-spread" style="gap: 0.75rem;">
+                        <lightning-combobox
+                            label={labels.Shell}
+                            value={activeShell}
+                            options={shellOptions}
+                            onchange={handleShellChange}
+                            dropdown-alignment="bottom-right">
+                        </lightning-combobox>
+                        <lightning-input
+                            type="toggle"
+                            label={labels.DarkMode}
+                            checked={isDark}
+                            onchange={handleDarkToggle}
+                            message-toggle-active="On"
+                            message-toggle-inactive="Off">
+                        </lightning-input>
+                        <lightning-combobox
+                            label={labels.Brand}
+                            value={activeBrand}
+                            options={brandOptions}
+                            onchange={handleBrandChange}
+                            dropdown-alignment="bottom-right">
+                        </lightning-combobox>
+                    </div>
+                </lightning-card>
+            </div>
+        </template>
+    </div>
+</template>

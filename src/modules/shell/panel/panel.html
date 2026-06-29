@@ -1,0 +1,218 @@
+<template>
+    <div class={rootClass}>
+        <template if:false={showAgentforcePanel}>
+            <div class="slds-panel__header shell-panel__header">
+                <div class="shell-panel__header-inner">
+                    <div class="shell-panel__header-left">
+                        <h2 class="slds-panel__header-title shell-panel__header-title slds-truncate" title={panelTitle}>{panelTitle}
+                        </h2>
+                    </div>
+                    <div class="slds-panel__header-actions shell-panel__header-actions">
+                        <button type="button"
+                            class="slds-button slds-button_icon slds-button_icon-bare shell-panel__header-slds-icon-btn"
+                            title="Unpin Panel" aria-label="Unpin Panel">
+                            <img src={iconPinnedSrc} alt=""
+                                class="shell-panel__header-icon-img shell-panel__header-icon-img_pinned" width="7"
+                                height="13" />
+                        </button>
+                        <button type="button"
+                            class="slds-button slds-button_icon slds-button_icon-bare shell-panel__header-slds-icon-btn"
+                            title="Close Panel" aria-label="Close Panel" onclick={handleClosePanel}>
+                            <img src={iconCloseSrc} alt=""
+                                class="shell-panel__header-icon-img shell-panel__header-icon-img_close" width="10"
+                                height="10" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template if:true={showAgentforcePanel}>
+            <div class={agentforceWorkspaceClass}>
+                <div class={chatHistoryFullPanelClass} aria-hidden={chatHistoryAriaHidden}>
+                        <div class="shell-panel__chat-history-header">
+                            <div class="shell-panel__chat-history-header-title">
+                                <button type="button" class="shell-panel__chat-history-back-btn"
+                                    title="Back" aria-label="Back to conversation" onclick={handleCloseChatHistory}>
+                                    <lightning-icon icon-name="utility:back" size="xx-small" alternative-text=""
+                                        class="shell-panel__chat-history-back-icon-lbc" aria-hidden="true">
+                                    </lightning-icon>
+                                </button>
+                                <p class="shell-panel__chat-history-title-text">Recent Chats</p>
+                            </div>
+                        </div>
+                    <div class="shell-panel__chat-history-body">
+                        <div class="shell-panel__chat-history-content">
+                            <div class="shell-panel__chat-list">
+                                    <template for:each={chatHistorySectionsView} for:item="section">
+                                        <div key={section.id} class="shell-panel__chat-section">
+                                            <p class="shell-panel__chat-section-label">{section.label}</p>
+                                            <template for:each={section.chats} for:item="chat">
+                                                <div key={chat.id} class={chat.rowClasses} data-id={chat.id}>
+                                                    <button type="button" class="shell-panel__chat-row-main"
+                                                        data-id={chat.id} onclick={handleChatRowClick}>
+                                                        <span class="shell-panel__chat-row-text">
+                                                            <span class="shell-panel__chat-row-title">{chat.firstUserMessage}</span>
+                                                            <span
+                                                                class="shell-panel__chat-row-agent">{chat.agent}</span>
+                                                        </span>
+                                                    </button>
+                                                    <div class="shell-panel__chat-row-options">
+                                                        <div class="shell-panel__chat-row-menu-wrap">
+                                                            <lightning-button-menu
+                                                                alternative-text="Chat options"
+                                                                variant="bare"
+                                                                icon-size="small"
+                                                                icon-name="utility:threedots"
+                                                                menu-alignment="right"
+                                                                class="shell-panel__chat-row-menu"
+                                                                onopen={handleChatRowMenuOpen}
+                                                                onclose={handleChatRowMenuClose}
+                                                                onselect={handleChatRowMenuSelect}>
+                                                                <lightning-menu-item label="Rename" value="rename"
+                                                                    prefix-icon-name="utility:edit">
+                                                                </lightning-menu-item>
+                                                                <lightning-menu-item label="Star" value="star"
+                                                                    prefix-icon-name="utility:favorite">
+                                                                </lightning-menu-item>
+                                                                <lightning-menu-item label="Download transcript"
+                                                                    value="download_transcript"
+                                                                    prefix-icon-name="utility:download">
+                                                                </lightning-menu-item>
+                                                                <lightning-menu-item label="Delete Chat"
+                                                                    value="delete_chat"
+                                                                    prefix-icon-name="utility:delete"
+                                                                    class="shell-panel__chat-row-menu-delete">
+                                                                </lightning-menu-item>
+                                                            </lightning-button-menu>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </template>
+                                </div>
+                        </div>
+                    </div>
+                    </div>
+                <div class="shell-panel__agentforce-primary">
+                    <div class="slds-panel__header shell-panel__header">
+                        <div class="shell-panel__header-inner">
+                            <div class="shell-panel__header-left">
+                                <button type="button"
+                                    class="slds-button slds-button_icon slds-button_icon-bare shell-panel__header-slds-icon-btn shell-panel__header-hamburger-btn"
+                                    title="Recent Chats" aria-label="Recent Chats" onclick={handleChatHistoryClick}>
+                                    <lightning-icon icon-name="utility:rows" size="x-small" alternative-text=""
+                                        class="shell-panel__header-hamburger-icon-lbc" aria-hidden="true">
+                                    </lightning-icon>
+                                </button>
+                                <h2 class="slds-panel__header-title shell-panel__header-title slds-truncate" title={panelTitle}>{panelTitle}
+                                </h2>
+                                <button type="button" class="shell-panel__header-chevron-btn" title="Agent options"
+                                    aria-label="Agent options" onclick={handleAgentMenuClick}>
+                                    <img src={iconDownSrc} alt="" class="shell-panel__header-chevron-img" width="10"
+                                        height="6" />
+                                </button>
+                            </div>
+                            <div class="slds-panel__header-actions shell-panel__header-actions">
+                                <button type="button"
+                                    class="slds-button slds-button_icon slds-button_icon-bare shell-panel__header-slds-icon-btn"
+                                    title="New Chat" aria-label="New Chat" onclick={handleNewChatClick}>
+                                    <img src={iconNewChatSrc} alt=""
+                                        class="shell-panel__header-icon-img shell-panel__header-icon-img_new-chat" width="11"
+                                        height="11" />
+                                </button>
+                                <button type="button"
+                                    class="slds-button slds-button_icon slds-button_icon-bare shell-panel__header-slds-icon-btn"
+                                    title="Unpin Panel" aria-label="Unpin Panel">
+                                    <img src={iconPinnedSrc} alt=""
+                                        class="shell-panel__header-icon-img shell-panel__header-icon-img_pinned" width="7"
+                                        height="13" />
+                                </button>
+                                <button type="button"
+                                    class="slds-button slds-button_icon slds-button_icon-bare shell-panel__header-slds-icon-btn"
+                                    title="Close Panel" aria-label="Close Panel" onclick={handleClosePanel}>
+                                    <img src={iconCloseSrc} alt=""
+                                        class="shell-panel__header-icon-img shell-panel__header-icon-img_close" width="10"
+                                        height="10" />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-panel__body shell-panel__body">
+                        <div class="shell-panel__agentforce-body">
+                            <div class="shell-panel__chat-feed-row">
+                                <div class="shell-panel__chat-feed" role="log" aria-live="polite" aria-label="Agent conversation">
+                                    <div class="shell-panel__chat-feed-inner">
+                                        <template for:each={agentFeedMessages} for:item="msg">
+                                            <ui-agent-chat-message key={msg.id} row-id={msg.id} variant={msg.variant}
+                                                message-text={msg.messageText} field-label={msg.fieldLabel}
+                                                input-value={msg.inputValue} input-fields={msg.inputFields} rich-text={msg.richText}
+                                                error-text={msg.errorText} actions={msg.actions} record-title={msg.recordTitle}
+                                                record-icon-name={msg.recordIconName} record-fields={msg.recordFields}
+                                                records={msg.records} record-select-options={msg.recordSelectOptions}
+                                                chart-title={msg.chartTitle} chart-subtitle={msg.chartSubtitle}
+                                                chart-y-axis-labels={msg.chartYAxisLabels} chart-bars={msg.chartBars}
+                                                select-value={msg.selectValue} user-avatar-src={msg.userAvatarSrc}
+                                                user-avatar-alt-text={msg.userAvatarAltText}
+                                                onagentmessageaction={handleAgentFeedMessageAction}
+                                                onagentmessageinputchange={handleAgentFeedInputChange}>
+                                            </ui-agent-chat-message>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="shell-panel__prompt-composer">
+                        <div class="shell-panel__prompt-composer-inner">
+                            <div class={promptEditorClass} role="group" aria-label="Agentforce prompt">
+                                <div class="shell-panel__prompt-editor-content">
+                                    <textarea class="shell-panel__prompt-textarea" rows="1"
+                                        placeholder={promptComposerPlaceholder}
+                                        aria-label="Describe your task or ask a question"
+                                        disabled={promptComposerInputDisabled}
+                                        value={promptComposerValue}
+                                        oninput={handlePromptComposerInput}
+                                        onkeydown={handlePromptComposerKeydown}></textarea>
+                                </div>
+                                <div class="shell-panel__prompt-editor-toolbar">
+                                    <div class="shell-panel__prompt-toolbar-left">
+                                        <button type="button"
+                                            class="slds-button slds-button_icon slds-button_icon-bare shell-panel__prompt-toolbar-slds-icon-btn shell-panel__prompt-toolbar-slds-icon-btn--add"
+                                            title="Add attachment"
+                                            aria-label="Add attachment"
+                                            disabled={promptComposerInputDisabled}
+                                            onclick={handlePromptComposerAttachClick}>
+                                            <lightning-icon icon-name="utility:add" size="x-small" alternative-text=""
+                                                class="slds-button__icon shell-panel__prompt-toolbar-icon-lbc shell-panel__prompt-toolbar-icon-lbc--add"
+                                                aria-hidden="true">
+                                            </lightning-icon>
+                                        </button>
+                                    </div>
+                                    <div class="shell-panel__prompt-toolbar-right">
+                                        <button type="button"
+                                            class="slds-button slds-button_icon slds-button_icon-bare shell-panel__prompt-toolbar-slds-icon-btn shell-panel__prompt-toolbar-slds-icon-btn--send"
+                                            title="Send"
+                                            aria-label="Send"
+                                            disabled={promptComposerSendDisabled}
+                                            onclick={handlePromptComposerSendClick}>
+                                            <lightning-icon icon-name="utility:send" size="x-small" alternative-text=""
+                                                class="slds-button__icon shell-panel__prompt-toolbar-icon-lbc" aria-hidden="true">
+                                            </lightning-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="shell-panel__prompt-disclaimer">Agentforce is AI and can make mistakes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template if:false={showAgentforcePanel}>
+            <div class="slds-panel__body shell-panel__body">
+                <div class="shell-panel__panel-content-fallback">{panelContent}</div>
+            </div>
+        </template>
+    </div>
+</template>

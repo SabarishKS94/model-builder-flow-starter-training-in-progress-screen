@@ -1,0 +1,106 @@
+<template>
+    <div class="table-wrapper">
+        <table class="data-table" role="grid" aria-label="Predictive Models">
+            <thead>
+                <tr>
+                    <th class="col-lock" scope="col">
+                        <lightning-icon icon-name="utility:lock" size="xx-small" alternative-text="Locked"></lightning-icon>
+                    </th>
+                    <th class="col-name" scope="col">
+                        <button class="header-button" data-field="name" onclick={handleSort}>
+                            <span class="header-label">Model Name</span>
+                            <template lwc:if={isNameSorted}>
+                                <lightning-icon icon-name={sortIcon} size="xx-small" class="sort-icon"></lightning-icon>
+                            </template>
+                        </button>
+                    </th>
+                    <th class="col-source" scope="col">
+                        <button class="header-button" data-field="source" onclick={handleSort}>
+                            <span class="header-label">Source</span>
+                            <template lwc:if={isSourceSorted}>
+                                <lightning-icon icon-name={sortIcon} size="xx-small" class="sort-icon"></lightning-icon>
+                            </template>
+                        </button>
+                    </th>
+                    <th class="col-capability" scope="col">
+                        <button class="header-button" data-field="capability" onclick={handleSort}>
+                            <span class="header-label">Capability</span>
+                            <template lwc:if={isCapabilitySorted}>
+                                <lightning-icon icon-name={sortIcon} size="xx-small" class="sort-icon"></lightning-icon>
+                            </template>
+                        </button>
+                    </th>
+                    <th class="col-status" scope="col">
+                        <button class="header-button" data-field="status" onclick={handleSort}>
+                            <span class="header-label">Status</span>
+                            <template lwc:if={isStatusSorted}>
+                                <lightning-icon icon-name={sortIcon} size="xx-small" class="sort-icon"></lightning-icon>
+                            </template>
+                        </button>
+                    </th>
+                    <th class="col-org" scope="col">
+                        <button class="header-button" data-field="org" onclick={handleSort}>
+                            <span class="header-label">Org</span>
+                            <template lwc:if={isOrgSorted}>
+                                <lightning-icon icon-name={sortIcon} size="xx-small" class="sort-icon"></lightning-icon>
+                            </template>
+                        </button>
+                    </th>
+                    <th class="col-modified" scope="col">
+                        <button class="header-button" data-field="lastModified" onclick={handleSort}>
+                            <span class="header-label">Last Modified</span>
+                            <template lwc:if={isLastModifiedSorted}>
+                                <lightning-icon icon-name={sortIcon} size="xx-small" class="sort-icon"></lightning-icon>
+                            </template>
+                        </button>
+                    </th>
+                    <th class="col-modified-by" scope="col">
+                        <button class="header-button" data-field="modifiedBy" onclick={handleSort}>
+                            <span class="header-label">Modified by</span>
+                            <template lwc:if={isModifiedBySorted}>
+                                <lightning-icon icon-name={sortIcon} size="xx-small" class="sort-icon"></lightning-icon>
+                            </template>
+                        </button>
+                    </th>
+                    <th class="col-actions" scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={rows} for:item="row">
+                    <tr key={row.id} class="data-row">
+                        <td class="cell-lock"></td>
+                        <td class="cell-name">
+                            <div class="name-cell">
+                                <lightning-icon icon-name="standard:data_model" size="small" class="model-icon"></lightning-icon>
+                                <a href="#" data-id={row.id} onclick={handleNameClick} class="model-link">{row.name}</a>
+                            </div>
+                        </td>
+                        <td class="cell-text">{row.source}</td>
+                        <td class="cell-text">{row.capability}</td>
+                        <td class="cell-status">
+                            <span class={row.statusClass}>
+                                <template lwc:if={row.statusIcon}>
+                                    <lightning-icon icon-name={row.statusIcon} size="xx-small" class={row.statusIconClass}></lightning-icon>
+                                </template>
+                                {row.status}
+                            </span>
+                        </td>
+                        <td class="cell-text">{row.org}</td>
+                        <td class="cell-text">{row.lastModified}</td>
+                        <td class="cell-text">{row.modifiedBy}</td>
+                        <td class="cell-actions">
+                            <lightning-button-icon
+                                icon-name="utility:down"
+                                variant="border-filled"
+                                size="x-small"
+                                alternative-text="Actions"
+                                data-id={row.id}
+                                onclick={handleRowAction}
+                            ></lightning-button-icon>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </div>
+</template>

@@ -1,0 +1,10 @@
+<template>
+    <div class="slds-illustration slds-illustration_small slds-p-around_x-large slds-text-align_center">
+        <div class="slds-m-bottom_medium">
+            <lightning-icon icon-name="utility:error" size="large" alternative-text={labels.PageTitle}></lightning-icon>
+        </div>
+        <h2 class="slds-text-heading_medium slds-m-bottom_small">{labels.PageTitle}</h2>
+        <p class="slds-text-body_regular slds-m-bottom_medium">{labels.Description}</p>
+        <lightning-button label={labels.GoHome} variant="brand" onclick={handleGoHome}></lightning-button>
+    </div>
+</template>

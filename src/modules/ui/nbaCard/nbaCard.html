@@ -1,0 +1,77 @@
+<template>
+    <lightning-card>
+        <div slot="title" class="card-title-row">
+            <lightning-icon icon-name="utility:sparkle" size="small" class="sparkle-icon"></lightning-icon>
+            <span class="card-title-text">{labels.CardTitle}</span>
+        </div>
+        <div slot="actions">
+            <span class="refreshed-text">{refreshedText}</span>
+        </div>
+
+        <div class="card-body">
+            <!-- Onboarding State -->
+            <template lwc:if={isOnboarding}>
+                <div class="nba-row">
+                    <div class="nba-content">
+                        <div class="nba-title-row">
+                            <span class="nba-title">AI-powered guidance is ready for this model</span>
+                            <lightning-icon icon-name="utility:info" size="xx-small" class="info-icon"></lightning-icon>
+                        </div>
+                        <p class="nba-description">Get AI-powered recommendations at every stage of your model lifecycle — from training to monitoring. This feature consumes Agentforce credits each time a recommendation is generated.</p>
+                    </div>
+                    <div class="onboarding-actions">
+                        <lightning-button label="Disable" variant="base" onclick={handleDisableClick}></lightning-button>
+                        <lightning-button label="Continue" variant="brand" onclick={handleCtaClick}></lightning-button>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Normal State -->
+            <template lwc:if={showNormalState}>
+                <!-- Model Lifecycle Progress Bar -->
+                <template lwc:if={showProgressBar}>
+                    <div class="mlc-progress">
+                        <div class="mlc-track">
+                            <template for:each={steps} for:item="step">
+                                <div key={step.key} class="mlc-step">
+                                    <div class={step.dotClass}>
+                                        <template lwc:if={step.showCheck}>
+                                            <lightning-icon icon-name="utility:check" size="xx-small" variant="inverse"></lightning-icon>
+                                        </template>
+                                    </div>
+                                    <template lwc:if={step.showBar}>
+                                        <div class={step.barClass}></div>
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
+                        <div class="mlc-labels">
+                            <template for:each={steps} for:item="step">
+                                <div key={step.key} class="mlc-label-item">
+                                    <span class="mlc-label-text">{step.label}</span>
+                                    <template lwc:if={step.showSublabel}>
+                                        <span class="mlc-sublabel">{step.sublabel}</span>
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- NBA Recommendation -->
+                <div class="nba-row">
+                    <div class="nba-content">
+                        <div class="nba-title-row">
+                            <span class="nba-title">{nbaTitle}</span>
+                            <lightning-icon icon-name="utility:info" size="xx-small" class="info-icon"></lightning-icon>
+                        </div>
+                        <p class="nba-description">{nbaDescription}</p>
+                    </div>
+                    <template lwc:if={showCta}>
+                        <lightning-button variant="brand-outline" label={ctaLabel} onclick={handleCtaClick}></lightning-button>
+                    </template>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

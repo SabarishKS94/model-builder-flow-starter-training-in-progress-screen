@@ -1,0 +1,71 @@
+<!-- src/modules/shell/app/app.html — Standard Shell (QSL-style flexbox) -->
+<template>
+    <template lwc:if={isAuthenticated}>
+        <template lwc:if={isFullscreenRoute}>
+            <div class="app-fullscreen">
+                <template lwc:if={componentCtor}>
+                    <lwc:component lwc:is={componentCtor} onnavigateback={handleNavigateBack}></lwc:component>
+                </template>
+            </div>
+        </template>
+        <template lwc:else>
+            <shell-global-shell
+                current-page={currentNavPage}
+                nav-items={navItems}
+                apps={allApps}
+                active-app-label={activeAppLabel}
+                active-app-id={activeAppId}
+                user={_authUser}
+                onnavigate={handleNavNavigate}
+                onappswitch={handleAppSwitch}
+                onpanelselect={handlePanelSelect}>
+            </shell-global-shell>
+
+            <template lwc:if={_navTooltip}>
+                <div class="app-nav-tooltip slds-popover slds-popover_tooltip slds-nubbin_left"
+                     role="tooltip"
+                     style={navTooltipStyle}>
+                    <div class="slds-popover__body">{_navTooltip.text}</div>
+                </div>
+            </template>
+
+            <main class="app-body">
+                <lightning-layout vertical-align="stretch" class="utility-full-height">
+                    <lightning-layout-item lwc:if={showVerticalNav} class="app-body__sidebar">
+                        <shell-vertical-nav
+                            nav-items={verticalNavItems}
+                            current-page={currentNavPage}
+                            current-path={currentPath}
+                            onnavigate={handleNavNavigate}
+                            ontooltipshow={handleNavTooltipShow}
+                            ontooltiphide={handleNavTooltipHide}>
+                        </shell-vertical-nav>
+                    </lightning-layout-item>
+
+                    <lightning-layout-item flexibility="auto" class="app-body__content-cell">
+                        <div class="app-body__scroll-wrapper">
+                            <div class="app-main">
+                                <div class="app-main__inner">
+                                    <template lwc:if={componentCtor}>
+                                        <lwc:component lwc:is={componentCtor} onnavigateback={handleNavigateBack}></lwc:component>
+                                    </template>
+                                </div>
+                                <shell-theme-switcher
+                                    active-theme={_activeTheme}
+                                    onapplytheme={handleApplyTheme}>
+                                </shell-theme-switcher>
+                            </div>
+                        </div>
+                    </lightning-layout-item>
+
+                    <lightning-layout-item class={panelClasses}>
+                        <shell-panel selected-panel={selectedPanel} onpanelclose={handlePanelClose} onrequestapikey={handleRequestApiKey}></shell-panel>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </main>
+        </template>
+    </template>
+    <template lwc:elseif={isAuthChecked}>
+        <shell-login></shell-login>
+    </template>
+</template>

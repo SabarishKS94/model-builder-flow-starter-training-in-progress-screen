@@ -1,0 +1,1345 @@
+/* Cosmos ambient background themes — toggled via class on document.body */
+
+/* ── Floating animation (matches D360 Edge app) ──────────────────── */
+
+@keyframes floatPastel {
+    0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
+    33%  { transform: translate(40px, -50px) scale(1.05) rotate(0.5deg); }
+    66%  { transform: translate(-30px, 30px) scale(0.95) rotate(-0.5deg); }
+    100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+}
+
+/* ── Ambient gradient (::before) and glow orb (::after) ───────────── */
+
+body.cosmos-light::before,
+body.cosmos-dark::before {
+    content: '';
+    position: fixed;
+    inset: -30%;
+    z-index: 0;
+    pointer-events: none;
+    animation: floatPastel 30s ease-in-out infinite alternate;
+}
+
+body.cosmos-light::after,
+body.cosmos-dark::after {
+    content: '';
+    position: fixed;
+    width: 75vw;
+    height: 75vw;
+    max-width: 1444px;
+    max-height: 1444px;
+    top: 15%;
+    left: 12%;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: 50%;
+    filter: blur(600px);
+    animation: floatPastel 30s ease-in-out infinite alternate;
+    animation-delay: -5s;
+}
+
+body.cosmos-dark::before {
+    background: linear-gradient(
+        135deg,
+        rgb(18, 10, 31) 0%,
+        rgb(13, 13, 26) 50%,
+        rgb(5, 15, 28) 100%
+    );
+}
+
+body.cosmos-dark::after {
+    background: rgba(59, 130, 246, 0.12);
+}
+
+body.cosmos-light::before {
+    background: linear-gradient(
+        150.6deg,
+        rgb(215, 194, 251) 0%,
+        rgb(219, 219, 253) 35.7%,
+        rgb(227, 230, 253) 71.4%
+    );
+}
+
+body.cosmos-light::after {
+    background: rgba(255, 255, 255, 0.45);
+}
+
+body.cosmos-light > #app,
+body.cosmos-dark > #app {
+    position: relative;
+    z-index: 1;
+}
+
+/* ── Shared: make surfaces transparent so the gradient shows through ─ */
+
+body.cosmos-light,
+body.cosmos-dark {
+    --slds-g-color-surface-2: transparent;
+    --slds-g-color-surface-1: transparent;
+    --slds-g-color-surface-container-1: transparent;
+    --slds-g-color-surface-container-2: transparent;
+    background-color: transparent !important;
+}
+
+body.cosmos-light .slds-container_x-large,
+body.cosmos-dark .slds-container_x-large,
+body.cosmos-light .slds-container_large,
+body.cosmos-dark .slds-container_large {
+    max-width: 100%;
+}
+
+/* Must beat .slds-color-scheme_dark specificity from SLDS 2 */
+body.cosmos-dark.slds-color-scheme_dark {
+    --slds-g-color-surface-1: transparent;
+    --slds-g-color-surface-2: transparent;
+    --slds-g-color-surface-container-1: transparent;
+    --slds-g-color-surface-container-2: transparent;
+    --slds-g-color-border-1: rgba(255, 255, 255, 0.06);
+    --slds-g-color-border-2: rgba(255, 255, 255, 0.14);
+}
+
+/* ── Global header icon overrides ─────────────────────────────────── */
+
+body.cosmos-dark .slds-icon.slds-icon_large,
+body.cosmos-light .slds-icon.slds-icon_large {
+    width: 2rem;
+    height: 2rem;
+}
+
+body.cosmos-dark .slds-icon.slds-icon-text-default,
+body.cosmos-light .slds-icon.slds-icon-text-default {
+    fill: #00A1E0;
+}
+
+/* ── Inter font (bundled locally) ────────────────────────────────── */
+
+@font-face {
+    font-family: 'Inter';
+    src: url('./fonts/Inter-VariableFont.ttf') format('truetype');
+    font-weight: 100 900;
+    font-display: swap;
+}
+
+/* ── Home page title font override ───────────────────────────────── */
+
+body.cosmos-dark .slds-text-heading_large,
+body.cosmos-light .slds-text-heading_large {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+}
+
+/* ── Waffle icon: use on-surface semantic color ──────────────────── */
+
+body.cosmos-dark .slds-icon-waffle .slds-r1,
+body.cosmos-dark .slds-icon-waffle .slds-r2,
+body.cosmos-dark .slds-icon-waffle .slds-r3,
+body.cosmos-dark .slds-icon-waffle .slds-r4,
+body.cosmos-dark .slds-icon-waffle .slds-r5,
+body.cosmos-dark .slds-icon-waffle .slds-r6,
+body.cosmos-dark .slds-icon-waffle .slds-r7,
+body.cosmos-dark .slds-icon-waffle .slds-r8,
+body.cosmos-dark .slds-icon-waffle .slds-r9 {
+    background-color: var(--slds-g-color-on-surface-2, rgba(255, 255, 255, 0.95));
+}
+
+body.cosmos-light .slds-icon-waffle .slds-r1,
+body.cosmos-light .slds-icon-waffle .slds-r2,
+body.cosmos-light .slds-icon-waffle .slds-r3,
+body.cosmos-light .slds-icon-waffle .slds-r4,
+body.cosmos-light .slds-icon-waffle .slds-r5,
+body.cosmos-light .slds-icon-waffle .slds-r6,
+body.cosmos-light .slds-icon-waffle .slds-r7,
+body.cosmos-light .slds-icon-waffle .slds-r8,
+body.cosmos-light .slds-icon-waffle .slds-r9 {
+    background-color: var(--slds-g-color-on-surface-2, rgba(0, 0, 0, 0.85));
+}
+
+/* ── Cosmos Dark: frosted-glass surfaces ─────────────────────────── */
+
+body.cosmos-dark .global-header {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
+body.cosmos-dark .slds-global-header {
+    background: transparent;
+    border: none;
+    border-bottom: none;
+    box-shadow: none;
+}
+
+body.cosmos-dark .global-shell {
+    background: rgba(255, 255, 255, 0.04);
+    border: none;
+    border-radius: 12px;
+    margin: 20px 20px 0 20px;
+    -webkit-backdrop-filter: blur(40px);
+    backdrop-filter: blur(40px);
+    position: relative;
+}
+
+body.cosmos-dark .global-shell::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    padding: 2px;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.20) 0%,
+        rgba(255, 255, 255, 0.04) 30%,
+        rgba(255, 255, 255, 0.04) 70%,
+        rgba(255, 255, 255, 0.20) 100%
+    );
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+body.cosmos-dark .app-body {
+    padding-left: 20px;
+    padding-right: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+body.cosmos-dark .app-main {
+    padding-top: 140px;
+}
+
+body.cosmos-dark .vertical-nav {
+    background: rgba(255, 255, 255, 0.04);
+    border: 2px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    -webkit-backdrop-filter: blur(40px);
+    backdrop-filter: blur(40px);
+}
+
+body.cosmos-dark .slds-section {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.06);
+}
+
+body.cosmos-dark lightning-card {
+    --slds-c-card-color-background: rgba(255, 255, 255, 0.04);
+    --slds-c-card-color-border: rgba(255, 255, 255, 0.06);
+}
+
+body.cosmos-dark .slds-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: none;
+    border-radius: 12px;
+    position: relative;
+    padding-bottom: 12px;
+}
+body.cosmos-dark .slds-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    padding: 1px;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.20) 0%,
+        rgba(255, 255, 255, 0.04) 30%,
+        rgba(255, 255, 255, 0.04) 70%,
+        rgba(255, 255, 255, 0.20) 100%
+    );
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+body.cosmos-dark lightning-datatable .slds-table {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+body.cosmos-dark lightning-datatable .slds-table thead th {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.14);
+}
+
+body.cosmos-dark lightning-datatable .slds-table tbody td,
+body.cosmos-dark lightning-datatable .slds-table tbody th {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.14);
+}
+
+body.cosmos-dark .slds-context-bar {
+    background: transparent;
+    border-color: transparent;
+}
+
+body.cosmos-dark .slds-panel {
+    background: rgba(255, 255, 255, 0.04);
+    border: none;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    position: relative;
+}
+body.cosmos-dark .slds-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    padding: 2px;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.20) 0%,
+        rgba(255, 255, 255, 0.04) 30%,
+        rgba(255, 255, 255, 0.04) 70%,
+        rgba(255, 255, 255, 0.20) 100%
+    );
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+body.cosmos-dark .slds-panel.slds-panel_docked-right {
+    display: block;
+    width: 0 !important;
+    min-width: 0 !important;
+    overflow: hidden;
+    opacity: 0;
+    border: none;
+    transition: width 350ms cubic-bezier(0.4, 0, 0.2, 1),
+                min-width 350ms cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 250ms ease,
+                margin 350ms cubic-bezier(0.4, 0, 0.2, 1),
+                padding 350ms cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    box-shadow: none;
+    border-radius: 12px;
+    margin-top: 130px;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+}
+
+body.cosmos-dark .slds-panel.slds-panel_docked-right.slds-is-open {
+    width: 320px !important;
+    min-width: 320px !important;
+    overflow: visible;
+    opacity: 1;
+    pointer-events: auto;
+    margin-top: 130px;
+    margin-left: 20px;
+    margin-right: 0;
+    height: calc(100% - 150px);
+}
+
+body.cosmos-dark .intro-copy {
+    color: var(--slds-g-color-on-surface-1, #aeaeae);
+}
+
+body.cosmos-dark .slds-button.slds-button_brand {
+    background-color: rgba(51, 102, 242, 0.20);
+    border: 1px solid rgba(77, 128, 255, 0.30);
+    color: #fff;
+    border-radius: 24px;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.20),
+                0 4px 16px -2px rgba(0, 0, 0, 0.20);
+    transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+body.cosmos-dark .slds-button.slds-button_brand:hover {
+    background-color: rgba(51, 102, 242, 0.70);
+    border-color: rgba(77, 128, 255, 0.80);
+    color: #fff;
+    transform: none;
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.20),
+                0 4px 16px -2px rgba(0, 0, 0, 0.20),
+                0 0 35px 0 rgba(2, 80, 217, 0.50);
+}
+body.cosmos-dark .slds-button.slds-button_brand:focus-visible {
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.20),
+                0 4px 16px -2px rgba(0, 0, 0, 0.20),
+                0 0 35px 0 rgba(2, 80, 217, 0.50);
+}
+body.cosmos-dark .slds-button.slds-button_brand:active {
+    background-color: rgba(37, 73, 173, 0.70);
+    border-color: rgba(33, 57, 117, 0.80);
+    color: #fff;
+    transform: none;
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.20),
+                0 4px 16px -2px rgba(0, 0, 0, 0.20),
+                0 0 15px 0 rgba(2, 80, 217, 0.50);
+}
+
+body.cosmos-dark .slds-button.slds-button_success {
+    background-color: rgba(26, 179, 166, 0.20);
+    border: 1px solid rgba(38, 204, 179, 0.30);
+    color: #fff;
+    border-radius: 24px;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.20),
+                0 4px 16px -2px rgba(0, 0, 0, 0.20);
+    transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+body.cosmos-dark .slds-button.slds-button_success:hover {
+    background-color: rgba(26, 179, 166, 0.40);
+    border-color: rgba(38, 204, 179, 0.45);
+    color: #fff;
+    transform: none;
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.30),
+                0 6px 20px -2px rgba(0, 0, 0, 0.30),
+                0 0 24px 0 rgba(26, 179, 166, 0.10),
+                0 0 35px 0 rgba(6, 165, 154, 0.25);
+}
+body.cosmos-dark .slds-button.slds-button_success:focus-visible {
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.30),
+                0 6px 20px -2px rgba(0, 0, 0, 0.30),
+                0 0 24px 0 rgba(26, 179, 166, 0.10),
+                0 0 35px 0 rgba(6, 165, 154, 0.25);
+}
+body.cosmos-dark .slds-button.slds-button_success:active {
+    background-color: rgba(26, 179, 166, 0.24);
+    border-color: rgba(38, 204, 179, 0.10);
+    color: #fff;
+    transform: none;
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.30),
+                0 6px 20px -2px rgba(0, 0, 0, 0.30),
+                0 0 24px 0 rgba(26, 179, 166, 0.10),
+                0 0 15px 0 rgba(6, 165, 154, 0.25);
+}
+
+body.cosmos-dark .slds-button.slds-button_destructive {
+    background-color: rgba(230, 51, 102, 0.15);
+    border: 1px solid rgba(255, 77, 128, 0.25);
+    color: #fff;
+    border-radius: 24px;
+    height: 100%;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.20),
+                0 4px 16px -2px rgba(0, 0, 0, 0.20);
+    transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+body.cosmos-dark .slds-button.slds-button_destructive:hover {
+    background-color: rgba(230, 51, 102, 0.40);
+    border-color: rgba(255, 77, 128, 0.40);
+    color: #fff;
+    transform: none;
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.30),
+                0 6px 20px -2px rgba(0, 0, 0, 0.30),
+                0 0 24px 0 rgba(230, 51, 102, 0.10),
+                0 0 35px 0 rgba(254, 114, 152, 0.25);
+}
+body.cosmos-dark .slds-button.slds-button_destructive:focus-visible {
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.30),
+                0 6px 20px -2px rgba(0, 0, 0, 0.30),
+                0 0 24px 0 rgba(230, 51, 102, 0.10),
+                0 0 35px 0 rgba(254, 114, 152, 0.25);
+}
+body.cosmos-dark .slds-button.slds-button_destructive:active {
+    background-color: rgba(230, 51, 102, 0.24);
+    border-color: rgba(255, 77, 128, 0.10);
+    color: #fff;
+    transform: none;
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.30),
+                0 6px 20px -2px rgba(0, 0, 0, 0.30),
+                0 0 24px 0 rgba(230, 51, 102, 0.10),
+                0 0 15px 0 rgba(254, 114, 152, 0.25);
+}
+
+body.cosmos-dark .slds-button.slds-button_neutral {
+    background-color: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.20);
+    color: #fff;
+    border-radius: 24px;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
+                0 4px 12px -2px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+body.cosmos-dark .slds-button.slds-button_neutral:hover {
+    background-color: rgba(255, 255, 255, 0.20);
+    border-color: rgba(255, 255, 255, 0.40);
+    color: #fff;
+    transform: none;
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.30),
+                0 6px 20px -2px rgba(0, 0, 0, 0.25),
+                0 0 16px 0 rgba(255, 255, 255, 0.06),
+                0 0 35px 0 rgba(147, 147, 147, 0.50);
+}
+body.cosmos-dark .slds-button.slds-button_neutral:focus-visible {
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.30),
+                0 6px 20px -2px rgba(0, 0, 0, 0.25),
+                0 0 16px 0 rgba(255, 255, 255, 0.06),
+                0 0 35px 0 rgba(147, 147, 147, 0.50);
+}
+body.cosmos-dark .slds-button.slds-button_neutral:active {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.20);
+    color: #fff;
+    transform: none;
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.30),
+                0 6px 20px -2px rgba(0, 0, 0, 0.25),
+                0 0 16px 0 rgba(255, 255, 255, 0.06),
+                0 0 15px 0 rgba(160, 160, 160, 0.25);
+}
+
+body.cosmos-dark .slds-button.slds-button_icon-border,
+body.cosmos-dark .slds-button.slds-button_icon-border-filled {
+    background-color: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.20);
+    color: #fff;
+    border-radius: 50%;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
+                0 4px 12px -2px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+body.cosmos-dark .slds-button.slds-button_icon-border:hover,
+body.cosmos-dark .slds-button.slds-button_icon-border-filled:hover {
+    background-color: rgba(255, 255, 255, 0.20);
+    border-color: rgba(255, 255, 255, 0.40);
+    color: var(--slds-g-color-accent-2, #4992fe);
+    transform: none;
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.30),
+                0 6px 20px -2px rgba(0, 0, 0, 0.25),
+                0 0 16px 0 rgba(255, 255, 255, 0.06),
+                0 0 35px 0 rgba(147, 147, 147, 0.50);
+}
+body.cosmos-dark .slds-button.slds-button_icon-border:hover lightning-primitive-icon svg,
+body.cosmos-dark .slds-button.slds-button_icon-border-filled:hover lightning-primitive-icon svg,
+body.cosmos-dark .slds-button.slds-button_icon-border:hover .slds-button__icon,
+body.cosmos-dark .slds-button.slds-button_icon-border-filled:hover .slds-button__icon {
+    fill: var(--slds-g-color-accent-2, #4992fe) !important;
+    color: var(--slds-g-color-accent-2, #4992fe) !important;
+}
+body.cosmos-dark .slds-button.slds-button_icon-border:focus-visible,
+body.cosmos-dark .slds-button.slds-button_icon-border-filled:focus-visible {
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.30),
+                0 6px 20px -2px rgba(0, 0, 0, 0.25),
+                0 0 16px 0 rgba(255, 255, 255, 0.06),
+                0 0 35px 0 rgba(147, 147, 147, 0.50);
+}
+body.cosmos-dark .slds-button.slds-button_icon-border:active,
+body.cosmos-dark .slds-button.slds-button_icon-border-filled:active {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.20);
+    color: #fff;
+    transform: none;
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.30),
+                0 6px 20px -2px rgba(0, 0, 0, 0.25),
+                0 0 16px 0 rgba(255, 255, 255, 0.06),
+                0 0 15px 0 rgba(160, 160, 160, 0.25);
+}
+
+body.cosmos-dark lightning-badge.badge-error.slds-badge,
+body.cosmos-dark .badge-error.slds-badge {
+    background-color: rgba(254, 138, 167, 0.15) !important;
+    color: rgb(254, 138, 167) !important;
+    border-radius: 8px !important;
+    border-color: transparent !important;
+}
+body.cosmos-dark lightning-badge.badge-error.slds-badge span,
+body.cosmos-dark .badge-error.slds-badge span {
+    color: inherit !important;
+}
+
+body.cosmos-dark .slds-modal__header,
+body.cosmos-dark .slds-modal__header__reflow_resize,
+body.cosmos-dark .slds-modal__footer,
+body.cosmos-dark .slds-modal__footer__reflow_resize,
+body.cosmos-dark .slds-modal__content {
+    background: rgba(255, 255, 255, 0.04);
+    border-left: 1px solid rgba(255, 255, 255, 0.10);
+    border-right: 1px solid rgba(255, 255, 255, 0.10);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.25);
+}
+body.cosmos-dark .slds-modal__header,
+body.cosmos-dark .slds-modal__header__reflow_resize {
+    border-top: 1px solid rgba(255, 255, 255, 0.20);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-color: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.15),
+                0 0 5px 0 rgba(0, 0, 0, 0.25);
+}
+body.cosmos-dark .slds-modal__footer,
+body.cosmos-dark .slds-modal__footer__reflow_resize {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.20);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-top-color: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.30),
+                0 0 5px 0 rgba(0, 0, 0, 0.25);
+}
+body.cosmos-dark .slds-modal__title {
+    color: var(--slds-g-color-on-surface-2);
+    font-weight: 600;
+}
+body.cosmos-dark .slds-modal__close {
+    background: rgba(255, 255, 255, 0.04);
+    border: 2px solid rgba(255, 255, 255, 0.06);
+    border-radius: 50%;
+}
+body.cosmos-dark .slds-modal__close:hover {
+    background: rgba(255, 255, 255, 0.10);
+}
+body.cosmos-dark .slds-modal__close:focus-visible {
+    background: rgba(255, 255, 255, 0.10);
+}
+
+body.cosmos-dark .global-header {
+    position: relative;
+}
+body.cosmos-dark .global-header .customize-slds-button lightning-layout {
+    gap: 4px;
+}
+body.cosmos-dark .slds-global-header__item_search {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30rem;
+    max-width: 40%;
+}
+
+body.cosmos-dark .slds-container_small.slds-container_center .slds-form-element,
+body.cosmos-dark .slds-container_small.slds-container_center .slds-input {
+    border-radius: 50rem;
+}
+body.cosmos-dark .slds-container_small.slds-container_center .slds-input__icon_left {
+    left: 0.75rem;
+}
+body.cosmos-dark .slds-container_small.slds-container_center .slds-input_search,
+body.cosmos-dark .slds-container_small.slds-container_center .slds-has-input-focus .slds-input {
+    padding-left: 2.25rem;
+}
+
+body.cosmos-dark .global-header lightning-avatar img,
+body.cosmos-dark .global-header .slds-avatar_circle,
+body.cosmos-dark .global-header .slds-avatar {
+    border-radius: 8px !important;
+    --slds-c-avatar-radius-border: 8px;
+}
+
+body.cosmos-dark .global-header lightning-button-icon lightning-primitive-icon svg,
+body.cosmos-dark .global-header lightning-button-menu lightning-primitive-icon svg,
+body.cosmos-dark .global-header lightning-button-icon-stateful lightning-primitive-icon svg,
+body.cosmos-dark .global-header .slds-button__icon {
+    width: 20px !important;
+    height: 20px !important;
+    fill: rgba(255, 255, 255, 0.90) !important;
+    color: rgba(255, 255, 255, 0.90) !important;
+}
+body.cosmos-dark .global-header .slds-button__icon.slds-button__icon_x-small {
+    width: 14px !important;
+    height: 14px !important;
+}
+
+body.cosmos-dark .global-header .customize-slds-button lightning-button-icon:hover lightning-primitive-icon svg,
+body.cosmos-dark .global-header .customize-slds-button lightning-button-menu:hover lightning-primitive-icon svg,
+body.cosmos-dark .global-header .customize-slds-button lightning-button-icon-stateful:hover lightning-primitive-icon svg,
+body.cosmos-dark .global-header .customize-slds-button lightning-button-icon:hover .slds-button__icon,
+body.cosmos-dark .global-header .customize-slds-button lightning-button-menu:hover .slds-button__icon {
+    fill: var(--slds-g-color-accent-2, #4992fe) !important;
+    color: var(--slds-g-color-accent-2, #4992fe) !important;
+}
+
+body.cosmos-dark lightning-input .slds-input,
+body.cosmos-dark lightning-textarea .slds-textarea,
+body.cosmos-dark lightning-combobox .slds-combobox__input {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.14);
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+body.cosmos-dark lightning-input .slds-input:hover,
+body.cosmos-dark lightning-textarea .slds-textarea:hover,
+body.cosmos-dark lightning-combobox .slds-combobox__input:hover {
+    background: rgba(255, 255, 255, 0.10);
+    border-color: rgba(255, 255, 255, 0.30);
+    color: rgba(255, 255, 255, 0.75);
+}
+body.cosmos-dark lightning-input .slds-input:hover::placeholder,
+body.cosmos-dark lightning-textarea .slds-textarea:hover::placeholder,
+body.cosmos-dark lightning-combobox .slds-combobox__input:hover::placeholder {
+    color: rgba(255, 255, 255, 0.55);
+}
+body.cosmos-dark lightning-input:hover .slds-input__icon_left {
+    fill: rgba(255, 255, 255, 0.55);
+}
+body.cosmos-dark .slds-dropdown,
+body.cosmos-dark .slds-combobox .slds-listbox {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    -webkit-backdrop-filter: blur(40px);
+    backdrop-filter: blur(40px);
+    box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.15),
+                0 3px 3px 0 rgba(0, 0, 0, 0.30),
+                0 0 5px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.50);
+}
+body.cosmos-dark .slds-spinner::before,
+body.cosmos-dark .slds-spinner__dot-a::before,
+body.cosmos-dark .slds-spinner__dot-b::before,
+body.cosmos-dark .slds-spinner::after,
+body.cosmos-dark .slds-spinner__dot-a::after,
+body.cosmos-dark .slds-spinner__dot-b::after {
+    background: var(--slds-g-color-accent-container-1) !important;
+}
+body.cosmos-dark .slds-listbox__option:hover,
+body.cosmos-dark .slds-listbox__option.slds-has-focus {
+    background-color: rgba(255, 255, 255, 0.10) !important;
+}
+
+/* ── Cosmos Light: frosted-glass surfaces ────────────────────────── */
+
+body.cosmos-light .global-header {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+body.cosmos-light .slds-global-header {
+    background: transparent;
+    border: none;
+    border-bottom: none;
+    box-shadow: none;
+}
+body.cosmos-light .global-shell {
+    background: rgba(255, 255, 255, 0.12);
+    border: none;
+    border-radius: 12px;
+    margin: 20px 20px 0 20px;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    position: relative;
+}
+body.cosmos-light .global-shell::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    padding: 2px;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.90) 0%,
+        rgba(255, 255, 255, 0.10) 30%,
+        rgba(255, 255, 255, 0.10) 70%,
+        rgba(255, 255, 255, 0.90) 100%
+    );
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+}
+body.cosmos-light .app-body {
+    padding-left: 20px;
+    padding-right: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+body.cosmos-light .app-main {
+    padding-top: 140px;
+}
+body.cosmos-light .vertical-nav {
+    background: rgba(255, 255, 255, 0.30);
+    border: 2px solid rgba(255, 255, 255, 0.40);
+    border-radius: 12px;
+    -webkit-backdrop-filter: blur(40px);
+    backdrop-filter: blur(40px);
+}
+body.cosmos-light .slds-section {
+    background: transparent;
+    border: none;
+}
+
+body.cosmos-light .intro-copy {
+    color: var(--slds-g-color-on-surface-1, #5c5c5c);
+}
+
+body.cosmos-light .slds-button.slds-button_brand {
+    background-color: rgba(90, 120, 240, 0.75);
+    border: 1px solid rgba(60, 90, 200, 0.50);
+    color: #fff;
+    border-radius: 24px;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 12px -2px rgba(51, 102, 242, 0.30);
+    transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+body.cosmos-light .slds-button.slds-button_brand:hover {
+    background-color: rgba(70, 110, 240, 0.85);
+    border-color: rgba(35, 60, 160, 0.65);
+    color: #fff;
+    transform: none;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 12px -2px rgba(51, 102, 242, 0.30),
+                0 0 32px 6px rgba(73, 146, 254, 0.20);
+}
+body.cosmos-light .slds-button.slds-button_brand:focus-visible {
+    box-shadow: 0 4px 12px -2px rgba(51, 102, 242, 0.30),
+                0 0 32px 6px rgba(73, 146, 254, 0.20);
+}
+body.cosmos-light .slds-button.slds-button_brand:active {
+    background-color: rgba(55, 80, 190, 0.85);
+    border: 1px solid rgba(40, 65, 160, 0.60);
+    color: #fff;
+    transform: none;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 12px -2px rgba(51, 102, 242, 0.30),
+                0 0 15px 0 rgba(73, 146, 254, 0.25);
+}
+
+body.cosmos-light .slds-button.slds-button_success {
+    background-color: rgba(65, 172, 162, 0.80);
+    border: 1px solid rgba(40, 130, 122, 0.50);
+    color: #fff;
+    border-radius: 24px;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 12px -2px rgba(26, 160, 150, 0.30);
+    transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+body.cosmos-light .slds-button.slds-button_success:hover {
+    background-color: rgba(50, 157, 147, 0.90);
+    border-color: rgba(30, 115, 107, 0.65);
+    color: #fff;
+    transform: none;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 12px -2px rgba(26, 160, 150, 0.30),
+                0 0 32px 6px rgba(26, 160, 150, 0.20);
+}
+body.cosmos-light .slds-button.slds-button_success:focus-visible {
+    box-shadow: 0 4px 12px -2px rgba(26, 160, 150, 0.30),
+                0 0 32px 6px rgba(26, 160, 150, 0.20);
+}
+body.cosmos-light .slds-button.slds-button_success:active {
+    background-color: rgba(35, 132, 122, 0.90);
+    border: 1px solid rgba(20, 95, 88, 0.65);
+    color: #fff;
+    transform: none;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 12px -2px rgba(26, 160, 150, 0.30),
+                0 0 15px 0 rgba(26, 160, 150, 0.25);
+}
+
+body.cosmos-light .slds-button.slds-button_destructive {
+    background-color: rgba(220, 72, 110, 0.80);
+    border: 1px solid rgba(180, 50, 85, 0.50);
+    color: #fff;
+    border-radius: 24px;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 12px -2px rgba(220, 72, 110, 0.30);
+    transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+body.cosmos-light .slds-button.slds-button_destructive:hover {
+    background-color: rgba(200, 57, 95, 0.90);
+    border-color: rgba(160, 35, 70, 0.65);
+    color: #fff;
+    transform: none;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 12px -2px rgba(220, 72, 110, 0.30),
+                0 0 32px 6px rgba(220, 72, 110, 0.20);
+}
+body.cosmos-light .slds-button.slds-button_destructive:focus-visible {
+    box-shadow: 0 4px 12px -2px rgba(220, 72, 110, 0.30),
+                0 0 32px 6px rgba(220, 72, 110, 0.20);
+}
+body.cosmos-light .slds-button.slds-button_destructive:active {
+    background-color: rgba(180, 42, 80, 0.90);
+    border: 1px solid rgba(140, 25, 60, 0.65);
+    color: #fff;
+    transform: none;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 12px -2px rgba(220, 72, 110, 0.30),
+                0 0 15px 0 rgba(220, 72, 110, 0.25);
+}
+
+body.cosmos-light .slds-button.slds-button_neutral {
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.35);
+    color: rgba(0, 0, 0, 0.75);
+    border-radius: 24px;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.10);
+    transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+body.cosmos-light .slds-button.slds-button_neutral:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.50);
+    color: rgba(0, 0, 0, 0.85);
+    transform: none;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.15),
+                0 0 32px 6px rgba(0, 0, 0, 0.08);
+}
+body.cosmos-light .slds-button.slds-button_neutral:focus-visible {
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.15),
+                0 0 32px 6px rgba(0, 0, 0, 0.08);
+}
+body.cosmos-light .slds-button.slds-button_neutral:active {
+    background-color: rgba(0, 0, 0, 0.06);
+    border-color: rgba(0, 0, 0, 0.50);
+    color: rgba(0, 0, 0, 0.85);
+    transform: none;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.15),
+                0 0 15px 0 rgba(0, 0, 0, 0.08);
+}
+
+body.cosmos-light .slds-button.slds-button_icon-border,
+body.cosmos-light .slds-button.slds-button_icon-border-filled {
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.35);
+    color: rgba(0, 0, 0, 0.75);
+    border-radius: 50%;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.10);
+    transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+body.cosmos-light .slds-button.slds-button_icon-border:hover,
+body.cosmos-light .slds-button.slds-button_icon-border-filled:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.50);
+    color: rgba(0, 0, 0, 0.85);
+    transform: none;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.15),
+                0 0 24px 4px rgba(0, 0, 0, 0.06);
+}
+body.cosmos-light .slds-button.slds-button_icon-border:hover lightning-primitive-icon svg,
+body.cosmos-light .slds-button.slds-button_icon-border-filled:hover lightning-primitive-icon svg,
+body.cosmos-light .slds-button.slds-button_icon-border:hover .slds-button__icon,
+body.cosmos-light .slds-button.slds-button_icon-border-filled:hover .slds-button__icon {
+    fill: var(--slds-g-color-accent-2, #0250d9) !important;
+    color: var(--slds-g-color-accent-2, #0250d9) !important;
+}
+body.cosmos-light .slds-button.slds-button_icon-border:focus-visible,
+body.cosmos-light .slds-button.slds-button_icon-border-filled:focus-visible {
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.15),
+                0 0 24px 4px rgba(0, 0, 0, 0.06);
+}
+body.cosmos-light .slds-button.slds-button_icon-border:active,
+body.cosmos-light .slds-button.slds-button_icon-border-filled:active {
+    background-color: rgba(0, 0, 0, 0.06);
+    border-color: rgba(0, 0, 0, 0.50);
+    color: rgba(0, 0, 0, 0.85);
+    transform: none;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.12);
+}
+
+body.cosmos-light lightning-badge.badge-error.slds-badge,
+body.cosmos-light .badge-error.slds-badge {
+    background-color: rgba(254, 138, 167, 0.15) !important;
+    color: rgb(254, 138, 167) !important;
+    border-radius: 8px !important;
+    border-color: transparent !important;
+}
+body.cosmos-light lightning-badge.badge-error.slds-badge span,
+body.cosmos-light .badge-error.slds-badge span {
+    color: inherit !important;
+}
+
+body.cosmos-light .slds-backdrop {
+    background: rgba(184, 186, 205, 0.40);
+}
+body.cosmos-light .slds-modal__header,
+body.cosmos-light .slds-modal__header__reflow_resize,
+body.cosmos-light .slds-modal__footer,
+body.cosmos-light .slds-modal__footer__reflow_resize,
+body.cosmos-light .slds-modal__content {
+    background: rgba(255, 255, 255, 0.12);
+    border-left: 1px solid rgba(255, 255, 255, 0.14);
+    border-right: 1px solid rgba(255, 255, 255, 0.14);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.08);
+}
+body.cosmos-light .slds-modal__header,
+body.cosmos-light .slds-modal__header__reflow_resize {
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-color: rgba(255, 255, 255, 0.14);
+    box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05),
+                0 0 5px 0 rgba(0, 0, 0, 0.08);
+}
+body.cosmos-light .slds-modal__footer,
+body.cosmos-light .slds-modal__footer__reflow_resize {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-top-color: rgba(255, 255, 255, 0.14);
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.10),
+                0 0 5px 0 rgba(0, 0, 0, 0.08);
+}
+body.cosmos-light .slds-modal__title {
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 600;
+}
+body.cosmos-light .slds-modal__close {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 50%;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+}
+body.cosmos-light .slds-modal__close:hover {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.30);
+}
+body.cosmos-light .slds-modal__close:focus-visible {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.30);
+}
+
+body.cosmos-light .global-header {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
+body.cosmos-light .slds-global-header {
+    background: transparent;
+    border: none;
+    border-bottom: none;
+    box-shadow: none;
+}
+
+body.cosmos-light .global-shell {
+    background: rgba(255, 255, 255, 0.12);
+    border: none;
+    border-radius: 12px;
+    margin: 20px 20px 0 20px;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    position: relative;
+}
+
+body.cosmos-light .app-body {
+    padding-left: 20px;
+    padding-right: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+body.cosmos-light .app-main {
+    padding-top: 140px;
+}
+
+body.cosmos-light .vertical-nav {
+    background: rgba(255, 255, 255, 0.12);
+    border: 2px solid rgba(255, 255, 255, 0.14);
+    border-radius: 12px;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+}
+
+body.cosmos-light .slds-section {
+    background: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.6);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+body.cosmos-light lightning-card {
+    --slds-c-card-color-background: rgba(255, 255, 255, 0.12);
+    --slds-c-card-color-border: rgba(255, 255, 255, 0.14);
+}
+
+body.cosmos-light .slds-card {
+    background: rgba(255, 255, 255, 0.12);
+    border: none;
+    border-radius: 12px;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    position: relative;
+    padding-bottom: 12px;
+}
+body.cosmos-light .slds-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    padding: 1px;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.90) 0%,
+        rgba(255, 255, 255, 0.10) 30%,
+        rgba(255, 255, 255, 0.10) 70%,
+        rgba(255, 255, 255, 0.90) 100%
+    );
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+body.cosmos-light .slds-dropdown,
+body.cosmos-light .slds-combobox .slds-listbox {
+    box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.05),
+                0 3px 3px 0 rgba(0, 0, 0, 0.10),
+                0 0 5px 0 rgba(0, 0, 0, 0.08);
+}
+
+body.cosmos-light .slds-spinner::before,
+body.cosmos-light .slds-spinner__dot-a::before,
+body.cosmos-light .slds-spinner__dot-b::before,
+body.cosmos-light .slds-spinner::after,
+body.cosmos-light .slds-spinner__dot-a::after,
+body.cosmos-light .slds-spinner__dot-b::after {
+    background: var(--slds-g-color-accent-container-1) !important;
+}
+
+body.cosmos-light lightning-datatable .slds-table {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+body.cosmos-light lightning-datatable .slds-table thead th {
+    background: rgba(255, 255, 255, 0.6);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+body.cosmos-light lightning-datatable .slds-table tbody td,
+body.cosmos-light lightning-datatable .slds-table tbody th {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+body.cosmos-light .slds-context-bar {
+    background: transparent;
+    border-color: transparent;
+}
+
+.slds-context-bar__app-name .slds-truncate {
+    font-weight: 600;
+}
+
+.slds-card__header-title,
+.slds-card__header-title .slds-text-heading--label,
+.slds-card__header-title .slds-text-heading_label,
+.slds-card__header-link {
+    font-weight: 600 !important;
+}
+
+body.cosmos-light .slds-panel {
+    background: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.6);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+}
+
+body.cosmos-light .slds-panel.slds-panel_docked-right {
+    display: block;
+    width: 0 !important;
+    min-width: 0 !important;
+    overflow: hidden;
+    opacity: 0;
+    transition: width 350ms cubic-bezier(0.4, 0, 0.2, 1),
+                min-width 350ms cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 250ms ease,
+                margin 350ms cubic-bezier(0.4, 0, 0.2, 1),
+                padding 350ms cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    box-shadow: none;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    margin-top: 130px;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+}
+
+body.cosmos-light .slds-panel.slds-panel_docked-right.slds-is-open {
+    width: 320px !important;
+    min-width: 320px !important;
+    overflow: visible;
+    opacity: 1;
+    pointer-events: auto;
+    margin-top: 130px;
+    margin-left: 20px;
+    margin-right: 0;
+    height: calc(100% - 150px);
+    border-color: rgba(255, 255, 255, 0.14);
+}
+
+body.cosmos-light .global-header {
+    position: relative;
+}
+body.cosmos-light .global-header .customize-slds-button lightning-layout {
+    gap: 4px;
+}
+body.cosmos-light .slds-global-header__item_search {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30rem;
+    max-width: 40%;
+}
+
+body.cosmos-light .slds-global-header__item_search .slds-input {
+    background: rgba(255, 255, 255, 0.0);
+    border: 1px solid rgba(0, 0, 0, 0.35);
+    border-radius: 50rem;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    color: rgba(0, 0, 0, 0.7);
+}
+body.cosmos-light .slds-global-header__item_search .slds-input::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+}
+body.cosmos-light .slds-global-header__item_search .slds-input:hover {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.50);
+}
+body.cosmos-light .slds-global-header__item_search .slds-input:focus,
+body.cosmos-light .slds-global-header__item_search .slds-has-input-focus .slds-input {
+    background: rgba(0, 0, 0, 0.04);
+    border: 2px solid var(--slds-g-color-palette-blue-15, #03234d) !important;
+    box-shadow: 0 0 0 1px rgba(3, 35, 77, 0.12);
+}
+
+body.cosmos-light .slds-container_small.slds-container_center .slds-form-element,
+body.cosmos-light .slds-container_small.slds-container_center .slds-input {
+    border-radius: 50rem;
+}
+body.cosmos-light .slds-container_small.slds-container_center .slds-input__icon_left {
+    left: 0.75rem;
+}
+body.cosmos-light .slds-container_small.slds-container_center .slds-input_search,
+body.cosmos-light .slds-container_small.slds-container_center .slds-has-input-focus .slds-input {
+    padding-left: 2.25rem;
+}
+
+body.cosmos-light .global-header lightning-avatar img,
+body.cosmos-light .global-header .slds-avatar_circle,
+body.cosmos-light .global-header .slds-avatar {
+    border-radius: 8px !important;
+    --slds-c-avatar-radius-border: 8px;
+}
+
+body.cosmos-light .global-header lightning-button-icon lightning-primitive-icon svg,
+body.cosmos-light .global-header lightning-button-menu lightning-primitive-icon svg,
+body.cosmos-light .global-header lightning-button-icon-stateful lightning-primitive-icon svg,
+body.cosmos-light .global-header .slds-button__icon {
+    width: 20px !important;
+    height: 20px !important;
+    fill: rgba(0, 0, 0, 0.85) !important;
+    color: rgba(0, 0, 0, 0.85) !important;
+}
+body.cosmos-light .global-header .slds-button__icon.slds-button__icon_x-small {
+    width: 14px !important;
+    height: 14px !important;
+}
+
+body.cosmos-light .global-header .customize-slds-button lightning-button-icon:hover lightning-primitive-icon svg,
+body.cosmos-light .global-header .customize-slds-button lightning-button-menu:hover lightning-primitive-icon svg,
+body.cosmos-light .global-header .customize-slds-button lightning-button-icon-stateful:hover lightning-primitive-icon svg,
+body.cosmos-light .global-header .customize-slds-button lightning-button-icon:hover .slds-button__icon,
+body.cosmos-light .global-header .customize-slds-button lightning-button-menu:hover .slds-button__icon {
+    fill: var(--slds-g-color-accent-2, #0250d9) !important;
+    color: var(--slds-g-color-accent-2, #0250d9) !important;
+}
+
+body.cosmos-light lightning-input .slds-input,
+body.cosmos-light lightning-textarea .slds-textarea,
+body.cosmos-light lightning-combobox .slds-combobox__input {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.35);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+body.cosmos-light lightning-input .slds-input:hover,
+body.cosmos-light lightning-textarea .slds-textarea:hover,
+body.cosmos-light lightning-combobox .slds-combobox__input:hover {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.50);
+    color: rgba(0, 0, 0, 0.85);
+}
+body.cosmos-light lightning-input .slds-input:hover::placeholder,
+body.cosmos-light lightning-textarea .slds-textarea:hover::placeholder,
+body.cosmos-light lightning-combobox .slds-combobox__input:hover::placeholder {
+    color: rgba(0, 0, 0, 0.55);
+}
+body.cosmos-light lightning-input:hover .slds-input__icon_left {
+    fill: rgba(0, 0, 0, 0.55);
+}
+

@@ -1,0 +1,262 @@
+<template>
+    <lightning-layout
+        multiple-rows="true"
+        class="slds-container_x-large slds-container_center slds-m-top_large">
+        <lightning-layout-item size="12" class="slds-m-bottom_large">
+            <ui-home-intro></ui-home-intro>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="12" class="slds-m-bottom_large">
+            <ui-plan-builder></ui-plan-builder>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="12" class="slds-m-bottom_large">
+        <!-- Input Components -->
+        <lightning-card title={labels.InputComponents}>
+            <lightning-layout multiple-rows="true" pull-to-boundary="small">
+                    <lightning-layout-item size="12" medium-device-size="6" padding="horizontal-small">
+                    <lightning-input
+                        label={labels.TextInput}
+                        placeholder={labels.EnterSomeText}
+                        value={inputValue}
+                        onchange={handleInputChange}>
+                    </lightning-input>
+                </lightning-layout-item>
+                    <lightning-layout-item size="12" medium-device-size="6" padding="horizontal-small" class="slds-m-top_small home-input-item-second">
+                    <lightning-input
+                        type="email"
+                        label={labels.EmailInput}
+                        placeholder={labels.EmailPlaceholder}>
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" medium-device-size="6" padding="horizontal-small" class="slds-m-top_small">
+                    <lightning-input
+                        type="tel"
+                        label={labels.PhoneNumber}
+                        placeholder="(555) 555-5555">
+                    </lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" medium-device-size="6" padding="horizontal-small" class="slds-m-top_small">
+                    <lightning-input
+                        type="date"
+                        label={labels.DatePicker}
+                        value={dateValue}
+                        onchange={handleDateChange}>
+                    </lightning-input>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-card>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="12" class="slds-m-bottom_large">
+        <!-- Selection Components -->
+        <lightning-card title={labels.SelectionComponents}>
+            <lightning-layout multiple-rows="true" pull-to-boundary="small">
+                <lightning-layout-item size="12" medium-device-size="6" padding="horizontal-small">
+                    <lightning-checkbox-group
+                        label={labels.CheckboxGroup}
+                        options={checkboxOptions}
+                        value={checkboxGroupValues}
+                        onchange={handleCheckboxChange}>
+                    </lightning-checkbox-group>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" medium-device-size="6" padding="horizontal-small" class="slds-m-top_small home-input-item-second">
+                    <lightning-radio-group
+                        label={labels.RadioGroup}
+                        options={radioOptions}
+                        value={selectedRadioValue}
+                        onchange={handleRadioChange}>
+                    </lightning-radio-group>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" medium-device-size="6" padding="horizontal-small" class="slds-m-top_small">
+                    <lightning-combobox
+                        label={labels.Combobox}
+                        placeholder={labels.SelectAnOption}
+                        options={comboboxOptions}
+                        value={selectedComboboxValue}
+                        onchange={handleComboboxChange}>
+                    </lightning-combobox>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" medium-device-size="6" padding="horizontal-small" class="slds-m-top_small">
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label">{labels.ToggleSwitch}</label>
+                        <lightning-input
+                            type="toggle"
+                            label={labels.EnableFeature}
+                            checked={toggleValue}
+                            onchange={handleToggleChange}>
+                        </lightning-input>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-card>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="12" class="slds-m-bottom_large">
+        <!-- Other Input Types -->
+        <lightning-card title={labels.OtherInputTypes}>
+            <div class="slds-m-bottom_medium">
+                <lightning-slider
+                    label={labels.SliderControl}
+                    value={sliderValue}
+                    min="0"
+                    max="100"
+                    step="5"
+                    onchange={handleSliderChange}>
+                </lightning-slider>
+                <div class="slds-text-body_small slds-m-top_x-small">
+                    Current Value: {sliderValue}
+                </div>
+            </div>
+            <lightning-textarea
+                label={labels.TextArea}
+                placeholder={labels.EnterMultipleLines}
+                value={textAreaValue}
+                onchange={handleTextAreaChange}>
+            </lightning-textarea>
+        </lightning-card>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="12" class="slds-m-bottom_large">
+            <lightning-datatable
+                key-field="id"
+                data={datatableData}
+                columns={datatableColumns}>
+            </lightning-datatable>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="12" class="slds-m-bottom_large">
+        <!-- Button Variants -->
+        <lightning-card title={labels.ButtonVariants}>
+            <div class="slds-button-group">
+                <lightning-button
+                    class="slds-m-right_x-small"
+                    label={labels.BaseButton}
+                    onclick={handleButtonClick}>
+                </lightning-button>
+                <lightning-button
+                    class="slds-m-right_x-small"
+                    variant="brand"
+                    label={labels.BrandButton}
+                    onclick={handleBrandButton}>
+                </lightning-button>
+                <lightning-button
+                    class="slds-m-right_x-small"
+                    variant="success"
+                    label={labels.SuccessButton}
+                    onclick={handleSuccessButton}>
+                </lightning-button>
+                <lightning-button
+                    class="slds-m-right_x-small"
+                    variant="neutral"
+                    label={labels.NeutralButton}
+                    onclick={handleNeutralButton}>
+                </lightning-button>
+                <lightning-button
+                    variant="destructive"
+                    label={labels.DestructiveButton}>
+                </lightning-button>
+            </div>
+        </lightning-card>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="12" class="slds-m-bottom_large">
+        <!-- Icon Buttons -->
+        <lightning-card title={labels.IconButtons}>
+            <div class="slds-button-group">
+                <lightning-button-icon
+                    class="slds-m-right_x-small"
+                    icon-name="utility:download"
+                    alternative-text={labels.Download}
+                    title={labels.Download}>
+                </lightning-button-icon>
+                <lightning-button-icon
+                    class="slds-m-right_x-small"
+                    icon-name="utility:edit"
+                    alternative-text={labels.Edit}
+                    title={labels.Edit}>
+                </lightning-button-icon>
+                <lightning-button-icon
+                    class="slds-m-right_x-small"
+                    icon-name="utility:delete"
+                    alternative-text={labels.Delete}
+                    title={labels.Delete}>
+                </lightning-button-icon>
+                <lightning-button-icon
+                    icon-name="utility:refresh"
+                    alternative-text={labels.Refresh}
+                    title={labels.Refresh}>
+                </lightning-button-icon>
+            </div>
+        </lightning-card>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="12" class="slds-m-bottom_large">
+        <!-- Badges -->
+        <lightning-card title={labels.Badges}>
+            <lightning-badge label={labels.DefaultBadge} class="badge-default"></lightning-badge>
+            <lightning-badge label={labels.SuccessBadge} class="slds-m-left_small badge-success"></lightning-badge>
+            <lightning-badge label={labels.WarningBadge} class="slds-m-left_small badge-warning"></lightning-badge>
+            <lightning-badge label={labels.ErrorBadge} class="slds-m-left_small badge-error"></lightning-badge>
+        </lightning-card>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="12" class="slds-m-bottom_large">
+        <!-- Modal Demo -->
+        <lightning-card title={labels.ModalDemo}>
+            <p class="slds-m-bottom_small slds-text-body_regular">
+                Click the button below to open a modal built with <code>lightning-modal-header</code>, <code>lightning-modal-body</code>, and <code>lightning-modal-footer</code>.
+            </p>
+            <lightning-button
+                label={labels.OpenModal}
+                variant="brand"
+                onclick={handleOpenModal}
+                title={labels.OpenDemoModal}>
+            </lightning-button>
+        </lightning-card>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="12" class="slds-m-bottom_large">
+        <!-- Toast Notifications -->
+        <lightning-card title={labels.ToastNotifications}>
+            <div class="slds-p-around_medium toast-demo-grid">
+                <ui-glass-toast
+                    variant="success"
+                    message="Record saved successfully."
+                    icon-name="utility:check">
+                </ui-glass-toast>
+                <ui-glass-toast
+                    variant="default"
+                    message="Your report is ready to view."
+                    icon-name="utility:info_alt">
+                </ui-glass-toast>
+                <ui-glass-toast
+                    variant="warning"
+                    message="This segment has no active members."
+                    icon-name="utility:warning">
+                </ui-glass-toast>
+                <ui-glass-toast
+                    variant="error"
+                    message="Connection failed. Please retry."
+                    icon-name="utility:error">
+                </ui-glass-toast>
+            </div>
+        </lightning-card>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="12" class="slds-m-bottom_large">
+        <!-- Loading Spinner -->
+        <lightning-card title={labels.LoadingSpinner}>
+            <div class="slds-align_absolute-center slds-is-relative spinner-demo">
+                <lightning-spinner alternative-text={labels.Loading} size="medium"></lightning-spinner>
+            </div>
+        </lightning-card>
+        </lightning-layout-item>
+
+        <lightning-layout-item size="12">
+            <div class="slds-text-align_center slds-m-top_large slds-m-bottom_large slds-text-color_weak">
+                Built with Vite + LWC + Lightning Base Components + SLDS
+            </div>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>

@@ -1,0 +1,5 @@
+.ui-agent-message-actions {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}

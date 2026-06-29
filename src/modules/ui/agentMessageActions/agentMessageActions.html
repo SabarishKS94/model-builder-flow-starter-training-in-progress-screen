@@ -1,0 +1,20 @@
+<template>
+    <template if:true={hasActions}>
+        <div class="ui-agent-message-actions">
+            <template if:true={showSingleButton}>
+                <lightning-button label={singleAction.label} variant={singleAction.variant}
+                    icon-name={singleAction.iconName} disabled={singleAction.disabled} data-index="0"
+                    onclick={handleActionClick}></lightning-button>
+            </template>
+            <template if:true={showButtonGroup}>
+                <lightning-button-group>
+                    <template for:each={actionsForGroup} for:item="action">
+                        <lightning-button key={action.rowKey} label={action.label} variant={action.variant}
+                            icon-name={action.iconName} disabled={action.disabled}
+                            data-index={action.rowIndex} onclick={handleActionClick}></lightning-button>
+                    </template>
+                </lightning-button-group>
+            </template>
+        </div>
+    </template>
+</template>

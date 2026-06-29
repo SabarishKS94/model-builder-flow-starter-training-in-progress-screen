@@ -1,0 +1,57 @@
+.cluster-models-page {
+    padding: var(--cos-spacing-4, 16px);
+}
+
+.page-header {
+    background: var(--cos-color-surface-container-2, #f3f3f3);
+    border-radius: 8px;
+    padding: var(--cos-spacing-4, 16px);
+    margin-bottom: var(--cos-spacing-4, 16px);
+}
+
+.header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: var(--cos-spacing-3, 12px);
+}
+
+.header-title-block {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-breadcrumb {
+    font-size: 13px;
+    color: var(--cos-color-on-surface-1, #5c5c5c);
+    line-height: 18px;
+}
+
+.header-title {
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--cos-color-on-surface-3, #001e5b);
+    line-height: 35px;
+    margin: 0;
+}
+
+.header-meta {
+    font-size: 13px;
+    color: var(--cos-color-on-surface-1, #5c5c5c);
+    line-height: 18px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--cos-spacing-2, 8px);
+}
+
+.search-input {
+    width: 220px;
+}

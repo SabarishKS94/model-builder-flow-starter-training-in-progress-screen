@@ -1,0 +1,104 @@
+<template>
+    <lightning-modal-header label={labels.ModalTitle}></lightning-modal-header>
+    <lightning-modal-body>
+        <div class="viewer-container">
+            <!-- Toolbar -->
+            <div class="viewer-toolbar">
+                <div class="toolbar-left">
+                    <span class="cluster-info">{clusterInfo}</span>
+                </div>
+                <div class="toolbar-right">
+                    <lightning-input
+                        type="search"
+                        label={labels.SearchPlaceholder}
+                        variant="label-hidden"
+                        placeholder={labels.SearchPlaceholder}
+                        class="toolbar-search"
+                    ></lightning-input>
+                    <div class="sort-field">
+                        <span class="sort-label">{labels.SortLabel}</span>
+                        <lightning-icon icon-name="utility:down" size="xx-small"></lightning-icon>
+                    </div>
+                    <lightning-button-group>
+                        <lightning-button-icon
+                            icon-name="utility:metrics"
+                            variant={chartViewVariant}
+                            size="small"
+                            alternative-text="Chart view"
+                            onclick={handleViewChart}
+                        ></lightning-button-icon>
+                        <lightning-button-icon
+                            icon-name="utility:table"
+                            variant={tableViewVariant}
+                            size="small"
+                            alternative-text="Table view"
+                            onclick={handleViewTable}
+                        ></lightning-button-icon>
+                        <lightning-button-icon
+                            icon-name="utility:picklist_type"
+                            variant={listViewVariant}
+                            size="small"
+                            alternative-text="List view"
+                            onclick={handleViewList}
+                        ></lightning-button-icon>
+                    </lightning-button-group>
+                </div>
+            </div>
+
+            <!-- Data Content (scrolls together) -->
+            <div class="data-content">
+                <!-- Profile Cards -->
+                <div class="profiles-section">
+                    <div class="profile-index-spacer"></div>
+                    <template for:each={profileCards} for:item="card">
+                        <div key={card.id} class="profile-card">
+                            <div class="profile-header">
+                                <lightning-icon icon-name={card.icon} size="xx-small"></lightning-icon>
+                                <span class="profile-field-name">{card.fieldName}</span>
+                                <span class="profile-field-count">{card.fieldCount}</span>
+                            </div>
+                            <div class="profile-chart">
+                                <template for:each={card.bars} for:item="bar">
+                                    <div key={bar.key} class="bar-row">
+                                        <span class="bar-label">{bar.label}</span>
+                                        <div class="bar-track">
+                                            <div class="bar-fill" style={bar.barStyle}></div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Splitter -->
+                <div class="splitter"></div>
+
+                <!-- Data Table -->
+                <div class="table-section">
+                    <table class="data-table" style={tableStyle}>
+                        <thead>
+                            <tr>
+                                <template for:each={columns} for:item="col">
+                                    <th key={col.fieldName}>{col.label}</th>
+                                </template>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={tableData} for:item="row">
+                                <tr key={row.id}>
+                                    <template for:each={row.cells} for:item="cell">
+                                        <td key={cell.key}>{cell.value}</td>
+                                    </template>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button label={labels.OkButton} variant="brand" onclick={handleOk}></lightning-button>
+    </lightning-modal-footer>
+</template>

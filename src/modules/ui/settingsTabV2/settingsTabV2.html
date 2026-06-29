@@ -1,0 +1,95 @@
+<template>
+    <div class="settings-container">
+
+        <!-- Page Heading -->
+        <div class="settings-heading">
+            <h2 class="slds-text-heading_medium slds-m-bottom_xx-small">{labels.HeroHeadline}</h2>
+            <p class="slds-text-body_small slds-text-color_weak">{labels.HeroSubtext}</p>
+        </div>
+
+        <!-- Scoped Notification — Information -->
+        <template lwc:if={showOrgNotification}>
+            <div class="slds-scoped-notification slds-media slds-media_center slds-theme_info" role="status">
+                <div class="slds-media__figure">
+                    <lightning-icon icon-name="utility:info" size="x-small" variant="inverse"></lightning-icon>
+                </div>
+                <div class="slds-media__body">
+                    <p>
+                        {labels.OrgCalloutText}
+                        <a href="#" onclick={handleEnableNow} class="slds-text-link slds-m-left_xx-small">{labels.OrgCalloutLinkText}</a>
+                    </p>
+                </div>
+            </div>
+        </template>
+
+        <!-- Feature Card: Drift Tracking -->
+        <lightning-card>
+            <div slot="title" class="card-title-slot">
+                <lightning-icon icon-name="standard:shipment" size="small" class="slds-m-right_x-small"></lightning-icon>
+                <span>{labels.DriftTrackingTitle}</span>
+            </div>
+            <div slot="actions" class={driftActionsClass}>
+                <template lwc:if={driftEnabled}>
+                    <lightning-button class="btn-default" label={labels.EnabledBadge} variant="brand" icon-name="utility:check" onclick={handleDriftToggle}></lightning-button>
+                    <lightning-button class="btn-hover" label={labels.DisableButton} variant="destructive-text" icon-name="utility:close" onclick={handleDriftToggle}></lightning-button>
+                </template>
+                <template lwc:else>
+                    <lightning-button label={labels.EnableButton} variant="neutral" disabled={isDriftDisabled} onclick={handleDriftToggle}></lightning-button>
+                </template>
+            </div>
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_small">{labels.DriftTrackingDescription}</p>
+                <template lwc:if={showPreview}>
+                    <lightning-accordion allow-multiple-sections-open active-section-name="drift-preview">
+                        <lightning-accordion-section name="drift-preview" label={labels.PreviewTitle}>
+                            <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_small">{labels.DriftPreviewText}</p>
+                            <div class="preview-img-container">
+                                <img src="/images/drift-tracking-preview.png" alt="Drift Tracking Preview" class="preview-img">
+                            </div>
+                        </lightning-accordion-section>
+                    </lightning-accordion>
+                </template>
+            </div>
+        </lightning-card>
+
+        <!-- Feature Card: NBA -->
+        <lightning-card>
+            <div slot="title" class="card-title-slot">
+                <lightning-icon icon-name="standard:agent_astro" size="small" class="slds-m-right_x-small"></lightning-icon>
+                <span>{labels.NbaTitle}</span>
+            </div>
+            <div slot="actions" class={nbaActionsClass}>
+                <template lwc:if={nbaEnabled}>
+                    <lightning-button class="btn-default" label={labels.EnabledBadge} variant="brand" icon-name="utility:check" onclick={handleNbaToggle}></lightning-button>
+                    <lightning-button class="btn-hover" label={labels.DisableButton} variant="destructive-text" icon-name="utility:close" onclick={handleNbaToggle}></lightning-button>
+                </template>
+                <template lwc:else>
+                    <lightning-button label={labels.EnableButton} variant="neutral" disabled={isNbaDisabled} onclick={handleNbaToggle}></lightning-button>
+                </template>
+            </div>
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_small">{labels.NbaDescription}</p>
+                <template lwc:if={showPreview}>
+                    <lightning-accordion allow-multiple-sections-open active-section-name="nba-preview">
+                        <lightning-accordion-section name="nba-preview" label={labels.PreviewTitle}>
+                            <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_small">{labels.NbaPreviewText}</p>
+                            <div class="preview-img-container">
+                                <img src="/images/nba-card-preview.png" alt="NBA Card Preview" class="preview-img">
+                            </div>
+                        </lightning-accordion-section>
+                    </lightning-accordion>
+                </template>
+            </div>
+        </lightning-card>
+
+    </div>
+
+    <!-- Confirmation Modal -->
+    <ui-enable-modal
+        feature-name={pendingFeature}
+        visible={showModal}
+        is-disabling={isDisabling}
+        onclose={handleModalClose}
+        onconfirm={handleModalConfirm}
+    ></ui-enable-modal>
+</template>

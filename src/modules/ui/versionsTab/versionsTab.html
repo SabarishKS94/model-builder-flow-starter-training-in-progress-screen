@@ -1,0 +1,85 @@
+<template>
+    <lightning-card title="Model Versions" class="versions-card">
+        <div slot="actions">
+            <lightning-button label="Compare Versions" variant="neutral" onclick={handleCompareVersions}></lightning-button>
+        </div>
+        <div class="table-container">
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered" aria-label="Model Versions">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Version">Version</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Status">Status</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Description">Description</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="No of clusters (K)">No of clusters (K)</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Silhouette Score">Silhouette Score</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Algorithm">Algorithm</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Created by">Created by</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col">
+                            <div class="slds-truncate" title="Created On">Created On</div>
+                        </th>
+                        <th class="slds-text-title_caps row-action-col" scope="col">
+                            <div class="slds-truncate" title="Actions"></div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={versions} for:item="version">
+                        <tr key={version.id} class="slds-hint-parent">
+                            <td data-label="Version">
+                                <div class="slds-truncate">{version.number}</div>
+                            </td>
+                            <td data-label="Status">
+                                <div class="slds-truncate">
+                                    <span class={version.statusClass}>
+                                        <template lwc:if={version.statusIcon}>
+                                            <lightning-icon icon-name={version.statusIcon} size="x-small" class="status-icon"></lightning-icon>
+                                        </template>
+                                        {version.status}
+                                    </span>
+                                </div>
+                            </td>
+                            <td data-label="Description">
+                                <div class="slds-truncate" title={version.description}>{version.description}</div>
+                            </td>
+                            <td data-label="No of clusters (K)">
+                                <div class="slds-truncate">{version.clusters}</div>
+                            </td>
+                            <td data-label="Silhouette Score">
+                                <div class="slds-truncate">{version.silhouetteScore}</div>
+                            </td>
+                            <td data-label="Algorithm">
+                                <div class="slds-truncate">{version.algorithm}</div>
+                            </td>
+                            <td data-label="Created by">
+                                <div class="slds-truncate created-by-cell">
+                                    <lightning-icon icon-name="standard:user" size="x-small" class="avatar-icon"></lightning-icon>
+                                    <a href="#" class="user-link">{version.createdBy}</a>
+                                </div>
+                            </td>
+                            <td data-label="Created On">
+                                <div class="slds-truncate">{version.createdOn}</div>
+                            </td>
+                            <td>
+                                <lightning-button-icon icon-name="utility:down" variant="border-filled" size="small" alternative-text="Row actions"></lightning-button-icon>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,74 @@
+<!-- src/modules/shell/cosmosApp/cosmosApp.html — Cosmos Shell (glass effect) -->
+<template>
+    <template lwc:if={isAuthenticated}>
+        <!-- Aurora ambient background -->
+        <template lwc:if={showShellChrome}>
+            <ui-aurora-background brand={activeBrand}></ui-aurora-background>
+        </template>
+
+        <!-- Fixed overlay: global header + context bar -->
+        <template lwc:if={showShellChrome}>
+            <shell-global-shell
+                class="cosmos-shell-header"
+                current-page={currentNavPage}
+                nav-items={navItems}
+                apps={allApps}
+                active-app-label={activeAppLabel}
+                active-app-id={activeAppId}
+                user={_authUser}
+                onnavigate={handleNavNavigate}
+                onappswitch={handleAppSwitch}
+                onpanelselect={handlePanelSelect}>
+            </shell-global-shell>
+        </template>
+
+        <!-- Fixed overlay: left nav -->
+        <template lwc:if={showVerticalNav}>
+            <shell-vertical-nav
+                class="cosmos-shell-nav"
+                nav-items={verticalNavItems}
+                current-page={currentNavPage}
+                current-path={currentPath}
+                onnavigate={handleNavNavigate}
+                oncollapsetoggle={handleNavCollapseToggle}
+                ontooltipshow={handleNavTooltipShow}
+                ontooltiphide={handleNavTooltipHide}>
+            </shell-vertical-nav>
+        </template>
+
+        <!-- Portaled nav tooltip (rendered outside backdrop-filter container) -->
+        <template lwc:if={_navTooltip}>
+            <div class="cosmos-nav-tooltip slds-popover slds-popover_tooltip slds-nubbin_left"
+                 role="tooltip"
+                 style={navTooltipStyle}>
+                <div class="slds-popover__body">{_navTooltip.text}</div>
+            </div>
+        </template>
+
+        <!-- Content: full-viewport base layer, scrolls behind fixed overlays -->
+        <main class={contentClasses}>
+            <div class="cosmos-content__inner">
+                <template lwc:if={componentCtor}>
+                    <lwc:component lwc:is={componentCtor} onnavigateback={handleNavigateBack}></lwc:component>
+                </template>
+            </div>
+            <template lwc:if={showShellChrome}>
+                <shell-theme-switcher
+                    active-theme={_activeTheme}
+                    onapplytheme={handleApplyTheme}
+                    onapplybrand={handleApplyBrand}>
+                </shell-theme-switcher>
+            </template>
+        </main>
+
+        <!-- Fixed overlay: right panel (slides in/out) -->
+        <template lwc:if={showShellChrome}>
+            <div class={panelOverlayClasses}>
+                <shell-panel selected-panel={selectedPanel} onpanelclose={handlePanelClose} onrequestapikey={handleRequestApiKey}></shell-panel>
+            </div>
+        </template>
+    </template>
+    <template lwc:elseif={isAuthChecked}>
+        <shell-login></shell-login>
+    </template>
+</template>

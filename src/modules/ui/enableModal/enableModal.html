@@ -1,0 +1,41 @@
+<template>
+    <template lwc:if={visible}>
+        <div class="modal-backdrop" onclick={handleClose}></div>
+        <div class="modal-container" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div class="modal-header">
+                <h2 id="modal-title" class="modal-title">{modalTitle}</h2>
+                <lightning-button-icon
+                    icon-name="utility:close"
+                    variant="bare"
+                    alternative-text={labels.CloseAltText}
+                    onclick={handleClose}
+                    class="modal-close"
+                ></lightning-button-icon>
+            </div>
+            <div class="modal-body">
+                <p class="modal-body-text">{bodyText}</p>
+                <div class="modal-checkbox">
+                    <lightning-input
+                        type="checkbox"
+                        label={checkboxLabel}
+                        checked={agreed}
+                        onchange={handleCheckboxChange}
+                    ></lightning-input>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <lightning-button
+                    label={labels.CancelButton}
+                    variant="neutral"
+                    onclick={handleCancel}
+                ></lightning-button>
+                <lightning-button
+                    label={confirmButtonLabel}
+                    variant="brand"
+                    disabled={isConfirmDisabled}
+                    onclick={handleConfirm}
+                ></lightning-button>
+            </div>
+        </div>
+    </template>
+</template>

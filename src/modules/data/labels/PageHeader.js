@@ -1,0 +1,9 @@
+export const SearchPlaceholder = 'Search this list...';
+export const ListViewControls = 'List View Controls';
+export const ChangeView = 'Change view';
+export const EditList = 'Edit List';
+export const RefreshList = 'Refresh List';
+export const Charts = 'Charts';
+export const Filters = 'Filters';
+export const Search = 'Search';
+export const ThisList = 'this list';

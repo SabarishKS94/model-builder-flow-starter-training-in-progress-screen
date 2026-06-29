@@ -1,0 +1,16 @@
+.app-launcher-dropdown {
+    min-width: 180px;
+}
+
+.globalNavigation-dropdownItem > a {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.app-check-placeholder {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+}

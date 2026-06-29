@@ -1,0 +1,18 @@
+<template>
+    <lightning-layout class="global-shell" multiple-rows>
+        <lightning-layout-item size="12" padding="none">
+            <shell-global-header user={user} onpanelselect={handlePanelSelect}></shell-global-header>
+        </lightning-layout-item>
+        <lightning-layout-item size="12" padding="none">
+            <shell-global-navigation
+                current-page={currentPage}
+                nav-items={navItems}
+                apps={apps}
+                active-app-label={activeAppLabel}
+                active-app-id={activeAppId}
+                onnavigate={handleNavigate}
+                onappswitch={handleAppSwitch}>
+            </shell-global-navigation>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>

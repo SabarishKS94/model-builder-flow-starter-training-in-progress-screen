@@ -1,0 +1,163 @@
+/* Container */
+.aurora-container {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: 0;
+    display: none;
+}
+.aurora-container.aurora-active {
+    display: block;
+    animation: auroraFadeIn 1.5s ease-out forwards;
+}
+.aurora-container.aurora-deactivating {
+    animation: auroraFadeOut 1.2s ease-in forwards;
+}
+
+/* Blob groups */
+.aurora-group-a {
+    position: absolute;
+    inset: 0;
+    filter: blur(135px);
+}
+.aurora-group-b {
+    position: absolute;
+    inset: 0;
+    filter: blur(120px);
+    opacity: 0.45;
+    mix-blend-mode: color-dodge;
+}
+.aurora-blob {
+    position: absolute;
+    border-radius: 50%;
+    transform-origin: center bottom;
+}
+
+/* Group A blobs */
+.blob-a1 {
+    width: 900px; height: 600px;
+    bottom: -380px; left: -150px;
+    background: radial-gradient(ellipse at center, rgba(6,106,254,0.75) 0%, transparent 60%);
+    animation: auroraBlob1 4.5s ease-in-out infinite;
+}
+.blob-a2 {
+    width: 850px; height: 560px;
+    bottom: -340px; right: -100px;
+    background: radial-gradient(ellipse at center, rgba(115,3,148,0.75) 0%, transparent 60%);
+    animation: auroraBlob2 5.2s ease-in-out infinite;
+}
+.blob-a3 {
+    width: 800px; height: 450px;
+    bottom: -280px; left: 25%;
+    background: radial-gradient(ellipse at center, rgba(6,106,254,0.75) 0%, transparent 60%);
+    animation: auroraBlob3 3.8s ease-in-out infinite;
+}
+
+/* Group B blobs */
+.blob-b1 {
+    width: 800px; height: 525px;
+    bottom: -340px; left: 10%;
+    background: radial-gradient(ellipse at center, rgba(6,106,254,0.7) 0%, transparent 55%);
+    animation: auroraDodge1 5.8s ease-in-out infinite;
+}
+.blob-b2 {
+    width: 700px; height: 450px;
+    bottom: -290px; right: 5%;
+    background: radial-gradient(ellipse at center, rgba(115,3,148,0.7) 0%, transparent 55%);
+    animation: auroraDodge2 4.8s ease-in-out infinite;
+}
+
+/* Noise overlay */
+.aurora-noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.08;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+}
+
+/* Voice button */
+.voice-btn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 250px;
+    z-index: 99999;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    font-family: system-ui;
+}
+.voice-btn-active {
+    animation: voicePulse 2s ease-in-out infinite;
+    border-color: #066AFE;
+    background: rgba(6, 106, 254, 0.25);
+}
+
+/* Keyframes */
+@keyframes auroraFadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes auroraFadeOut { from { opacity: 1; } to { opacity: 0; } }
+
+@keyframes auroraBlob1 {
+    0%   { transform: scaleX(1.0) scaleY(1.0) translateY(0); }
+    12%  { transform: scaleX(1.02) scaleY(1.10) translateY(-8px); }
+    28%  { transform: scaleX(0.99) scaleY(0.97) translateY(2px); }
+    42%  { transform: scaleX(1.03) scaleY(1.07) translateY(-5px); }
+    60%  { transform: scaleX(0.98) scaleY(0.98) translateY(1px); }
+    75%  { transform: scaleX(1.01) scaleY(1.12) translateY(-10px); }
+    88%  { transform: scaleX(0.99) scaleY(1.02) translateY(-2px); }
+    100% { transform: scaleX(1.0) scaleY(1.0) translateY(0); }
+}
+@keyframes auroraBlob2 {
+    0%   { transform: scaleX(1.0) scaleY(1.0) translateY(0); }
+    10%  { transform: scaleX(0.99) scaleY(1.08) translateY(-6px); }
+    25%  { transform: scaleX(1.02) scaleY(0.96) translateY(3px); }
+    38%  { transform: scaleX(0.98) scaleY(1.11) translateY(-9px); }
+    55%  { transform: scaleX(1.01) scaleY(0.98) translateY(1px); }
+    70%  { transform: scaleX(1.03) scaleY(1.06) translateY(-4px); }
+    85%  { transform: scaleX(0.99) scaleY(1.01) translateY(-1px); }
+    100% { transform: scaleX(1.0) scaleY(1.0) translateY(0); }
+}
+@keyframes auroraBlob3 {
+    0%   { transform: scaleX(1.0) scaleY(1.0) translateY(0); }
+    15%  { transform: scaleX(1.03) scaleY(1.13) translateY(-12px); }
+    30%  { transform: scaleX(0.98) scaleY(0.97) translateY(2px); }
+    48%  { transform: scaleX(1.01) scaleY(1.05) translateY(-4px); }
+    62%  { transform: scaleX(0.99) scaleY(0.99) translateY(0); }
+    78%  { transform: scaleX(1.02) scaleY(1.09) translateY(-7px); }
+    90%  { transform: scaleX(1.0) scaleY(1.02) translateY(-1px); }
+    100% { transform: scaleX(1.0) scaleY(1.0) translateY(0); }
+}
+@keyframes auroraDodge1 {
+    0%   { transform: scaleX(1.0) scaleY(1.0) translateY(0); opacity: 0.42; }
+    14%  { transform: scaleX(1.03) scaleY(1.11) translateY(-9px); opacity: 0.52; }
+    30%  { transform: scaleX(0.98) scaleY(0.97) translateY(2px); opacity: 0.40; }
+    45%  { transform: scaleX(1.02) scaleY(1.08) translateY(-6px); opacity: 0.50; }
+    62%  { transform: scaleX(0.99) scaleY(0.98) translateY(1px); opacity: 0.38; }
+    76%  { transform: scaleX(1.01) scaleY(1.10) translateY(-8px); opacity: 0.48; }
+    90%  { transform: scaleX(1.0) scaleY(1.02) translateY(-1px); opacity: 0.43; }
+    100% { transform: scaleX(1.0) scaleY(1.0) translateY(0); opacity: 0.42; }
+}
+@keyframes auroraDodge2 {
+    0%   { transform: scaleX(1.0) scaleY(1.0) translateY(0); opacity: 0.42; }
+    11%  { transform: scaleX(1.02) scaleY(1.09) translateY(-7px); opacity: 0.50; }
+    26%  { transform: scaleX(0.99) scaleY(0.97) translateY(2px); opacity: 0.39; }
+    40%  { transform: scaleX(1.01) scaleY(1.12) translateY(-10px); opacity: 0.53; }
+    56%  { transform: scaleX(0.98) scaleY(0.99) translateY(0); opacity: 0.40; }
+    72%  { transform: scaleX(1.03) scaleY(1.07) translateY(-5px); opacity: 0.47; }
+    86%  { transform: scaleX(1.0) scaleY(1.01) translateY(-1px); opacity: 0.43; }
+    100% { transform: scaleX(1.0) scaleY(1.0) translateY(0); opacity: 0.42; }
+}
+@keyframes voicePulse {
+    0%, 100% { box-shadow: 0 0 8px rgba(6, 106, 254, 0.4), 0 0 20px rgba(115, 3, 148, 0.2); }
+    50%      { box-shadow: 0 0 12px rgba(6, 106, 254, 0.7), 0 0 30px rgba(115, 3, 148, 0.4); }
+}

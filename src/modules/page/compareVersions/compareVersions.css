@@ -1,0 +1,456 @@
+/* Builder Header */
+.builder-header {
+    display: flex;
+    align-items: center;
+    background: #032d60;
+    height: 48px;
+}
+
+.builder-header-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+    height: 100%;
+    border-right: 1px solid #001639;
+    cursor: pointer;
+}
+
+.builder-header-title {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    height: 100%;
+    border-right: 1px solid #001639;
+    color: #fff;
+    font-size: 0.8125rem;
+}
+
+.builder-header-spacer {
+    flex: 1;
+}
+
+/* Builder Toolbar */
+.builder-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background: #fff;
+    box-shadow: 0 1px 0 0 #c9c9c9;
+}
+
+.toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.toolbar-combobox {
+    width: 220px;
+}
+
+.toolbar-updated {
+    font-size: 0.8125rem;
+    color: #444;
+    margin-left: 0.5rem;
+}
+
+.toolbar-right {
+    display: flex;
+    align-items: center;
+}
+
+/* Content Area */
+.content-area {
+    padding: 1.5rem;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* Page Header */
+.page-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.page-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #181818;
+    margin: 0;
+}
+
+.page-meta {
+    font-size: 0.75rem;
+    color: #6b6b73;
+}
+
+/* Version Selector */
+.version-selector-section {
+    margin-bottom: 1.5rem;
+}
+
+.selector-label {
+    font-size: 0.75rem;
+    color: #6b6b73;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.selector-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.version-combobox {
+    flex: 1;
+    max-width: 340px;
+}
+
+.vs-label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #181818;
+}
+
+.selector-divider {
+    height: 1px;
+    background: #d9dee5;
+    margin-top: 1rem;
+}
+
+/* Verdict Banner */
+.verdict-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: #acf3e4;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.verdict-icon {
+    flex-shrink: 0;
+}
+
+.verdict-text {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #056764;
+    line-height: 1.4;
+}
+
+/* Score Section */
+.score-section {
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #181818;
+    margin: 0 0 0.75rem;
+}
+
+.score-grid {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.score-card {
+    flex: 1;
+    padding: 1rem 1.25rem;
+    border-radius: 0.5rem;
+    border: 2px solid transparent;
+}
+
+.score-card-label {
+    font-size: 0.8125rem;
+    color: #444;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.score-card-value {
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: #181818;
+    line-height: 1;
+}
+
+.score-card_best {
+    background: #ebfaf6;
+    border-color: #2e844a;
+}
+
+.score-card_neutral {
+    background: #fff;
+    border-color: #c9c9c9;
+}
+
+.score-card_worst {
+    background: #fce4ec;
+    border-color: #fce4ec;
+}
+
+/* Comparison Tables */
+.comparison-section {
+    margin-bottom: 2rem;
+}
+
+.subsection {
+    margin-bottom: 1.25rem;
+}
+
+.subsection-title {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #181818;
+    margin: 0 0 0.5rem;
+}
+
+table.slds-table {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid var(--slds-g-color-border-1, #c9c9c9);
+    table-layout: fixed;
+    width: 100%;
+}
+
+table.slds-table th:nth-child(1) { width: 22%; }
+table.slds-table th:nth-child(2) { width: 22%; }
+table.slds-table th:nth-child(3) { width: 22%; }
+table.slds-table th:nth-child(4) { width: 22%; }
+table.slds-table th:nth-child(5) { width: 12%; }
+
+.slds-text-title_bold {
+    font-weight: 700;
+}
+
+.cell-highlight {
+    background: #ebfaf6;
+}
+
+/* Nested Card */
+.nested-card {
+    border: 1px solid var(--slds-g-color-border-1, #c9c9c9);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.nested-card-header {
+    padding: 1rem 1.5rem;
+}
+
+.nested-card-title {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #181818;
+}
+
+.nested-card-body {
+    padding: 0 1.5rem 1.5rem;
+}
+
+/* Chart Legend */
+.chart-legend {
+    display: flex;
+    gap: 1.25rem;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.75rem;
+    color: #444;
+}
+
+.legend-swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    display: inline-block;
+}
+
+.legend-billing { background: #032d60; }
+.legend-support { background: #0b5cab; }
+.legend-feedback { background: #1b96ff; }
+.legend-bug { background: #90cdf4; }
+.legend-feature { background: #b4dff7; }
+.legend-onboarding { background: #d4f0e6; }
+
+/* Chart Area */
+.chart-area {
+    position: relative;
+}
+
+.chart-axis {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.6875rem;
+    color: #6b6b73;
+    margin-bottom: 0.5rem;
+    padding-left: 80px;
+}
+
+.chart-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.chart-label {
+    width: 80px;
+    flex-shrink: 0;
+}
+
+.chart-version-name {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #0b5cab;
+    display: block;
+}
+
+.chart-version-meta {
+    font-size: 0.6875rem;
+    color: #6b6b73;
+}
+
+.chart-bar {
+    display: flex;
+    flex: 1;
+    height: 40px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.bar-segment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.bar-segment span {
+    font-size: 0.6875rem;
+    color: #fff;
+    white-space: nowrap;
+    padding: 0 0.25rem;
+}
+
+.bar-billing { background: #032d60; }
+.bar-support { background: #0b5cab; }
+.bar-feedback { background: #1b96ff; }
+.bar-bug { background: #90cdf4; }
+.bar-bug span { color: #181818; }
+.bar-feature { background: #b4dff7; }
+.bar-feature span { color: #181818; }
+.bar-onboarding { background: #d4f0e6; }
+.bar-onboarding span { color: #181818; }
+
+/* SHAP chart colors */
+.bar-shap-1 { background: #032d60; }
+.bar-shap-2 { background: #0b5cab; }
+.bar-shap-3 { background: #1b96ff; }
+.bar-shap-4 { background: #90cdf4; }
+.bar-shap-4 span { color: #181818; }
+.bar-shap-5 { background: #d4f0e6; }
+.bar-shap-5 span { color: #181818; }
+
+.legend-shap-1 { background: #032d60; }
+.legend-shap-2 { background: #0b5cab; }
+.legend-shap-3 { background: #1b96ff; }
+.legend-shap-4 { background: #90cdf4; }
+.legend-shap-5 { background: #d4f0e6; }
+
+.bar-segment {
+    cursor: pointer;
+    transition: opacity 0.15s;
+}
+
+.bar-segment:hover {
+    opacity: 0.85;
+}
+
+/* Chart Tooltip */
+.chart-tooltip {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    background: #032d60;
+    color: #fff;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    font-size: 0.75rem;
+    z-index: 100;
+    pointer-events: none;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    min-width: 180px;
+}
+
+.tooltip-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.tooltip-dim-label {
+    color: #90cdf4;
+    font-size: 0.6875rem;
+}
+
+.tooltip-dim-value {
+    font-weight: 700;
+    font-size: 0.8125rem;
+}
+
+.tooltip-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 0.5rem 0;
+}
+
+.tooltip-measure-swatch {
+    width: 3px;
+    height: 14px;
+    background: #1b96ff;
+    border-radius: 1px;
+    flex-shrink: 0;
+}
+
+.tooltip-measure-label {
+    flex: 1;
+    color: #90cdf4;
+    font-size: 0.6875rem;
+}
+
+.tooltip-measure-value {
+    font-weight: 700;
+    font-size: 0.8125rem;
+}
+
+.tooltip-pct {
+    display: block;
+    text-align: right;
+    color: #90cdf4;
+    font-size: 0.6875rem;
+    margin-top: 0.125rem;
+}
+
+.chart-footnote {
+    font-size: 0.75rem;
+    color: #6b6b73;
+    margin: 1rem 0 0;
+}

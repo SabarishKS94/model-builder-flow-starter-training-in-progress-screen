@@ -1,0 +1,301 @@
+<template>
+    <!-- Builder Header -->
+    <div class="builder-header">
+        <div class="builder-header-back" onclick={handleBack}>
+            <lightning-icon icon-name="utility:back" size="small" variant="inverse"></lightning-icon>
+        </div>
+        <div class="builder-header-title">
+            <span>Version Comparison</span>
+        </div>
+        <div class="builder-header-spacer"></div>
+    </div>
+
+    <!-- Builder Toolbar -->
+    <div class="builder-toolbar">
+        <div class="toolbar-left">
+            <lightning-combobox
+                name="activeVersion"
+                variant="label-hidden"
+                placeholder="Select version"
+                options={activeVersionOptions}
+                value={activeVersionValue}
+                class="toolbar-combobox"
+            ></lightning-combobox>
+            <lightning-button label="Settings" icon-name="utility:settings" variant="neutral"></lightning-button>
+            <span class="toolbar-updated">Last Updated Apr 16 2023, 10:30 AM</span>
+        </div>
+        <div class="toolbar-right">
+            <lightning-button label="Deactivate" variant="neutral"></lightning-button>
+        </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content-area">
+        <!-- Page Header -->
+        <div class="page-header-row">
+            <h1 class="page-title">Version Comparison</h1>
+            <span class="page-meta">Last updated 5 hours ago &middot; evaluated on 24,800 records</span>
+        </div>
+
+        <!-- Version Selector -->
+        <div class="version-selector-section">
+            <span class="selector-label">Select the versions that you want to compare</span>
+            <div class="selector-row">
+                <lightning-combobox
+                    name="version1"
+                    variant="label-hidden"
+                    placeholder="Select version"
+                    options={versionOptions}
+                    value={version1Value}
+                    onchange={handleVersion1Change}
+                    class="version-combobox"
+                ></lightning-combobox>
+                <span class="vs-label">VS</span>
+                <lightning-combobox
+                    name="version2"
+                    variant="label-hidden"
+                    placeholder="Select version"
+                    options={versionOptions}
+                    value={version2Value}
+                    onchange={handleVersion2Change}
+                    class="version-combobox"
+                ></lightning-combobox>
+                <span class="vs-label">VS</span>
+                <lightning-combobox
+                    name="version3"
+                    variant="label-hidden"
+                    placeholder="Select version"
+                    options={versionOptions}
+                    value={version3Value}
+                    onchange={handleVersion3Change}
+                    class="version-combobox"
+                ></lightning-combobox>
+            </div>
+            <div class="selector-divider"></div>
+        </div>
+
+        <!-- Verdict Notification -->
+        <div class="verdict-banner">
+            <lightning-icon icon-name="utility:success" size="x-small" class="verdict-icon"></lightning-icon>
+            <span class="verdict-text">{verdictText}</span>
+        </div>
+
+        <!-- Overall Score -->
+        <div class="score-section">
+            <h2 class="section-title">Overall score</h2>
+            <div class="score-grid">
+                <template for:each={scoreCards} for:item="card">
+                    <div key={card.key} class={card.className}>
+                        <span class="score-card-label">{card.label}</span>
+                        <span class="score-card-value">{card.value}</span>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <!-- Detailed Comparison -->
+        <div class="comparison-section">
+            <h2 class="section-title">Detailed comparison</h2>
+
+            <!-- Quality & confidence -->
+            <div class="subsection">
+                <h3 class="subsection-title">Quality &amp; confidence</h3>
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered" aria-label="Quality and confidence metrics">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th scope="col"><div class="slds-truncate" title="Metric">Metric</div></th>
+                            <template for:each={tableHeaderVersions} for:item="hdr">
+                                <th key={hdr.key} scope="col" class="slds-text-align_right">
+                                    <div class="slds-truncate" title={hdr.label}>
+                                        {hdr.label}
+                                        <template lwc:if={hdr.isRecommended}>
+                                            <lightning-icon icon-name="utility:success" size="xx-small" class="slds-m-left_xx-small"></lightning-icon>
+                                        </template>
+                                    </div>
+                                </th>
+                            </template>
+                            <th scope="col" class="slds-text-align_right"><div class="slds-truncate" title="Winner">Winner</div></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={qualityTableRows} for:item="row">
+                            <tr key={row.key}>
+                                <td><div class="slds-truncate">{row.metric}</div></td>
+                                <template for:each={row.values} for:item="cell">
+                                    <td key={cell.key} class={cell.cellClass}>{cell.val}</td>
+                                </template>
+                                <td class="slds-text-align_right">{row.winner}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Structure & coverage -->
+            <div class="subsection">
+                <h3 class="subsection-title">Structure &amp; coverage</h3>
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered" aria-label="Structure and coverage metrics">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th scope="col"><div class="slds-truncate" title="Metric">Metric</div></th>
+                            <template for:each={tableHeaderVersions} for:item="hdr">
+                                <th key={hdr.key} scope="col" class="slds-text-align_right">
+                                    <div class="slds-truncate" title={hdr.label}>
+                                        {hdr.label}
+                                        <template lwc:if={hdr.isRecommended}>
+                                            <lightning-icon icon-name="utility:success" size="xx-small" class="slds-m-left_xx-small"></lightning-icon>
+                                        </template>
+                                    </div>
+                                </th>
+                            </template>
+                            <th scope="col" class="slds-text-align_right"><div class="slds-truncate" title="Winner">Winner</div></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={structureTableRows} for:item="row">
+                            <tr key={row.key}>
+                                <td><div class="slds-truncate">{row.metric}</div></td>
+                                <template for:each={row.values} for:item="cell">
+                                    <td key={cell.key} class={cell.cellClass}>{cell.val}</td>
+                                </template>
+                                <td class="slds-text-align_right">{row.winner}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Operational -->
+            <div class="subsection">
+                <h3 class="subsection-title">Operational</h3>
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered" aria-label="Operational metrics">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th scope="col"><div class="slds-truncate" title="Metric">Metric</div></th>
+                            <template for:each={tableHeaderVersions} for:item="hdr">
+                                <th key={hdr.key} scope="col" class="slds-text-align_right">
+                                    <div class="slds-truncate" title={hdr.label}>
+                                        {hdr.label}
+                                        <template lwc:if={hdr.isRecommended}>
+                                            <lightning-icon icon-name="utility:success" size="xx-small" class="slds-m-left_xx-small"></lightning-icon>
+                                        </template>
+                                    </div>
+                                </th>
+                            </template>
+                            <th scope="col" class="slds-text-align_right"><div class="slds-truncate" title="Winner">Winner</div></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={operationalTableRows} for:item="row">
+                            <tr key={row.key}>
+                                <td><div class="slds-truncate">{row.metric}</div></td>
+                                <template for:each={row.values} for:item="cell">
+                                    <td key={cell.key} class={cell.cellClass}>{cell.val}</td>
+                                </template>
+                                <td class="slds-text-align_right">{row.winner}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Label Distribution Chart -->
+        <div class="nested-card">
+            <div class="nested-card-header">
+                <span class="nested-card-title">Label distribution across versions</span>
+            </div>
+            <div class="nested-card-body">
+            <div class="chart-legend">
+                <span class="legend-item"><span class="legend-swatch legend-billing"></span>Billing</span>
+                <span class="legend-item"><span class="legend-swatch legend-support"></span>Support</span>
+                <span class="legend-item"><span class="legend-swatch legend-feedback"></span>Feedback</span>
+                <span class="legend-item"><span class="legend-swatch legend-bug"></span>Bug</span>
+                <span class="legend-item"><span class="legend-swatch legend-feature"></span>Feature Request</span>
+                <span class="legend-item"><span class="legend-swatch legend-onboarding"></span>Onboarding</span>
+            </div>
+            <div class="chart-area">
+                <div class="chart-axis">
+                    <span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
+                </div>
+                <template for:each={labelChartRows} for:item="row">
+                    <div class="chart-row" key={row.version}>
+                        <div class="chart-label">
+                            <span class="chart-version-name">{row.version}</span>
+                            <span class="chart-version-meta">{row.meta}</span>
+                        </div>
+                        <div class="chart-bar" onmouseover={handleSegmentHover} onmouseout={handleSegmentLeave}>
+                            <template for:each={row.segments} for:item="seg">
+                                <div key={seg.key} class={seg.className} style={seg.style}
+                                     data-label={seg.label} data-value={seg.value} data-pct={seg.pct} data-version={row.version}>
+                                    <span>{seg.text}</span>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            <p class="chart-footnote">Each bar = one version, normalized to 100%. Segment width = % of that version's records assigned to the label. Counts shown inside segments are raw record counts.</p>
+            </div>
+        </div>
+
+        <!-- SHAP Distribution Chart -->
+        <div class="nested-card">
+            <div class="nested-card-header">
+                <span class="nested-card-title">SHAP distribution across versions</span>
+            </div>
+            <div class="nested-card-body">
+            <div class="chart-legend">
+                <span class="legend-item"><span class="legend-swatch legend-shap-1"></span>Products purchases in last month</span>
+                <span class="legend-item"><span class="legend-swatch legend-shap-2"></span>Total amount spent in last month</span>
+                <span class="legend-item"><span class="legend-swatch legend-shap-3"></span>Product Review</span>
+                <span class="legend-item"><span class="legend-swatch legend-shap-4"></span>Customer Care Feedback</span>
+                <span class="legend-item"><span class="legend-swatch legend-shap-5"></span>Customer Tier</span>
+            </div>
+            <div class="chart-area">
+                <div class="chart-axis">
+                    <span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
+                </div>
+                <template for:each={shapChartRows} for:item="row">
+                    <div class="chart-row" key={row.version}>
+                        <div class="chart-label">
+                            <span class="chart-version-name">{row.version}</span>
+                            <span class="chart-version-meta">{row.meta}</span>
+                        </div>
+                        <div class="chart-bar" onmouseover={handleSegmentHover} onmouseout={handleSegmentLeave}>
+                            <template for:each={row.segments} for:item="seg">
+                                <div key={seg.key} class={seg.className} style={seg.style}
+                                     data-label={seg.label} data-value={seg.value} data-pct={seg.pct} data-version={row.version}>
+                                    <span>{seg.text}</span>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            <p class="chart-footnote">Each bar = one version, normalized to 100%. Segment width = % importance of that predictor in driving cluster formation. Shows how the model's reliance on each variable shifts across versions.</p>
+            </div>
+        </div>
+
+        <!-- Chart Tooltip -->
+        <template lwc:if={showTooltip}>
+            <div class="chart-tooltip" style={tooltipStyle}>
+                <div class="tooltip-row">
+                    <span class="tooltip-dim-label">Version</span>
+                    <span class="tooltip-dim-value">{tooltipVersion}</span>
+                </div>
+                <div class="tooltip-row">
+                    <span class="tooltip-dim-label">Label</span>
+                    <span class="tooltip-dim-value">{tooltipLabel}</span>
+                </div>
+                <div class="tooltip-divider"></div>
+                <div class="tooltip-row">
+                    <span class="tooltip-measure-swatch"></span>
+                    <span class="tooltip-measure-label">{tooltipLabel}</span>
+                    <span class="tooltip-measure-value">{tooltipValue}</span>
+                </div>
+                <span class="tooltip-pct">({tooltipPct})</span>
+            </div>
+        </template>
+    </div>
+</template>

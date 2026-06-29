@@ -1,0 +1,95 @@
+/* Glass toast — consumes semantic tokens from public/cosmos-theme.css. */
+
+.glass-toast {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+    font-size: 14px;
+    font-weight: 590;
+    position: relative;
+    max-width: 480px;
+}
+
+.toast-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: inherit;
+}
+
+.toast-icon lightning-icon svg {
+    fill: currentColor !important;
+}
+
+.toast-message {
+    flex: 1;
+}
+
+.toast-close {
+    margin-left: auto;
+    opacity: 0.7;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 4px;
+}
+.toast-close:hover {
+    opacity: 1;
+}
+
+/* ── Variant: success ── */
+.glass-toast-success {
+    background: var(--cos-toast-success-bg);
+    border-color: var(--cos-toast-success-border);
+    color: var(--cos-toast-success-color);
+    box-shadow: var(--cos-toast-inset), var(--cos-toast-shadow-base), var(--cos-toast-success-glow);
+}
+.toast-icon-success {
+    background: var(--cos-toast-success-icon-bg);
+}
+
+/* ── Variant: default/info ── */
+.glass-toast-default {
+    background: var(--cos-toast-default-bg);
+    border-color: var(--cos-toast-default-border);
+    color: var(--cos-toast-default-color);
+    box-shadow: var(--cos-toast-inset), var(--cos-toast-shadow-base), var(--cos-toast-default-glow);
+}
+.toast-icon-default {
+    background: var(--cos-toast-default-icon-bg);
+}
+
+/* ── Variant: warning ── */
+.glass-toast-warning {
+    background: var(--cos-toast-warning-bg);
+    border-color: var(--cos-toast-warning-border);
+    color: var(--cos-toast-warning-color);
+    box-shadow: var(--cos-toast-inset), var(--cos-toast-shadow-base), var(--cos-toast-warning-glow);
+}
+.toast-icon-warning {
+    background: var(--cos-toast-warning-icon-bg);
+}
+
+/* ── Variant: error ── */
+.glass-toast-error {
+    background: var(--cos-toast-error-bg);
+    border-color: var(--cos-toast-error-border);
+    color: var(--cos-toast-error-color);
+    box-shadow: var(--cos-toast-inset), var(--cos-toast-shadow-base), var(--cos-toast-error-glow);
+}
+.toast-icon-error {
+    background: var(--cos-toast-error-icon-bg);
+}

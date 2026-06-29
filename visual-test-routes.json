@@ -1,0 +1,16 @@
+{
+  "full-dark": {
+    "url": "/",
+    "bodyClass": "cosmos-dark slds-color-scheme_dark",
+    "selector": "#app",
+    "viewport": [1440, 900],
+    "waitFor": "shell-app"
+  },
+  "full-light": {
+    "url": "/",
+    "bodyClass": "cosmos-light",
+    "selector": "#app",
+    "viewport": [1440, 900],
+    "waitFor": "shell-app"
+  }
+}

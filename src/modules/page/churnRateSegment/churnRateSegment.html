@@ -1,0 +1,140 @@
+<template>
+    <div class="slds-grid churn-page">
+        <section class="slds-col slds-size_12-of-12 slds-large-size_3-of-12 left-panel">
+            <div class="slds-p-horizontal_medium slds-p-bottom_small">
+                <button class="slds-button slds-button_reset slds-text-link back-link" onclick={handleBack}>
+                    <lightning-icon
+                        icon-name="utility:chevronleft"
+                        size="xx-small"
+                        alternative-text={labels.Back}
+                        title={labels.Back}>
+                    </lightning-icon>
+                    <span class="slds-m-left_xx-small">{labels.Back}</span>
+                </button>
+            </div>
+
+            <header class="slds-p-horizontal_medium slds-p-bottom_small slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                <h1 class="slds-text-heading_medium">Churn Rate Segment</h1>
+                <lightning-button-icon
+                    icon-name="utility:edit"
+                    variant="border"
+                    size="small"
+                    alternative-text={labels.Edit}
+                    title={labels.Edit}>
+                </lightning-button-icon>
+            </header>
+
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium steps-list">
+                <div class="slds-progress slds-progress_vertical">
+                    <ol class="slds-progress__list">
+                        <template for:each={steps} for:item="step">
+                            <li key={step.id} class={step.statusClass}>
+                                <button class="slds-button slds-progress__marker" aria-current={step.ariaCurrent}>
+                                    <template lwc:if={step.isComplete}>
+                                        <lightning-icon
+                                            class="progress-check-icon"
+                                            icon-name="utility:check"
+                                            size="xx-small"
+                                            alternative-text={labels.Completed}
+                                            title={labels.Completed}>
+                                        </lightning-icon>
+                                    </template>
+                                    <span class="slds-assistive-text">{step.title}</span>
+                                </button>
+                                <article class="slds-progress__item_content step-card slds-p-around_small">
+                            <h2 class="slds-text-heading_small">{step.title}</h2>
+                            <p class="slds-text-body_small slds-m-bottom_x-small">{step.description}</p>
+
+                            <template lwc:if={step.items}>
+                                <ul class="slds-list_dotted slds-m-left_medium">
+                                    <template for:each={step.items} for:item="item">
+                                        <li key={item}>{item}</li>
+                                    </template>
+                                </ul>
+                            </template>
+
+                            <template lwc:if={step.checklist}>
+                                <ul class="checklist">
+                                    <template for:each={step.checklist} for:item="item">
+                                        <li key={item} class="slds-grid slds-grid_vertical-align-center slds-m-bottom_xx-small">
+                                            <lightning-icon
+                                                icon-name="utility:check"
+                                                size="xx-small"
+                                                alternative-text={labels.Checked}
+                                                title={labels.Checked}>
+                                            </lightning-icon>
+                                            <span class="slds-m-left_x-small">{item}</span>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </template>
+                                </article>
+                            </li>
+                        </template>
+                    </ol>
+                </div>
+            </div>
+
+            <footer class="left-panel-footer">
+                <button class="slds-button slds-button_reset slds-p-around_small footer-action">
+                    <lightning-icon
+                        icon-name="utility:light_bulb"
+                        size="x-small"
+                        alternative-text={labels.UseCaseCatalog}
+                        title={labels.UseCaseCatalog}>
+                    </lightning-icon>
+                    <span class="slds-m-left_small">{labels.UseCaseCatalog}</span>
+                </button>
+                <button class="slds-button slds-button_reset slds-p-around_small footer-action footer-action_border">
+                    <lightning-icon
+                        icon-name="utility:arrow_left"
+                        size="x-small"
+                        alternative-text={labels.Collapse}
+                        title={labels.Collapse}>
+                    </lightning-icon>
+                    <span class="slds-m-left_small">{labels.Collapse}</span>
+                </button>
+            </footer>
+        </section>
+
+        <section class="slds-col slds-size_12-of-12 slds-large-size_6-of-12 center-panel slds-p-around_large">
+            <p class="slds-text-title">Connect</p>
+            <h2 class="slds-text-heading_medium slds-m-bottom_medium">Configure Snowflake</h2>
+
+            <article class="config-card slds-p-around_large">
+                <div class="slds-grid slds-grid_vertical-align-center slds-m-bottom_small">
+                    <h3 class="slds-text-heading_small slds-m-right_small">OAuth 2.0</h3>
+                    <lightning-badge label={labels.Recommended} class="recommended-badge"></lightning-badge>
+                </div>
+                <p class="slds-text-body_regular slds-m-bottom_medium">
+                    Short-lived tokens with scoped permissions. No persistent secrets stored in Salesforce. Revocable
+                    from Atlassian admin console.
+                </p>
+                <div class="slds-text-align_center">
+                    <lightning-button
+                        variant="neutral"
+                        label={labels.AuthorizeWithSnowflake}
+                        title={labels.AuthorizeWithSnowflake}>
+                    </lightning-button>
+                </div>
+            </article>
+
+            <div class="slds-m-top_medium slds-text-align_center">
+                <a href="javascript:void(0);" class="slds-text-link alt-method-link">Connect with alternative method</a>
+            </div>
+        </section>
+
+        <aside class="slds-col slds-size_12-of-12 slds-large-size_3-of-12 right-panel slds-p-around_medium">
+            <template for:each={supportingMaterials} for:item="material">
+                <article key={material.id} class="support-card slds-p-around_small slds-m-bottom_medium">
+                    <h3 class="slds-text-heading_small">{material.title}</h3>
+                    <ul class="slds-list_dotted slds-m-left_medium slds-m-top_x-small">
+                        <template for:each={material.items} for:item="item">
+                            <li key={item}>{item}</li>
+                        </template>
+                    </ul>
+                </article>
+            </template>
+        </aside>
+    </div>
+</template>

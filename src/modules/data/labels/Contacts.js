@@ -1,0 +1,17 @@
+export const Contacts = 'Contacts';
+export const AllContacts = 'All Contacts';
+export const SwitchListView = 'Switch list view';
+export const New = 'New';
+export const Import = 'Import';
+export const AddToCampaign = 'Add to Campaign';
+export const SendEmail = 'Send Email';
+export const MoreActions = 'More Actions';
+export const PrintableView = 'Printable View';
+export const SearchContacts = 'Search contacts';
+export const SearchThisList = 'Search this list...';
+export const ListViewControls = 'List View Controls';
+export const ChangeView = 'Change view';
+export const EditList = 'Edit List';
+export const RefreshList = 'Refresh List';
+export const Charts = 'Charts';
+export const Filters = 'Filters';

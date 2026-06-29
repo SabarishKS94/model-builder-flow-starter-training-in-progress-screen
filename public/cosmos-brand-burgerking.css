@@ -1,0 +1,517 @@
+/* Burger King brand overrides for Cosmos theme */
+
+/* ── Light mode gradient ── */
+html body.cosmos-light.brand-burgerking::before {
+    background: linear-gradient(150.6deg, #f7edd8 0%, #f5dfc4 35.7%, #f0d4c0 71.4%) !important;
+}
+
+html body.cosmos-light.brand-burgerking::after {
+    background: rgba(255, 255, 255, 0.45) !important;
+}
+
+/* ── Dark mode gradient ── */
+html body.cosmos-dark.brand-burgerking::before {
+    background: linear-gradient(135deg, #221a0f 0%, #1a1108 50%, #1e0b09 100%) !important;
+}
+
+html body.cosmos-dark.brand-burgerking::after {
+    background: rgba(249, 99, 2, 0.12) !important;
+}
+
+/* ── CSS custom property overrides ── */
+html body.cosmos-light.brand-burgerking,
+html body.cosmos-dark.brand-burgerking {
+    --slds-g-color-brand-base-50: #F96302 !important;
+    --slds-g-color-brand-base-60: #F96302 !important;
+    --slds-g-color-brand-base-40: #e05a02 !important;
+    --slds-g-color-brand-base-30: #c74f02 !important;
+    --slds-g-color-accent-1: #F96302 !important;
+    --slds-g-color-accent-2: #F96302 !important;
+    --slds-g-color-accent-container-1: #F96302 !important;
+    --slds-g-color-border-accent-1: #F96302 !important;
+    --lwc-brandPrimary: #F96302 !important;
+    --lwc-brandPrimaryActive: #e05a02 !important;
+    --lwc-brandAccessible: #F96302 !important;
+    --slds-g-color-on-accent-1: #ffffff !important;
+}
+
+/* ── Light mode text colors ── */
+html body.cosmos-light.brand-burgerking {
+    --slds-g-color-on-surface-1: #5C3D1A !important;
+    --slds-g-color-on-surface-2: #5C3D1A !important;
+    --slds-g-color-on-surface-3: #5C3D1A !important;
+    --slds-g-color-neutral-base-10: #5C3D1A !important;
+    --slds-g-color-neutral-base-15: #5C3D1A !important;
+    --slds-g-color-neutral-base-20: #5C3D1A !important;
+    --slds-g-color-neutral-base-30: #5C3D1A !important;
+    --slds-g-color-on-surface-inverted-1: #5C3D1A !important;
+    --lwc-colorTextDefault: #5C3D1A !important;
+    --slds-c-input-color-border: #ca8501 !important;
+    --slds-s-input-color-border: #ca8501 !important;
+    --slds-g-color-border-2: #ca8501 !important;
+    --slds-s-input-color-border-focus: #8c4b02 !important;
+}
+
+/* ── Dark mode text colors ── */
+html body.cosmos-dark.brand-burgerking {
+    --slds-g-color-on-surface-1: #d4b896 !important;
+    --slds-g-color-on-surface-2: #d4b896 !important;
+    --slds-g-color-on-surface-3: #d4b896 !important;
+    --slds-g-color-neutral-base-10: #d4b896 !important;
+    --slds-g-color-neutral-base-15: #d4b896 !important;
+    --slds-g-color-neutral-base-20: #d4b896 !important;
+    --slds-g-color-neutral-base-30: #d4b896 !important;
+    --lwc-colorTextDefault: #d4b896 !important;
+    --slds-c-input-color-border: #8a6d2f !important;
+    --slds-s-input-color-border: #8a6d2f !important;
+    --slds-g-color-border-2: #8a6d2f !important;
+}
+
+/* ── Light mode — global header icons ── */
+html body.cosmos-light.brand-burgerking .slds-global-header__item .slds-button_icon,
+html body.cosmos-light.brand-burgerking .slds-global-header__item .slds-button--icon,
+html body.cosmos-light.brand-burgerking .slds-global-header__item .slds-button_icon-border,
+html body.cosmos-light.brand-burgerking .slds-global-header__item button {
+    color: #F96302 !important;
+}
+
+html body.cosmos-light.brand-burgerking .slds-global-header .slds-icon,
+html body.cosmos-light.brand-burgerking .slds-global-header .slds-button__icon,
+html body.cosmos-light.brand-burgerking .slds-global-header__item .slds-icon {
+    fill: #F96302 !important;
+}
+
+html body.cosmos-light.brand-burgerking .slds-button_icon .slds-button__icon,
+html body.cosmos-light.brand-burgerking .slds-button--icon .slds-button__icon {
+    fill: #F96302 !important;
+}
+
+/* ── Light mode — shell tint ── */
+html body.cosmos-light.brand-burgerking .slds-backdrop {
+    background: rgba(242, 221, 196, 0.40) !important;
+}
+
+html body.cosmos-light.brand-burgerking lightning-avatar {
+    --slds-c-avatar-color-background: #ffffff !important;
+}
+
+html body.cosmos-light.brand-burgerking .slds-avatar,
+html body.cosmos-light.brand-burgerking .slds-avatar .slds-icon-standard-user,
+html body.cosmos-light.brand-burgerking .slds-avatar .slds-icon_container,
+html body.cosmos-light.brand-burgerking .slds-avatar span[class*="slds-icon-standard"] {
+    background-color: #ffffff !important;
+}
+
+/* ── Light mode — brand buttons ── */
+html body.cosmos-light.brand-burgerking .slds-button_brand,
+html body.cosmos-light.brand-burgerking .slds-button--brand {
+    background: #F96302 !important;
+    border-color: #F96302 !important;
+}
+
+html body.cosmos-light.brand-burgerking .slds-button_brand:hover,
+html body.cosmos-light.brand-burgerking .slds-button--brand:hover {
+    background: #e05a02 !important;
+    border-color: #e05a02 !important;
+}
+
+/* ── Light mode — waffle icon ── */
+html body.cosmos-light.brand-burgerking .slds-icon-waffle .slds-r1,
+html body.cosmos-light.brand-burgerking .slds-icon-waffle .slds-r2,
+html body.cosmos-light.brand-burgerking .slds-icon-waffle .slds-r3,
+html body.cosmos-light.brand-burgerking .slds-icon-waffle .slds-r4,
+html body.cosmos-light.brand-burgerking .slds-icon-waffle .slds-r5,
+html body.cosmos-light.brand-burgerking .slds-icon-waffle .slds-r6,
+html body.cosmos-light.brand-burgerking .slds-icon-waffle .slds-r7,
+html body.cosmos-light.brand-burgerking .slds-icon-waffle .slds-r8,
+html body.cosmos-light.brand-burgerking .slds-icon-waffle .slds-r9 {
+    background-color: #5C3D1A !important;
+}
+
+/* ── Light mode — links ── */
+html body.cosmos-light.brand-burgerking a,
+html body.cosmos-light.brand-burgerking .slds-card__header-link,
+html body.cosmos-light.brand-burgerking .slds-nav-vertical__action {
+    color: #F96302 !important;
+}
+
+html body.cosmos-light.brand-burgerking a:hover,
+html body.cosmos-light.brand-burgerking .slds-card__header-link:hover,
+html body.cosmos-light.brand-burgerking .slds-nav-vertical__action:hover {
+    color: #e05a02 !important;
+}
+
+/* ── Light mode — active context bar ── */
+html body.cosmos-light.brand-burgerking .slds-context-bar__item.slds-is-active::after {
+    background-color: #F96302 !important;
+    border-color: #F96302 !important;
+}
+
+html body.cosmos-light.brand-burgerking .slds-context-bar__item.slds-is-active .slds-context-bar__label-action {
+    border-bottom-color: #F96302 !important;
+}
+
+/* ── Light mode — form controls ── */
+html body.cosmos-light.brand-burgerking lightning-radio-group input[type="radio"]:checked,
+html body.cosmos-light.brand-burgerking lightning-input input[type="radio"]:checked {
+    accent-color: #F96302 !important;
+}
+
+html body.cosmos-light.brand-burgerking lightning-slider input[type="range"],
+html body.cosmos-light.brand-burgerking lightning-input input[type="range"] {
+    accent-color: #F96302 !important;
+}
+
+html body.cosmos-light.brand-burgerking lightning-input input[type="checkbox"]:checked {
+    accent-color: #F96302 !important;
+}
+
+/* ── Light mode — text & input refinements ── */
+body.cosmos-light.brand-burgerking .slds-nav-vertical__action,
+body.cosmos-light.brand-burgerking .intro-copy,
+body.cosmos-light.brand-burgerking .slds-text-body_regular,
+body.cosmos-light.brand-burgerking .slds-form-element__label {
+    color: #7A5230 !important;
+}
+
+body.cosmos-light.brand-burgerking .vertical-nav__group-header {
+    color: #5C3D1A !important;
+}
+
+body.cosmos-light.brand-burgerking .slds-text-heading_large {
+    color: #3D2B14 !important;
+}
+
+body.cosmos-light.brand-burgerking .slds-card__header-title,
+body.cosmos-light.brand-burgerking .slds-card__header-title .slds-text-heading--label,
+body.cosmos-light.brand-burgerking .slds-card__header-title .slds-text-heading_label,
+body.cosmos-light.brand-burgerking .slds-card__header-link {
+    color: #3D2B14 !important;
+}
+
+body.cosmos-light.brand-burgerking .slds-input,
+body.cosmos-light.brand-burgerking .slds-textarea,
+body.cosmos-light.brand-burgerking .slds-combobox__input,
+body.cosmos-light.brand-burgerking .slds-select {
+    color: #3D2B14 !important;
+}
+
+body.cosmos-light.brand-burgerking .slds-input:hover,
+body.cosmos-light.brand-burgerking .slds-textarea:hover,
+body.cosmos-light.brand-burgerking .slds-combobox__input:hover,
+body.cosmos-light.brand-burgerking .slds-select:hover {
+    border-color: #ba7503 !important;
+}
+
+body.cosmos-light.brand-burgerking .slds-input:focus,
+body.cosmos-light.brand-burgerking .slds-textarea:focus,
+body.cosmos-light.brand-burgerking .slds-combobox__input:focus,
+body.cosmos-light.brand-burgerking .slds-select:focus,
+body.cosmos-light.brand-burgerking .slds-has-input-focus {
+    border-color: #5C3D1A !important;
+}
+
+body.cosmos-light.brand-burgerking .slds-input::placeholder,
+body.cosmos-light.brand-burgerking .slds-textarea::placeholder,
+body.cosmos-light.brand-burgerking .slds-combobox__input::placeholder {
+    color: #C4A882 !important;
+}
+
+body.cosmos-light.brand-burgerking .slds-global-header__item_search .slds-input {
+    color: #3D2B14 !important;
+}
+
+body.cosmos-light.brand-burgerking .slds-global-header__item_search .slds-input::placeholder {
+    color: rgba(122, 82, 48, 0.4) !important;
+}
+
+body.cosmos-light.brand-burgerking .slds-button_neutral,
+body.cosmos-light.brand-burgerking .slds-button--neutral {
+    color: #5C3D1A !important;
+}
+
+body.cosmos-light.brand-burgerking .slds-button_neutral:hover,
+body.cosmos-light.brand-burgerking .slds-button--neutral:hover {
+    border-color: #ba7503 !important;
+}
+
+body.cosmos-light.brand-burgerking .vertical-nav__search {
+    border-bottom-color: #f0e6d6 !important;
+}
+
+body.cosmos-light.brand-burgerking .vertical-nav__footer {
+    border-top-color: #f0e6d6 !important;
+}
+
+body.cosmos-light.brand-burgerking .slds-context-bar__app-name .slds-truncate {
+    color: #3D2B14 !important;
+}
+
+/* ── Light mode — input borders ── */
+html body.cosmos-light.brand-burgerking .slds-input,
+html body.cosmos-light.brand-burgerking .slds-textarea,
+html body.cosmos-light.brand-burgerking .slds-combobox__input,
+html body.cosmos-light.brand-burgerking .slds-select {
+    border-color: #ca8501 !important;
+}
+
+html body.cosmos-light.brand-burgerking .slds-input:focus,
+html body.cosmos-light.brand-burgerking .slds-textarea:focus,
+html body.cosmos-light.brand-burgerking .slds-combobox__input:focus,
+html body.cosmos-light.brand-burgerking .slds-select:focus,
+html body.cosmos-light.brand-burgerking .slds-has-input-focus .slds-input {
+    border-color: #8c4b02 !important;
+    box-shadow: 0 0 0 1px rgba(140, 75, 2, 0.30) !important;
+}
+
+/* ── Light mode — neutral button borders ── */
+html body.cosmos-light.brand-burgerking .slds-button_neutral,
+html body.cosmos-light.brand-burgerking .slds-button--neutral {
+    border-color: rgba(202, 133, 1, 0.40) !important;
+    color: #5C3D1A !important;
+}
+
+html body.cosmos-light.brand-burgerking .slds-button_neutral:hover,
+html body.cosmos-light.brand-burgerking .slds-button--neutral:hover {
+    border-color: #ba7503 !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   DARK MODE
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── Dark mode — shell ── */
+html body.cosmos-dark.brand-burgerking .global-shell {
+    background: rgba(249, 99, 2, 0.06) !important;
+    border-color: rgba(249, 99, 2, 0.15) !important;
+    box-shadow: 0 2px 8px rgba(249, 99, 2, 0.12), 0 1px 3px rgba(0, 0, 0, 0.20) !important;
+}
+
+html body.cosmos-dark.brand-burgerking .slds-backdrop {
+    background: rgba(0, 0, 0, 0.50) !important;
+}
+
+/* ── Dark mode — brand buttons ── */
+html body.cosmos-dark.brand-burgerking .slds-button_brand,
+html body.cosmos-dark.brand-burgerking .slds-button--brand {
+    background: #F96302 !important;
+    border-color: #F96302 !important;
+}
+
+html body.cosmos-dark.brand-burgerking .slds-button_brand:hover,
+html body.cosmos-dark.brand-burgerking .slds-button--brand:hover {
+    background: #ff7a2a !important;
+    border-color: #ff7a2a !important;
+}
+
+/* ── Dark mode — waffle icon ── */
+html body.cosmos-dark.brand-burgerking .slds-icon-waffle .slds-r1,
+html body.cosmos-dark.brand-burgerking .slds-icon-waffle .slds-r2,
+html body.cosmos-dark.brand-burgerking .slds-icon-waffle .slds-r3,
+html body.cosmos-dark.brand-burgerking .slds-icon-waffle .slds-r4,
+html body.cosmos-dark.brand-burgerking .slds-icon-waffle .slds-r5,
+html body.cosmos-dark.brand-burgerking .slds-icon-waffle .slds-r6,
+html body.cosmos-dark.brand-burgerking .slds-icon-waffle .slds-r7,
+html body.cosmos-dark.brand-burgerking .slds-icon-waffle .slds-r8,
+html body.cosmos-dark.brand-burgerking .slds-icon-waffle .slds-r9 {
+    background-color: #ffffff !important;
+}
+
+/* ── Dark mode — links ── */
+html body.cosmos-dark.brand-burgerking a,
+html body.cosmos-dark.brand-burgerking .slds-card__header-link,
+html body.cosmos-dark.brand-burgerking .slds-nav-vertical__action {
+    color: #ff7a2a !important;
+}
+
+html body.cosmos-dark.brand-burgerking a:hover,
+html body.cosmos-dark.brand-burgerking .slds-card__header-link:hover,
+html body.cosmos-dark.brand-burgerking .slds-nav-vertical__action:hover {
+    color: #F96302 !important;
+}
+
+/* ── Dark mode — active context bar ── */
+html body.cosmos-dark.brand-burgerking .slds-context-bar__item.slds-is-active::after {
+    background-color: #F96302 !important;
+    border-color: #F96302 !important;
+}
+
+html body.cosmos-dark.brand-burgerking .slds-context-bar__item.slds-is-active .slds-context-bar__label-action {
+    border-bottom-color: #F96302 !important;
+}
+
+/* ── Dark mode — form controls ── */
+html body.cosmos-dark.brand-burgerking lightning-radio-group input[type="radio"]:checked,
+html body.cosmos-dark.brand-burgerking lightning-input input[type="radio"]:checked {
+    accent-color: #F96302 !important;
+}
+
+html body.cosmos-dark.brand-burgerking lightning-slider input[type="range"],
+html body.cosmos-dark.brand-burgerking lightning-input input[type="range"] {
+    accent-color: #F96302 !important;
+}
+
+html body.cosmos-dark.brand-burgerking lightning-input input[type="checkbox"]:checked {
+    accent-color: #F96302 !important;
+}
+
+/* ── Dark mode — text & input refinements ── */
+body.cosmos-dark.brand-burgerking .slds-nav-vertical__action,
+body.cosmos-dark.brand-burgerking .intro-copy,
+body.cosmos-dark.brand-burgerking .slds-text-body_regular,
+body.cosmos-dark.brand-burgerking .slds-form-element__label {
+    color: #d4b896 !important;
+}
+
+body.cosmos-dark.brand-burgerking .vertical-nav__group-header {
+    color: #e8d5be !important;
+}
+
+body.cosmos-dark.brand-burgerking .slds-text-heading_large {
+    color: #f0e4d4 !important;
+}
+
+body.cosmos-dark.brand-burgerking .slds-card__header-title,
+body.cosmos-dark.brand-burgerking .slds-card__header-title .slds-text-heading--label,
+body.cosmos-dark.brand-burgerking .slds-card__header-title .slds-text-heading_label,
+body.cosmos-dark.brand-burgerking .slds-card__header-link {
+    color: #f0e4d4 !important;
+}
+
+body.cosmos-dark.brand-burgerking .slds-input,
+body.cosmos-dark.brand-burgerking .slds-textarea,
+body.cosmos-dark.brand-burgerking .slds-combobox__input,
+body.cosmos-dark.brand-burgerking .slds-select {
+    color: #f0e4d4 !important;
+}
+
+body.cosmos-dark.brand-burgerking .slds-input::placeholder,
+body.cosmos-dark.brand-burgerking .slds-textarea::placeholder,
+body.cosmos-dark.brand-burgerking .slds-combobox__input::placeholder {
+    color: rgba(212, 184, 150, 0.45) !important;
+}
+
+body.cosmos-dark.brand-burgerking .slds-global-header__item_search .slds-input {
+    color: #f0e4d4 !important;
+}
+
+body.cosmos-dark.brand-burgerking .slds-global-header__item_search .slds-input::placeholder {
+    color: rgba(212, 184, 150, 0.4) !important;
+}
+
+body.cosmos-dark.brand-burgerking .slds-button_neutral,
+body.cosmos-dark.brand-burgerking .slds-button--neutral {
+    color: #e8d5be !important;
+}
+
+body.cosmos-dark.brand-burgerking .vertical-nav__search {
+    border-bottom-color: rgba(212, 184, 150, 0.15) !important;
+}
+
+body.cosmos-dark.brand-burgerking .vertical-nav__footer {
+    border-top-color: rgba(212, 184, 150, 0.15) !important;
+}
+
+body.cosmos-dark.brand-burgerking .slds-context-bar__app-name .slds-truncate {
+    color: #f0e4d4 !important;
+}
+
+/* ── Dark mode — icons & avatar ── */
+html body.cosmos-dark.brand-burgerking .slds-button_icon .slds-button__icon,
+html body.cosmos-dark.brand-burgerking .slds-button--icon .slds-button__icon {
+    fill: #ff7a2a !important;
+}
+
+html body.cosmos-dark.brand-burgerking lightning-avatar {
+    --slds-c-avatar-color-background: #F96302 !important;
+}
+
+html body.cosmos-dark.brand-burgerking .slds-avatar,
+html body.cosmos-dark.brand-burgerking .slds-avatar .slds-icon-standard-user,
+html body.cosmos-dark.brand-burgerking .slds-avatar .slds-icon_container,
+html body.cosmos-dark.brand-burgerking .slds-avatar span[class*="slds-icon-standard"] {
+    background-color: #F96302 !important;
+}
+
+/* ── Dark mode — input borders ── */
+html body.cosmos-dark.brand-burgerking .slds-input,
+html body.cosmos-dark.brand-burgerking .slds-textarea,
+html body.cosmos-dark.brand-burgerking .slds-combobox__input,
+html body.cosmos-dark.brand-burgerking .slds-select {
+    border-color: #8a6d2f !important;
+}
+
+html body.cosmos-dark.brand-burgerking .slds-input:hover,
+html body.cosmos-dark.brand-burgerking .slds-textarea:hover,
+html body.cosmos-dark.brand-burgerking .slds-combobox__input:hover,
+html body.cosmos-dark.brand-burgerking .slds-select:hover {
+    border-color: #b8912a !important;
+}
+
+html body.cosmos-dark.brand-burgerking .slds-input:focus,
+html body.cosmos-dark.brand-burgerking .slds-textarea:focus,
+html body.cosmos-dark.brand-burgerking .slds-combobox__input:focus,
+html body.cosmos-dark.brand-burgerking .slds-select:focus,
+html body.cosmos-dark.brand-burgerking .slds-has-input-focus .slds-input {
+    border-color: #F96302 !important;
+    box-shadow: 0 0 0 1px rgba(249, 99, 2, 0.30) !important;
+}
+
+/* ── Dark mode — neutral button borders ── */
+html body.cosmos-dark.brand-burgerking .slds-button_neutral,
+html body.cosmos-dark.brand-burgerking .slds-button--neutral {
+    border-color: rgba(212, 184, 150, 0.25) !important;
+    color: #e8d5be !important;
+}
+
+html body.cosmos-dark.brand-burgerking .slds-button_neutral:hover,
+html body.cosmos-dark.brand-burgerking .slds-button--neutral:hover {
+    border-color: rgba(249, 99, 2, 0.45) !important;
+}
+
+/* ── BK logo overlay — shown via CSS when brand is active ── */
+#bk-logo-overlay {
+    display: none;
+    position: fixed;
+    z-index: 99999;
+    width: 2rem;
+    height: 2rem;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+body.brand-burgerking #bk-logo-overlay {
+    display: block;
+}
+
+/* ── Aurora overrides — BK palette ── */
+body.brand-burgerking #aurora-container .blob-a1 {
+    background: radial-gradient(ellipse at center, rgba(249, 99, 2, 0.75) 0%, transparent 60%);
+}
+
+body.brand-burgerking #aurora-container .blob-a2 {
+    background: radial-gradient(ellipse at center, rgba(196, 30, 58, 0.75) 0%, transparent 60%);
+}
+
+body.brand-burgerking #aurora-container .blob-a3 {
+    background: radial-gradient(ellipse at center, rgba(212, 147, 13, 0.75) 0%, transparent 60%);
+}
+
+body.brand-burgerking #aurora-container .blob-b1 {
+    background: radial-gradient(ellipse at center, rgba(212, 147, 13, 0.7) 0%, transparent 55%);
+}
+
+body.brand-burgerking #aurora-container .blob-b2 {
+    background: radial-gradient(ellipse at center, rgba(196, 30, 58, 0.7) 0%, transparent 55%);
+}
+
+@keyframes voicePulseBk {
+    0%, 100% { box-shadow: 0 0 8px rgba(249, 99, 2, 0.4), 0 0 20px rgba(196, 30, 58, 0.2); }
+    50%      { box-shadow: 0 0 12px rgba(249, 99, 2, 0.7), 0 0 30px rgba(196, 30, 58, 0.4); }
+}
+
+body.brand-burgerking .voice-btn-active {
+    animation: voicePulseBk 2s ease-in-out infinite !important;
+    border-color: #F96302 !important;
+    background: rgba(249, 99, 2, 0.25) !important;
+}

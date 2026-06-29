@@ -1,0 +1,264 @@
+<template>
+    <div class="page-wrapper">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="header-row">
+                <div class="header-left">
+                    <lightning-icon icon-name="standard:data_model" size="medium" class="header-icon"></lightning-icon>
+                    <div class="header-title-block">
+                        <span class="header-breadcrumb">{labels.PageBreadcrumb}</span>
+                        <h1 class="header-title">{labels.PageTitle}</h1>
+                        <span class="header-meta"><a href="#" class="meta-link">{labels.MetaAuthor}</a> &bull; {labels.MetaDate}</span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <lightning-button-group>
+                        <lightning-button label={labels.EditButton} variant="neutral"></lightning-button>
+                        <lightning-button-icon icon-name="utility:down" variant="border-filled"></lightning-button-icon>
+                    </lightning-button-group>
+                </div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-item">
+                    <span class="detail-label">{labels.LabelStatus}</span>
+                    <div class="detail-badges">
+                        <lightning-badge label={headerStatusLabel}></lightning-badge>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">{labels.LabelGoal}</span>
+                    <span class="detail-value">{labels.GoalValue}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">{labels.LabelCapability}</span>
+                    <span class="detail-value">{labels.CapabilityValue}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs-container">
+            <lightning-tabset active-tab-value="overview">
+                <lightning-tab label={labels.TabOverview} value="overview">
+                    <div class="tab-body">
+
+                        <!-- NBA Card -->
+                        <template lwc:if={showNbaCard}>
+                            <ui-nba-card
+                                current-stage={nbaCurrentStage}
+                                stage-completion-dates={nbaStageCompletionDates}
+                                nba-title={nbaTitleText}
+                                nba-description={nbaDescriptionText}
+                                cta-label={nbaCtaLabel}
+                                refreshed-text={nbaRefreshedText}
+                                is-onboarding={showOnboarding}
+                                onctaclick={handleNbaCtaClick}
+                                ondisableclick={handleNbaDisable}
+                            ></ui-nba-card>
+                        </template>
+
+                        <!-- Version Card -->
+                        <lightning-card title={labels.VersionTitle} class="version-card">
+                            <div slot="actions" class="version-actions">
+                                <lightning-button-group>
+                                    <lightning-button label={labels.VersionTitle} variant="neutral" icon-name="utility:down" icon-position="right"></lightning-button>
+                                </lightning-button-group>
+                                <lightning-button label={versionButtonLabel} variant={versionButtonVariant}></lightning-button>
+                            </div>
+
+                            <div class="version-body">
+                                <div class="fields-grid">
+                                    <div class="field-item field-item_wide">
+                                        <span class="field-label">{labels.LabelDescription}</span>
+                                        <div class="field-value-row">
+                                            <span class="field-value">{labels.DescriptionValue}</span>
+                                            <lightning-button-icon icon-name="utility:edit" variant="bare" size="small" alternative-text={labels.EditAltText}></lightning-button-icon>
+                                        </div>
+                                    </div>
+                                    <div class="field-item">
+                                        <span class="field-label">{labels.LabelLastModified}</span>
+                                        <span class="field-value">{labels.DateValue}</span>
+                                    </div>
+                                    <div class="field-item">
+                                        <span class="field-label">{labels.LabelLastModifiedBy}</span>
+                                        <span class="field-value"><a href="#" class="field-link">{labels.AuthorLink}</a></span>
+                                    </div>
+                                    <div class="field-item">
+                                        <span class="field-label">{labels.LabelCreatedOn}</span>
+                                        <span class="field-value">{labels.DateValue}</span>
+                                    </div>
+                                    <div class="field-item">
+                                        <span class="field-label">{labels.LabelCreatedBy}</span>
+                                        <span class="field-value"><a href="#" class="field-link">{labels.AuthorLink}</a></span>
+                                    </div>
+                                </div>
+
+                                <!-- Version Details Nested Card -->
+                                <div class="nested-card">
+                                    <div class="nested-card-header">
+                                        <span class="nested-card-title">{labels.VersionDetailsTitle}</span>
+                                        <lightning-button-icon icon-name="utility:chevronup" variant="border-filled" size="small" alternative-text={labels.CollapseAltText}></lightning-button-icon>
+                                    </div>
+                                    <div class="nested-card-body">
+                                        <div class="fields-grid">
+                                            <div class="field-item">
+                                                <span class="field-label">{labels.LabelDataSpace}</span>
+                                                <span class="field-value"><a href="#" class="field-link">{labels.DataSpaceValue}</a></span>
+                                            </div>
+                                            <div class="field-item">
+                                                <span class="field-label">{labels.LabelDataModelObjects}</span>
+                                                <span class="field-value"><a href="#" class="field-link">{labels.DataModelObjectsValue}</a></span>
+                                            </div>
+                                            <div class="field-item">
+                                                <span class="field-label">{labels.LabelRecordsFields}</span>
+                                                <span class="field-value"><a href="#" class="field-link">{labels.RecordsFieldsValue}</a></span>
+                                            </div>
+                                            <div class="field-item">
+                                                <span class="field-label">{labels.LabelFiltering}</span>
+                                                <span class="field-value"><a href="#" class="field-link">{labels.FilteringValue}</a></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </lightning-card>
+
+                    </div>
+                </lightning-tab>
+                <lightning-tab label={labels.TabTrainingMetrics} value="metrics"></lightning-tab>
+                <lightning-tab label={labels.TabIntegrations} value="integrations"></lightning-tab>
+                <lightning-tab label={labels.TabVersions} value="versions">
+                    <div class="tab-body">
+                        <ui-versions-tab></ui-versions-tab>
+                    </div>
+                </lightning-tab>
+                <lightning-tab label={labels.TabSettings} value="settings">
+                    <div class="tab-body">
+                        <ui-toast-message
+                            message={toastMessage}
+                            variant="success"
+                            visible={showToast}
+                            ondismiss={handleToastDismiss}
+                        ></ui-toast-message>
+                        <ui-settings-tab-v2
+                            org-level-enabled={orgLevelEnabled}
+                            show-preview={showPreview}
+                            auto-enabled={autoEnabled}
+                            onfeatureenabled={handleFeatureEnabled}
+                        ></ui-settings-tab-v2>
+                    </div>
+                </lightning-tab>
+            </lightning-tabset>
+        </div>
+    </div>
+
+    <!-- Disable Confirmation Modal -->
+    <template lwc:if={showDisableModal}>
+        <div class="modal-backdrop" onclick={handleDisableModalClose}></div>
+        <div class="modal-container" role="dialog" aria-modal="true" aria-labelledby="disable-modal-title">
+            <div class="modal-header">
+                <h2 id="disable-modal-title" class="modal-title">Disable AI Models Next Best Actions?</h2>
+                <lightning-button-icon
+                    icon-name="utility:close"
+                    variant="bare"
+                    alternative-text="Close"
+                    onclick={handleDisableModalClose}
+                    class="modal-close"
+                ></lightning-button-icon>
+            </div>
+            <div class="modal-body">
+                <p class="modal-body-text">If you disable this feature, the system will stop recommending the next best action for your model. You can re-enable it later from Settings.</p>
+            </div>
+            <div class="modal-footer">
+                <lightning-button
+                    label="Cancel"
+                    variant="neutral"
+                    onclick={handleDisableModalClose}
+                ></lightning-button>
+                <lightning-button
+                    label="Disable"
+                    variant="destructive"
+                    onclick={handleDisableConfirmed}
+                ></lightning-button>
+            </div>
+        </div>
+    </template>
+
+    <!-- Terms Acceptance Modal -->
+    <template lwc:if={showTermsModal}>
+        <div class="modal-backdrop" onclick={handleTermsModalClose}></div>
+        <div class="modal-container" role="dialog" aria-modal="true" aria-labelledby="terms-modal-title">
+            <div class="modal-header">
+                <h2 id="terms-modal-title" class="modal-title">Continue using AI Models Next Best Actions?</h2>
+                <lightning-button-icon
+                    icon-name="utility:close"
+                    variant="bare"
+                    alternative-text="Close"
+                    onclick={handleTermsModalClose}
+                    class="modal-close"
+                ></lightning-button-icon>
+            </div>
+            <div class="modal-body">
+                <p class="modal-body-text">Opting in to this feature is at your sole discretion. This feature consumes Agentforce credits each time a recommendation is generated.</p>
+                <div class="modal-checkbox">
+                    <lightning-input
+                        type="checkbox"
+                        label="I understand that by opting in to the feature, I agree to the usage of Data 360 credits for storing live inference data."
+                        checked={termsAgreed}
+                        onchange={handleTermsCheckbox}
+                    ></lightning-input>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <lightning-button
+                    label="Cancel"
+                    variant="neutral"
+                    onclick={handleTermsModalClose}
+                ></lightning-button>
+                <lightning-button
+                    label="Enable"
+                    variant="brand"
+                    disabled={isTermsDisabled}
+                    onclick={handleTermsAccepted}
+                ></lightning-button>
+            </div>
+        </div>
+    </template>
+
+    <!-- Prototype State Switcher -->
+    <div class="prototype-toolbar slds-p-around_small slds-theme_shade slds-border_top">
+        <div class="toolbar-controls">
+            <lightning-combobox
+                name="nbaState"
+                label={labels.ComboboxLabel}
+                placeholder={labels.ComboboxPlaceholder}
+                options={stateOptions}
+                value={selectedStateId}
+                onchange={handleStateChange}
+                variant="label-inline"
+                dropdown-alignment="bottom-left"
+            ></lightning-combobox>
+            <lightning-input
+                type="toggle"
+                label={labels.OrgToggleLabel}
+                checked={orgLevelEnabled}
+                onchange={handleOrgToggle}
+                variant="label-inline"
+            ></lightning-input>
+            <lightning-input
+                type="toggle"
+                label={labels.PreviewToggleLabel}
+                checked={showPreview}
+                onchange={handlePreviewToggle}
+                variant="label-inline"
+            ></lightning-input>
+            <lightning-input
+                type="toggle"
+                label="Auto-enabled"
+                checked={autoEnabled}
+                onchange={handleAutoEnabledToggle}
+                variant="label-inline"
+            ></lightning-input>
+        </div>
+    </div>
+</template>

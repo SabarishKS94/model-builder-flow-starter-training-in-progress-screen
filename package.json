@@ -1,0 +1,46 @@
+{
+  "name": "salesforce-ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf dist .vite node_modules",
+    "prebuild-icons": "node scripts/prebuild-icons.mjs",
+    "dev": "node scripts/prebuild-icons.mjs && vite",
+    "build": "node scripts/prebuild-icons.mjs && vite build",
+    "build:gh-pages": "node scripts/prebuild-icons.mjs && vite build --mode gh-pages",
+    "deploy": "npm run build:gh-pages && gh-pages -d dist --nojekyll",
+    "preview": "vite preview",
+    "dev:native-shadow": "echo 'To use native shadow, set disableSyntheticShadowSupport: true in vite.config.js'",
+    "lint:boundaries": "node scripts/lint-import-boundaries.mjs",
+    "theme:validate-tokens": "node scripts/validate-tokens.mjs --tokens=../theme-playground/dist/tokens.json",
+    "theme:validate-selectors": "node scripts/validate-selectors.mjs --profile=../theme-playground/target-profiles/lwc-slds.json",
+    "theme:validate-visual": "node scripts/validate-visual.mjs --references=../theme-playground/dist/screenshots",
+    "lint:arch": "node scripts/lint-architecture-rules.mjs",
+    "install-hooks": "node scripts/install-hooks.mjs",
+    "upstream:check": "node scripts/check-upstream.mjs",
+    "skills:sync": "node scripts/sync-d360-skills.mjs && node scripts/sync-afv-skills.mjs",
+    "postinstall": "node scripts/install-hooks.mjs && node scripts/sync-d360-skills.mjs && node scripts/sync-afv-skills.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "type": "module",
+  "dependencies": {
+    "@lwc/synthetic-shadow": "^9.0.2",
+    "@salesforce-ux/design-system": "^2.29.0",
+    "@salesforce-ux/design-system-2": "^2.0.0",
+    "firebase": "^12.11.0",
+    "lightning-base-components": "^1.28.15-alpha",
+    "lwc": "^9.0.2"
+  },
+  "devDependencies": {
+    "css-tree": "^3.2.1",
+    "gh-pages": "^6.3.0",
+    "pixelmatch": "^7.2.0",
+    "playwright": "^1.59.1",
+    "pngjs": "^7.0.0",
+    "vite": "^7.3.1",
+    "vite-plugin-lwc": "^4.1.0"
+  }
+}

@@ -1,0 +1,34 @@
+export const BuilderType = 'Clustering Model Builder';
+export const ModelName = 'New Cluster Model - V1';
+export const NextButton = 'Next';
+export const PreviousButton = 'Previous';
+export const Step1 = 'Select Data';
+export const Step2 = 'Filter Data';
+export const Step3 = 'Prepare Variables';
+export const Step4 = 'Define Settings';
+export const Step5 = 'Review & Save';
+export const SelectDataTitle = 'Select Your Data';
+export const DataSpaceLabel = 'Data Space';
+export const DataSpacePlaceholder = 'AMER';
+export const DataLabel = 'What data would you like to use?';
+export const DataObjectType = 'Data Model Object';
+export const DataSearchPlaceholder = 'Search data model objects...';
+export const ViewDataButton = 'View Data';
+export const PanelTitle = 'Create a Clustering Model';
+export const PanelHeadline = "What's Clustering useful for?";
+export const PanelBody1 = "Clustering identifies hidden patterns and segments in your records that simple filters can't reveal. Use these models instead of fixed-category models, such as multiclass models, when categories are unknown or changing.";
+export const PanelBody2 = 'They are ideal when classes are unknown, fuzzy, or changing (unlike fixed-category multiclass models).';
+export const PanelBody3 = 'Key industry-agnostic use cases include: Customer Segmentation for targeted marketing. Product Segmentation for optimizing inventory, pricing, and promotions.';
+export const Card1Title = 'Difference between Clustering and Multiclass';
+export const Card2Title = 'How can I prepare data for clustering?';
+export const ShowMore = 'Show Me More';
+
+// Step 2 - Filter Data
+export const FilterDataTitle = 'Filter the data used to train the model';
+export const Panel2Title = 'Prepare Data';
+export const Panel2Headline = 'Preparing your variables can help your model interpret better.';
+export const Panel2Body1 = 'Clean data produces better models. Consider removing outliers, handling missing values, and normalizing your features before training.';
+export const Panel2Body2 = 'Variable selection directly impacts model accuracy. Include variables that are meaningful to the patterns you want to discover.';
+export const Panel2Card1Title = 'How to filter data for best results';
+export const Panel2Card2Title = 'Understanding record counts and coverage';
+export const Panel2Card3Title = 'When to use filtered vs all records';

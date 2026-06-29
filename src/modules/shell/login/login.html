@@ -1,0 +1,14 @@
+<template>
+    <div class="login-container">
+        <h1 class="slds-text-heading_large">Sign in to continue</h1>
+        <template lwc:if={errorMessage}>
+            <p class="slds-text-color_error">{errorMessage}</p>
+        </template>
+        <lightning-button
+            label={labels.SignInWithGoogle}
+            variant="brand"
+            disabled={isLoading}
+            onclick={handleSignIn}>
+        </lightning-button>
+    </div>
+</template>
