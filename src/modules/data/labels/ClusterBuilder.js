@@ -32,3 +32,80 @@ export const Panel2Body2 = 'Variable selection directly impacts model accuracy. 
 export const Panel2Card1Title = 'How to filter data for best results';
 export const Panel2Card2Title = 'Understanding record counts and coverage';
 export const Panel2Card3Title = 'When to use filtered vs all records';
+
+// Step 3 - Prepare Variables
+export const PrepareVariablesTitleBold = 'Prepare variables';
+export const PrepareVariablesTitleRest = 'for clustering';
+export const ShowOnlySelected = 'Show only selected';
+export const VariableSearchPlaceholder = 'Search variables...';
+export const VariableColumn = 'Variable';
+export const SettingsColumn = 'Settings';
+export const ReplaceMissingValues = 'Replace Missing Values';
+export const TextClustering = 'Text Clustering';
+export const Panel3Title = 'Prepare Variables';
+export const Panel3Headline = 'Preparing your variables can help your model interpret better.';
+export const Panel3Card1Title = 'Which variables should I include in the clustering?';
+export const Panel3Card2Title = 'Choosing variables manually';
+export const Panel3Card3Title = 'Can I refine my variable selection?';
+
+// Variable Settings Panel
+export const AlertsTab = 'Alerts';
+export const SettingsTab = 'Settings';
+export const TransformationLabel = 'Transformation';
+export const TransformationNone = 'None';
+export const TransformationReplaceMissing = 'Replace Missing Values';
+export const TransformationTextClustering = 'Text Clustering';
+export const TransformationGroupByMonth = 'Group by Month';
+export const TransformationGroupByDay = 'Group by Day';
+export const ReplaceWithLabel = 'Replace With';
+export const GroupByLabel = 'Group By';
+export const NumberOfBucketsLabel = 'Number of Buckets';
+export const BucketRangeLabel = '10-100';
+export const DistributionLabel = 'Distribution';
+export const MinValueLabel = 'Minimum Value:';
+export const MaxValueLabel = 'Maximum Value:';
+export const CountAxisLabel = 'Count';
+
+// Step 4 - Define Settings
+export const DefineSettingsTitleBold = 'Select an Algorithm';
+export const DefineSettingsTitleRest = 'for Your Model';
+export const KMeansTitle = 'KMeans';
+export const KMeansDesc = 'Use when you need to sort clean, well-structured data into a specific number of groupings.';
+export const HDBScanTitle = 'HDBSCAN';
+export const HDBScanDesc = "Use when you don't know the number of clusters and your data has noise or outliers.";
+export const ClusterSettingsTitle = 'Cluster Settings';
+export const AutoClusterToggleLabel = 'Let the model determine the optimal number of clusters.';
+export const AutoClusterEnabled = 'Enabled';
+export const AutoClusterDisabled = 'Disabled';
+export const NumberOfClustersLabel = 'Number of clusters (2-10)';
+export const Panel4Title = 'Define Settings';
+export const Panel4Headline = 'Pick the algorithm that fits your data.';
+export const Panel4Card1Title = 'What can I use clustering for?';
+export const Panel4Card2Title = 'Finding the right data model object';
+export const Panel4Card3Title = 'Using additional data model objects';
+
+// Step 5 - Review & Save
+export const ReviewTitle = 'Review your model and train it.';
+export const ModelNameLabel = 'Model Name';
+export const ModelNameValue = 'Customer Segmentation Cluster model';
+export const ClusterDescriptionLabel = 'Cluster Description';
+export const ClusterDescriptionValue = 'Segmenting customers based on RFM';
+export const ReviewDataTitle = '1. Data';
+export const ReviewFiltersTitle = '2. Filters';
+export const ReviewVariablesTitle = '3. Variables';
+export const ReviewSettingsTitle = '4. Settings';
+export const ReviewDataSpaceLabel = 'Data Space:';
+export const ReviewDataSpaceValue = 'AMER';
+export const ReviewDmoLabel = 'Data Model Object:';
+export const ReviewDmoValue = 'Account';
+export const ReviewFilterRecords = '504 of 1000000 records will be used to train the model';
+export const ReviewFiltersInfo = '2 Filters and 348 records excluded';
+export const ReviewVariablesInfo = '5 of 7 variables selected';
+export const ReviewAlgorithmLabel = 'Algorithm:';
+export const ReviewAlgorithmValueKMeans = 'Kmeans';
+export const ReviewAlgorithmValueHDBScan = 'HDBSCAN';
+export const SaveTrainButton = 'Save & Train';
+export const BackButton = 'Back';
+export const Panel5Title = 'Train the model';
+export const Panel5Headline = 'Nice work. When you are ready, go ahead and save then train!';
+export const Panel5Body1 = "You've just finished your new model setup. Save and train your model so you can review the model metrics and resolve any alerts. Once you've got a good scoring model, you'll be able to activate it to put it to the test and witness its predictive powers in action!";

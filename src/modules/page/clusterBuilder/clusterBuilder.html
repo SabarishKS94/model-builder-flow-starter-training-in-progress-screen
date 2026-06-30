@@ -28,9 +28,14 @@
             </div>
             <div class="toolbar-right">
                 <template lwc:if={showPrevious}>
-                    <lightning-button label={labels.PreviousButton} variant="neutral" onclick={handlePrevious}></lightning-button>
+                    <lightning-button label={previousButtonLabel} variant="neutral" onclick={handlePrevious}></lightning-button>
                 </template>
-                <lightning-button label={labels.NextButton} variant="brand" onclick={handleNext} disabled={isNextDisabled}></lightning-button>
+                <template lwc:if={isFinalStep}>
+                    <lightning-button label={labels.SaveTrainButton} variant="brand" onclick={handleSaveTrain}></lightning-button>
+                </template>
+                <template lwc:else>
+                    <lightning-button label={labels.NextButton} variant="brand" onclick={handleNext} disabled={isNextDisabled}></lightning-button>
+                </template>
             </div>
         </div>
 
@@ -117,16 +122,19 @@
                                 <input type="radio" id="picker-all" value="all" name="filter-picker" class="vpicker-input" checked={isAllRecordsSelected} onchange={handleSelectAllRecords} />
                                 <label for="picker-all" class="vpicker-label">
                                     <span class="vpicker-figure">
-                                        <span class="picker-icon-container">
+                                        <span class="vpicker-icon">
                                             <lightning-icon icon-name="utility:table" size="medium"></lightning-icon>
                                         </span>
-                                        <span class="picker-text">
-                                            <span class="picker-title">All Records</span>
-                                            <span class="picker-desc">Use all records available in the selected data to train the model.</span>
-                                        </span>
+                                        <span class="vpicker-title">All Records</span>
+                                        <span class="vpicker-desc">Use all records available in the selected data to train the model.</span>
                                     </span>
-                                    <span class="vpicker-check">
-                                        <lightning-icon icon-name="utility:check" size="x-small" class="picker-check-icon"></lightning-icon>
+                                    <span class="vpicker-ribbon" aria-hidden="true">
+                                        <svg viewBox="0 0 32 32" class="vpicker-ribbon-svg" focusable="false">
+                                            <path d="M0 0H32V32z"></path>
+                                        </svg>
+                                        <span class="vpicker-ribbon-check">
+                                            <lightning-icon icon-name="utility:check" size="xx-small" variant="inverse"></lightning-icon>
+                                        </span>
                                     </span>
                                 </label>
                             </div>
@@ -134,58 +142,438 @@
                                 <input type="radio" id="picker-filtered" value="filtered" name="filter-picker" class="vpicker-input" checked={isFilteredRecordsSelected} onchange={handleSelectFilteredRecords} />
                                 <label for="picker-filtered" class="vpicker-label">
                                     <span class="vpicker-figure">
-                                        <span class="picker-icon-container">
-                                            <lightning-icon icon-name="utility:filterList" size="medium"></lightning-icon>
+                                        <span class="vpicker-icon">
+                                            <lightning-icon icon-name="utility:table" size="medium"></lightning-icon>
                                         </span>
-                                        <span class="picker-text">
-                                            <span class="picker-title">Filtered Set of Records</span>
-                                            <span class="picker-desc">Set criteria for which records to use to train the model.</span>
-                                        </span>
+                                        <span class="vpicker-title">Filtered Set of Records</span>
+                                        <span class="vpicker-desc">Set criteria for which records to use to train the model.</span>
                                     </span>
-                                    <span class="vpicker-check">
-                                        <lightning-icon icon-name="utility:check" size="x-small" class="picker-check-icon"></lightning-icon>
+                                    <span class="vpicker-ribbon" aria-hidden="true">
+                                        <svg viewBox="0 0 32 32" class="vpicker-ribbon-svg" focusable="false">
+                                            <path d="M0 0H32V32z"></path>
+                                        </svg>
+                                        <span class="vpicker-ribbon-check">
+                                            <lightning-icon icon-name="utility:check" size="xx-small" variant="inverse"></lightning-icon>
+                                        </span>
                                     </span>
                                 </label>
                             </div>
                         </div>
-                        <div class="record-count-bar">
-                            <div class="record-count-content">
-                                <lightning-icon icon-name="utility:info" size="x-small"></lightning-icon>
-                                <span class="record-count-text">4,204,535 of 4,204,535 included</span>
+                        <div class="slds-scoped-notification slds-media slds-media_center record-count-bar" role="status">
+                            <div class="slds-media__figure">
+                                <span class="record-count-info-badge">
+                                    <lightning-icon icon-name="utility:info" size="xx-small" variant="inverse"></lightning-icon>
+                                </span>
                             </div>
-                            <a href="#" class="record-count-link">Refresh</a>
+                            <div class="slds-media__body">
+                                <p class="record-count-text">4,204,535 of 4,204,535 included</p>
+                            </div>
+                            <div class="slds-media__figure slds-media__figure_reverse">
+                                <a href="#" class="record-count-link">Refresh</a>
+                            </div>
                         </div>
+                    </div>
+                </template>
+
+                <!-- Step 4: Define Settings -->
+                <template lwc:if={isStep4}>
+                    <div class="center-header center-header_prepare">
+                        <h2 class="center-title">
+                            <span class="center-title_bold">{labels.DefineSettingsTitleBold}</span>
+                            <span class="center-title_thin">{labels.DefineSettingsTitleRest}</span>
+                        </h2>
+                    </div>
+                    <div class="center-form">
+                        <div class="algo-picker-group">
+                            <div class="vpicker">
+                                <input type="radio" id="algo-kmeans" value="kmeans" name="algo-picker" class="vpicker-input" checked={isKMeansSelected} onchange={handleSelectKMeans} />
+                                <label for="algo-kmeans" class="vpicker-label">
+                                    <span class="vpicker-figure algo-figure">
+                                        <span class="algo-icon">
+                                            <lightning-icon icon-name="utility:formula" size="medium"></lightning-icon>
+                                        </span>
+                                        <span class="vpicker-title">{labels.KMeansTitle}</span>
+                                        <span class="vpicker-desc">{labels.KMeansDesc}</span>
+                                    </span>
+                                    <span class="vpicker-ribbon" aria-hidden="true">
+                                        <svg viewBox="0 0 32 32" class="vpicker-ribbon-svg" focusable="false">
+                                            <path d="M0 0H32V32z"></path>
+                                        </svg>
+                                        <span class="vpicker-ribbon-check">
+                                            <lightning-icon icon-name="utility:check" size="xx-small" variant="inverse"></lightning-icon>
+                                        </span>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="vpicker">
+                                <input type="radio" id="algo-hdbscan" value="hdbscan" name="algo-picker" class="vpicker-input" checked={isHdbscanSelected} onchange={handleSelectHdbscan} />
+                                <label for="algo-hdbscan" class="vpicker-label">
+                                    <span class="vpicker-figure algo-figure">
+                                        <span class="algo-icon">
+                                            <lightning-icon icon-name="utility:formula" size="medium"></lightning-icon>
+                                        </span>
+                                        <span class="vpicker-title">{labels.HDBScanTitle}</span>
+                                        <span class="vpicker-desc">{labels.HDBScanDesc}</span>
+                                    </span>
+                                    <span class="vpicker-ribbon" aria-hidden="true">
+                                        <svg viewBox="0 0 32 32" class="vpicker-ribbon-svg" focusable="false">
+                                            <path d="M0 0H32V32z"></path>
+                                        </svg>
+                                        <span class="vpicker-ribbon-check">
+                                            <lightning-icon icon-name="utility:check" size="xx-small" variant="inverse"></lightning-icon>
+                                        </span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <template lwc:if={isKMeansSelected}>
+                            <div class="cluster-settings-section">
+                                <h3 class="cluster-settings-title">{labels.ClusterSettingsTitle}</h3>
+                                <div class="slds-scoped-notification slds-media slds-media_center auto-cluster-bar" role="status">
+                                    <div class="slds-media__figure">
+                                        <lightning-icon icon-name="utility:magicwand" size="small" class="auto-cluster-icon"></lightning-icon>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <p class="auto-cluster-text">{labels.AutoClusterToggleLabel}</p>
+                                    </div>
+                                    <div class="slds-media__figure slds-media__figure_reverse">
+                                        <div class="auto-cluster-toggle-wrap">
+                                            <label class="slds-checkbox_toggle">
+                                                <input type="checkbox" checked={autoClusterEnabled} onchange={handleToggleAutoCluster} />
+                                                <span class="slds-checkbox_faux_container">
+                                                    <span class="slds-checkbox_faux"></span>
+                                                    <span class="slds-checkbox_on">{labels.AutoClusterEnabled}</span>
+                                                    <span class="slds-checkbox_off">{labels.AutoClusterDisabled}</span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <template lwc:if={showNumberOfClusters}>
+                                    <div class="cluster-count-field">
+                                        <div class="cluster-count-label-row">
+                                            <span class="cluster-count-label">{labels.NumberOfClustersLabel}</span>
+                                            <span class="var-panel-info-badge">
+                                                <lightning-icon icon-name="utility:info" size="xx-small" variant="inverse"></lightning-icon>
+                                            </span>
+                                        </div>
+                                        <div class="cluster-stepper">
+                                            <button type="button" class="cluster-stepper-btn" onclick={handleClusterDecrement} disabled={decrementDisabled} aria-label="Decrement">
+                                                <lightning-icon icon-name="utility:dash" size="xx-small" variant="inverse" class="cluster-stepper-icon"></lightning-icon>
+                                            </button>
+                                            <input type="number" class="cluster-stepper-input" min="2" max="10" value={numberOfClusters} onchange={handleClusterCountChange} />
+                                            <button type="button" class="cluster-stepper-btn" onclick={handleClusterIncrement} disabled={incrementDisabled} aria-label="Increment">
+                                                <lightning-icon icon-name="utility:add" size="xx-small" variant="inverse" class="cluster-stepper-icon"></lightning-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- Step 5: Review & Save -->
+                <template lwc:if={isStep5}>
+                    <div class="center-header">
+                        <h2 class="center-title">{labels.ReviewTitle}</h2>
+                    </div>
+                    <div class="center-form">
+                        <div class="review-field">
+                            <label class="review-field-label review-field-label_required">{labels.ModelNameLabel}</label>
+                            <lightning-input
+                                type="text"
+                                variant="label-hidden"
+                                value={modelName}
+                                onchange={handleModelNameChange}
+                                class="review-input"
+                            ></lightning-input>
+                        </div>
+                        <div class="review-field">
+                            <label class="review-field-label">{labels.ClusterDescriptionLabel}</label>
+                            <textarea
+                                class="review-textarea"
+                                onchange={handleClusterDescriptionChange}
+                            >{clusterDescription}</textarea>
+                        </div>
+
+                        <div class="review-card">
+                            <div class="review-card-header">
+                                <span class="review-card-title">{labels.ReviewDataTitle}</span>
+                                <button type="button" class="review-card-edit" data-step="1" onclick={handleEditStep} aria-label="Edit data">
+                                    <lightning-icon icon-name="utility:forward" size="small" variant="bare" class="review-card-edit-icon"></lightning-icon>
+                                </button>
+                            </div>
+                            <div class="review-card-body">
+                                <div class="review-row">
+                                    <lightning-icon icon-name="standard:dataset" size="small" class="review-row-icon"></lightning-icon>
+                                    <span class="review-row-label">{labels.ReviewDataSpaceLabel}</span>
+                                    <span class="review-row-value">{labels.ReviewDataSpaceValue}</span>
+                                </div>
+                                <div class="review-row">
+                                    <lightning-icon icon-name="standard:data_model" size="small" class="review-row-icon"></lightning-icon>
+                                    <span class="review-row-label">{labels.ReviewDmoLabel}</span>
+                                    <span class="review-row-value">{reviewDmoValue}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="review-card">
+                            <div class="review-card-header">
+                                <span class="review-card-title">{labels.ReviewFiltersTitle}</span>
+                                <button type="button" class="review-card-edit" data-step="2" onclick={handleEditStep} aria-label="Edit filters">
+                                    <lightning-icon icon-name="utility:forward" size="small" variant="bare" class="review-card-edit-icon"></lightning-icon>
+                                </button>
+                            </div>
+                            <div class="review-card-body">
+                                <div class="review-row">
+                                    <lightning-icon icon-name="standard:record" size="small" class="review-row-icon"></lightning-icon>
+                                    <span class="review-row-value">{reviewFilterRecords}</span>
+                                </div>
+                                <div class="review-row">
+                                    <lightning-icon icon-name="standard:filter" size="small" class="review-row-icon"></lightning-icon>
+                                    <span class="review-row-value">{labels.ReviewFiltersInfo}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="review-card">
+                            <div class="review-card-header">
+                                <span class="review-card-title">{labels.ReviewVariablesTitle}</span>
+                                <button type="button" class="review-card-edit" data-step="3" onclick={handleEditStep} aria-label="Edit variables">
+                                    <lightning-icon icon-name="utility:forward" size="small" variant="bare" class="review-card-edit-icon"></lightning-icon>
+                                </button>
+                            </div>
+                            <div class="review-card-body">
+                                <div class="review-row">
+                                    <lightning-icon icon-name="standard:variable" size="small" class="review-row-icon"></lightning-icon>
+                                    <span class="review-row-value">{reviewVariablesInfo}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="review-card">
+                            <div class="review-card-header">
+                                <span class="review-card-title">{labels.ReviewSettingsTitle}</span>
+                                <button type="button" class="review-card-edit" data-step="4" onclick={handleEditStep} aria-label="Edit settings">
+                                    <lightning-icon icon-name="utility:forward" size="small" variant="bare" class="review-card-edit-icon"></lightning-icon>
+                                </button>
+                            </div>
+                            <div class="review-card-body">
+                                <div class="review-row">
+                                    <lightning-icon icon-name="standard:data_model" size="small" class="review-row-icon"></lightning-icon>
+                                    <span class="review-row-label">{labels.ReviewAlgorithmLabel}</span>
+                                    <span class="review-row-value">{reviewAlgorithmValue}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Step 3: Prepare Variables -->
+                <template lwc:if={isStep3}>
+                    <div class="center-header center-header_prepare">
+                        <h2 class="center-title">
+                            <span class="center-title_bold">{labels.PrepareVariablesTitleBold}</span>
+                            <span class="center-title_thin">{labels.PrepareVariablesTitleRest}</span>
+                        </h2>
+                    </div>
+                    <div class="prepare-toolbar">
+                        <div class="prepare-toolbar-left">
+                            <lightning-button label={labels.ShowOnlySelected} variant={showOnlySelectedVariant} onclick={handleToggleShowOnlySelected}></lightning-button>
+                            <span class="prepare-summary">{selectedSummary}</span>
+                        </div>
+                        <div class="prepare-toolbar-right">
+                            <lightning-input
+                                type="search"
+                                variant="label-hidden"
+                                placeholder={labels.VariableSearchPlaceholder}
+                                value={variableSearchTerm}
+                                onchange={handleVariableSearch}
+                                class="prepare-search"
+                            ></lightning-input>
+                        </div>
+                    </div>
+                    <div class="prepare-card">
+                        <div class="prepare-card-header">
+                            <span class="prepare-card-title">Account</span>
+                            <lightning-button-icon icon-name={accountToggleIcon} variant="border-filled" size="small" alternative-text="Toggle section" onclick={handleToggleAccountSection}></lightning-button-icon>
+                        </div>
+                        <template lwc:if={accountSectionOpen}>
+                            <div class="var-table">
+                                <div class="var-table-head">
+                                    <div class="var-cell var-cell_check">
+                                        <lightning-icon icon-name="utility:check" size="xx-small" variant="bare"></lightning-icon>
+                                    </div>
+                                    <div class="var-cell var-cell_variable">{labels.VariableColumn}</div>
+                                    <div class="var-cell var-cell_settings">
+                                        <lightning-icon icon-name="utility:settings" size="xx-small" variant="bare"></lightning-icon>
+                                        <span>{labels.SettingsColumn}</span>
+                                    </div>
+                                </div>
+                                <template for:each={filteredVariables} for:item="v">
+                                    <div key={v.id} class={v.rowClass}>
+                                        <div class="var-cell var-cell_check">
+                                            <input type="checkbox" class="var-checkbox" data-id={v.id} checked={v.isSelected} onchange={handleVariableToggle} />
+                                        </div>
+                                        <div class="var-cell var-cell_variable">
+                                            <lightning-icon icon-name={v.iconName} size="xx-small" variant="bare" class="var-type-icon"></lightning-icon>
+                                            <a href="#" class="var-name" data-id={v.id} onclick={handleVariableNameClick}>{v.name}</a>
+                                        </div>
+                                        <div class="var-cell var-cell_settings">
+                                            <template lwc:if={v.action}>
+                                                <lightning-button label={v.action} variant="neutral" class="var-action-btn" data-id={v.id} onclick={handleVariableNameClick}></lightning-button>
+                                                <lightning-button-icon icon-name="utility:delete" variant="bare" size="small" alternative-text="Remove" data-id={v.id} onclick={handleRemoveVariable}></lightning-button-icon>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
                     </div>
                 </template>
             </div>
 
             <!-- Right Panel -->
             <template lwc:if={showRightPanel}>
-                <div class="builder-panel">
-                    <div class="panel-header">
-                        <h3 class="panel-title">{panelTitle}</h3>
-                        <lightning-button-icon icon-name="utility:close" variant="bare" size="small" alternative-text="Close panel" onclick={handleToggleRight}></lightning-button-icon>
-                    </div>
-                    <div class="panel-header-line"></div>
-                    <div class="panel-body">
-                        <div class="panel-content">
-                            <div class="panel-icon-badge">
-                                <lightning-icon icon-name="utility:edit" size="small" class="panel-badge-icon"></lightning-icon>
+                <template lwc:if={isVariablePanelOpen}>
+                    <div class="builder-panel builder-panel_variable">
+                        <div class="var-panel-header">
+                            <h3 class="var-panel-title">{activeVariable.name}</h3>
+                            <lightning-button-icon icon-name="utility:close" variant="bare" size="small" alternative-text="Close panel" onclick={handleCloseVariablePanel}></lightning-button-icon>
+                        </div>
+                        <div class="var-panel-tabs">
+                            <div class="var-panel-tab">{labels.AlertsTab}</div>
+                            <div class="var-panel-tab var-panel-tab_active">{labels.SettingsTab}</div>
+                        </div>
+                        <div class="var-panel-body">
+                            <div class="var-panel-field">
+                                <div class="var-panel-label-row">
+                                    <span class="var-panel-label">{labels.TransformationLabel}</span>
+                                    <span class="var-panel-info-badge">
+                                        <lightning-icon icon-name="utility:info" size="xx-small" variant="inverse"></lightning-icon>
+                                    </span>
+                                </div>
+                                <lightning-combobox
+                                    variant="label-hidden"
+                                    value={activeTransformation}
+                                    options={transformationOptions}
+                                    onchange={handleTransformationChange}
+                                ></lightning-combobox>
                             </div>
-                            <h4 class="panel-headline">{panelHeadline}</h4>
-                            <template for:each={panelBody} for:item="para">
-                                <p key={para.id} class="panel-text">{para.text}</p>
+
+                            <template lwc:if={showReplaceMissingOptions}>
+                                <div class="var-panel-field">
+                                    <div class="var-panel-label-row">
+                                        <span class="var-panel-label var-panel-label_required">{labels.ReplaceWithLabel}</span>
+                                        <span class="var-panel-info-badge">
+                                            <lightning-icon icon-name="utility:info" size="xx-small" variant="inverse"></lightning-icon>
+                                        </span>
+                                    </div>
+                                    <lightning-combobox
+                                        variant="label-hidden"
+                                        value={activeReplaceWith}
+                                        options={replaceWithOptions}
+                                        onchange={handleReplaceWithChange}
+                                    ></lightning-combobox>
+                                </div>
+                                <div class="var-panel-field">
+                                    <div class="var-panel-label-row">
+                                        <span class="var-panel-label var-panel-label_required">{labels.GroupByLabel}</span>
+                                        <span class="var-panel-info-badge">
+                                            <lightning-icon icon-name="utility:info" size="xx-small" variant="inverse"></lightning-icon>
+                                        </span>
+                                    </div>
+                                    <lightning-combobox
+                                        variant="label-hidden"
+                                        value={activeGroupBy}
+                                        options={groupByOptions}
+                                        onchange={handleGroupByChange}
+                                    ></lightning-combobox>
+                                </div>
                             </template>
 
-                            <template for:each={panelCards} for:item="card">
-                                <div key={card.id} class="panel-info-card">
-                                    <span class="panel-info-card-title">{card.title}</span>
-                                    <a href="#" class="panel-link">{labels.ShowMore}</a>
+                            <template lwc:if={showNumberBuckets}>
+                                <div class="var-panel-field">
+                                    <div class="var-panel-label-row">
+                                        <span class="var-panel-label">{labels.NumberOfBucketsLabel}</span>
+                                        <span class="var-panel-info-badge">
+                                            <lightning-icon icon-name="utility:info" size="xx-small" variant="inverse"></lightning-icon>
+                                        </span>
+                                    </div>
+                                    <div class="var-panel-bucket-range">{labels.BucketRangeLabel}</div>
+                                    <div class="var-panel-slider-row">
+                                        <input type="range" min="10" max="100" step="1" value={activeBucketCount} onchange={handleBucketChange} oninput={handleBucketChange} class="var-panel-slider" />
+                                        <span class="var-panel-slider-value">{activeBucketCount}</span>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <template lwc:if={showTextFrequencyChart}>
+                                <div class="var-panel-distribution">
+                                    <h4 class="var-panel-distribution-title">{labels.DistributionLabel}</h4>
+                                    <div class="var-freq-chart">
+                                        <div class="var-freq-axis">
+                                            <span class="var-freq-axis-label">{labels.CountAxisLabel}</span>
+                                        </div>
+                                        <template for:each={textFrequencies} for:item="row">
+                                            <div key={row.label} class="var-freq-row">
+                                                <span class="var-freq-label">{row.label}</span>
+                                                <div class="var-freq-bar-wrap">
+                                                    <div class="var-freq-bar" style={row.barStyle}></div>
+                                                    <span class="var-freq-count">{row.count}</span>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <template lwc:if={showDistribution}>
+                                <div class="var-panel-distribution">
+                                    <h4 class="var-panel-distribution-title">{labels.DistributionLabel}</h4>
+                                    <p class="var-panel-distribution-row">
+                                        <span class="var-panel-distribution-label">{labels.MinValueLabel}</span>
+                                        <span class="var-panel-distribution-value">{distributionMin}</span>
+                                    </p>
+                                    <p class="var-panel-distribution-row">
+                                        <span class="var-panel-distribution-label">{labels.MaxValueLabel}</span>
+                                        <span class="var-panel-distribution-value">{distributionMax}</span>
+                                    </p>
                                 </div>
                             </template>
                         </div>
                     </div>
-                </div>
+                </template>
+                <template lwc:else>
+                    <div class="builder-panel">
+                        <div class="panel-header">
+                            <h3 class="panel-title">{panelTitle}</h3>
+                            <lightning-button-icon icon-name="utility:close" variant="bare" size="small" alternative-text="Close panel" onclick={handleToggleRight}></lightning-button-icon>
+                        </div>
+                        <div class="panel-header-line"></div>
+                        <div class="panel-body">
+                            <div class="panel-content">
+                                <div class="panel-icon-badge">
+                                    <lightning-icon icon-name={panelBadgeIcon} size="small" class="panel-badge-icon"></lightning-icon>
+                                </div>
+                                <h4 class="panel-headline">{panelHeadline}</h4>
+                                <template for:each={panelBody} for:item="para">
+                                    <p key={para.id} class="panel-text">{para.text}</p>
+                                </template>
+
+                                <template for:each={panelCards} for:item="card">
+                                    <div key={card.id} class="panel-info-card">
+                                        <span class="panel-info-card-title">{card.title}</span>
+                                        <a href="#" class="panel-link">{labels.ShowMore}</a>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </template>
             </template>
         </div>
     </div>

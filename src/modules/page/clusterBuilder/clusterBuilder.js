@@ -10,6 +10,66 @@ const STEPS = [
     { id: 5, label: Labels.Step5 },
 ];
 
+const ACCOUNT_VARIABLES = [
+    { id: 'v1', name: 'Account_ExternalId', type: 'number', min: 1000, max: 99999 },
+    { id: 'v2', name: 'Annual Revenue', type: 'number', selected: true, action: 'Replace Missing Values', min: 50000, max: 12500000 },
+    { id: 'v3', name: 'Billing Latitude', type: 'number', min: 39.833644, max: 43.976418 },
+    { id: 'v4', name: 'Billing Longitude', type: 'number', min: -122.418301, max: -71.058884 },
+    { id: 'v5', name: 'Employees', type: 'number', min: 1, max: 250000 },
+    { id: 'v6', name: 'Global Discount', type: 'number', min: 0, max: 0.45 },
+    { id: 'v7', name: 'Account Currency', type: 'text', frequencies: [
+        { label: 'USD', count: 14000 },
+        { label: 'EUR', count: 11000 },
+        { label: 'GBP', count: 2900 },
+        { label: 'JPY', count: 1400 },
+        { label: 'CAD', count: 1300 },
+        { label: 'AUD', count: 403 },
+    ] },
+    { id: 'v8', name: 'Account Description', type: 'text', selected: true, action: 'Text Clustering' },
+    { id: 'v9', name: 'Account Fax', type: 'text' },
+    { id: 'v10', name: 'Account ID', type: 'text' },
+    { id: 'v11', name: 'Account Name', type: 'text' },
+    { id: 'v12', name: 'Account Phone', type: 'text' },
+    { id: 'v13', name: 'Account Source', type: 'text', frequencies: [
+        { label: 'Web', count: 9800 },
+        { label: 'Phone Inquiry', count: 7200 },
+        { label: 'Partner Referral', count: 3100 },
+        { label: 'Trade Show', count: 1800 },
+        { label: 'Other', count: 950 },
+    ] },
+    { id: 'v14', name: 'Account Type', type: 'text', frequencies: [
+        { label: 'Customer - Direct', count: 12500 },
+        { label: 'Customer - Channel', count: 8200 },
+        { label: 'Prospect', count: 4400 },
+        { label: 'Other', count: 1100 },
+    ] },
+    { id: 'v15', name: 'Billing City', type: 'text' },
+    { id: 'v16', name: 'Billing Country', type: 'text', frequencies: [
+        { label: 'United States', count: 15800 },
+        { label: 'United Kingdom', count: 4200 },
+        { label: 'Germany', count: 3100 },
+        { label: 'France', count: 2400 },
+        { label: 'Japan', count: 1700 },
+        { label: 'Canada', count: 1200 },
+    ] },
+    { id: 'v17', name: 'Billing State/Province', type: 'text' },
+    { id: 'v18', name: 'Billing Street', type: 'text' },
+    { id: 'v19', name: 'Billing Zip/Postal Code', type: 'text' },
+    { id: 'v20', name: 'Created Date', type: 'date', selected: true, action: 'Group by Day', min: '1/1/2013, 05:30 AM', max: '1/22/2025, 05:30 AM' },
+    { id: 'v21', name: 'Last Activity', type: 'date', selected: true, action: 'Group by Month', min: '4/12/2014, 05:30 AM', max: '6/29/2026, 05:30 AM' },
+    { id: 'v24', name: 'Last Modified Date', type: 'date', selected: true, action: 'Group by Month', min: '3/22/2018, 05:30 AM', max: '6/30/2026, 05:30 AM' },
+    { id: 'v25', name: 'System Modstamp', type: 'date', selected: true, action: 'Group by Month', min: '3/22/2018, 05:30 AM', max: '6/30/2026, 05:30 AM' },
+    { id: 'v22', name: 'Industry', type: 'text', frequencies: [
+        { label: 'Technology', count: 8400 },
+        { label: 'Financial Services', count: 6200 },
+        { label: 'Healthcare', count: 4900 },
+        { label: 'Manufacturing', count: 3700 },
+        { label: 'Retail', count: 2500 },
+        { label: 'Education', count: 1100 },
+    ] },
+    { id: 'v23', name: 'Last Modified By ID', type: 'text' },
+];
+
 const DATA_MODEL_OBJECTS = [
     { id: 'dmo-1', label: 'Account', apiName: 'AMR_Account__dlm' },
     { id: 'dmo-2', label: 'Account', apiName: 'AMR_Account_WavePM__dlm' },
@@ -36,6 +96,35 @@ export default class ClusterBuilder extends LightningElement {
     @track showDmoDropdown = false;
     @track selectedDmo = null;
     @track filterSelection = 'all';
+    @track variableSearchTerm = '';
+    @track showOnlySelected = false;
+    @track accountSectionOpen = true;
+    @track selectedVariableIds = new Set(['v2', 'v8', 'v20', 'v21', 'v24', 'v25']);
+    @track variableActions = {
+        v2: 'Replace Missing Values',
+        v8: 'Text Clustering',
+        v20: 'Group by Day',
+        v21: 'Group by Month',
+        v24: 'Group by Month',
+        v25: 'Group by Month',
+    };
+    @track activeVariableId = null;
+    @track variableTransformations = {
+        v2: 'replace-missing',
+        v8: 'text-clustering',
+        v20: 'group-by-day',
+        v21: 'group-by-month',
+        v24: 'group-by-month',
+        v25: 'group-by-month',
+    };
+    @track variableReplaceWith = { v2: 'average' };
+    @track variableGroupBy = { v2: 'account-name' };
+    @track variableBuckets = {};
+    @track selectedAlgorithm = 'kmeans';
+    @track autoClusterEnabled = true;
+    @track numberOfClusters = 4;
+    @track modelName = Labels.ModelNameValue;
+    @track clusterDescription = Labels.ClusterDescriptionValue;
 
     get steps() {
         return STEPS.map((step) => {
@@ -59,6 +148,257 @@ export default class ClusterBuilder extends LightningElement {
         return this.currentStep === 2;
     }
 
+    get isStep3() {
+        return this.currentStep === 3;
+    }
+
+    get isStep4() {
+        return this.currentStep === 4;
+    }
+
+    get isStep5() {
+        return this.currentStep === 5;
+    }
+
+    get reviewAlgorithmValue() {
+        return this.selectedAlgorithm === 'hdbscan' ? Labels.ReviewAlgorithmValueHDBScan : Labels.ReviewAlgorithmValueKMeans;
+    }
+
+    get reviewVariablesInfo() {
+        return `${this.selectedCount} of ${this.totalVariableCount} variables selected`;
+    }
+
+    get reviewFilterRecords() {
+        return this.filterSelection === 'filtered'
+            ? '504 of 1000000 records will be used to train the model'
+            : '1000000 of 1000000 records will be used to train the model';
+    }
+
+    get reviewDmoValue() {
+        return this.selectedDmo ? this.selectedDmo.label : 'Account';
+    }
+
+    get nextButtonLabel() {
+        return this.currentStep === 5 ? Labels.SaveTrainButton : Labels.NextButton;
+    }
+
+    get nextButtonIcon() {
+        return this.currentStep === 5 ? 'utility:einstein' : null;
+    }
+
+    get isFinalStep() {
+        return this.currentStep === 5;
+    }
+
+    get previousButtonLabel() {
+        return this.currentStep === 5 ? Labels.BackButton : Labels.PreviousButton;
+    }
+
+    get panelBadgeIcon() {
+        return this.currentStep === 5 ? 'utility:einstein' : 'utility:edit';
+    }
+
+    get isKMeansSelected() {
+        return this.selectedAlgorithm === 'kmeans';
+    }
+
+    get isHdbscanSelected() {
+        return this.selectedAlgorithm === 'hdbscan';
+    }
+
+    get autoClusterToggleText() {
+        return this.autoClusterEnabled ? Labels.AutoClusterEnabled : Labels.AutoClusterDisabled;
+    }
+
+    get showNumberOfClusters() {
+        return this.selectedAlgorithm === 'kmeans' && !this.autoClusterEnabled;
+    }
+
+    get decrementDisabled() {
+        return this.numberOfClusters <= 2;
+    }
+
+    get incrementDisabled() {
+        return this.numberOfClusters >= 10;
+    }
+
+    get filteredVariables() {
+        const term = this.variableSearchTerm.toLowerCase();
+        return ACCOUNT_VARIABLES.filter((v) => {
+            if (this.showOnlySelected && !this.selectedVariableIds.has(v.id)) return false;
+            if (term && !v.name.toLowerCase().includes(term)) return false;
+            return true;
+        }).map((v) => {
+            const isSelected = this.selectedVariableIds.has(v.id);
+            let iconName = 'utility:text';
+            if (v.type === 'number') iconName = 'utility:number_input';
+            else if (v.type === 'date') iconName = 'utility:event';
+            return {
+                ...v,
+                isSelected,
+                action: this.variableActions[v.id] || null,
+                iconName,
+                rowClass: isSelected ? 'var-row var-row_selected' : 'var-row',
+            };
+        });
+    }
+
+    get selectedCount() {
+        return this.selectedVariableIds.size;
+    }
+
+    get totalVariableCount() {
+        return ACCOUNT_VARIABLES.length;
+    }
+
+    get selectedSummary() {
+        return `${this.selectedCount} of ${this.totalVariableCount} selected`;
+    }
+
+    get accountToggleIcon() {
+        return this.accountSectionOpen ? 'utility:chevronup' : 'utility:chevrondown';
+    }
+
+    get showOnlySelectedVariant() {
+        return this.showOnlySelected ? 'brand' : 'neutral';
+    }
+
+    get activeVariable() {
+        if (!this.activeVariableId) return null;
+        return ACCOUNT_VARIABLES.find((v) => v.id === this.activeVariableId) || null;
+    }
+
+    get isVariablePanelOpen() {
+        return !!this.activeVariable;
+    }
+
+    get activeTransformation() {
+        if (!this.activeVariableId) return 'none';
+        if (this.variableTransformations[this.activeVariableId]) {
+            return this.variableTransformations[this.activeVariableId];
+        }
+        const v = this.activeVariable;
+        if (v && v.type === 'date') return 'group-by-day';
+        return 'none';
+    }
+
+    get transformationOptions() {
+        const v = this.activeVariable;
+        if (!v) return [];
+        if (v.type === 'text') {
+            return [
+                { label: Labels.TransformationNone, value: 'none' },
+                { label: Labels.TransformationTextClustering, value: 'text-clustering' },
+            ];
+        }
+        if (v.type === 'date') {
+            return [
+                { label: Labels.TransformationGroupByDay, value: 'group-by-day' },
+                { label: Labels.TransformationGroupByMonth, value: 'group-by-month' },
+            ];
+        }
+        return [
+            { label: Labels.TransformationNone, value: 'none' },
+            { label: Labels.TransformationReplaceMissing, value: 'replace-missing' },
+        ];
+    }
+
+    get isActiveVariableNumber() {
+        const v = this.activeVariable;
+        return !!v && v.type === 'number';
+    }
+
+    get isActiveVariableText() {
+        const v = this.activeVariable;
+        return !!v && v.type === 'text';
+    }
+
+    get isActiveVariableDate() {
+        const v = this.activeVariable;
+        return !!v && v.type === 'date';
+    }
+
+    get showNumberBuckets() {
+        return this.isActiveVariableNumber;
+    }
+
+    get activeBucketCount() {
+        if (!this.activeVariableId) return 10;
+        return this.variableBuckets[this.activeVariableId] || 10;
+    }
+
+    get textFrequencies() {
+        const v = this.activeVariable;
+        if (!v || v.type !== 'text' || !v.frequencies) return [];
+        const max = Math.max(...v.frequencies.map((f) => f.count));
+        return v.frequencies.map((f) => ({
+            label: f.label,
+            count: this.formatCount(f.count),
+            barStyle: `width: ${Math.max(2, (f.count / max) * 100)}%`,
+        }));
+    }
+
+    get showTextFrequencyChart() {
+        const v = this.activeVariable;
+        return !!v && v.type === 'text' && !!v.frequencies && v.frequencies.length > 0;
+    }
+
+    formatCount(n) {
+        if (n >= 1000) {
+            const k = n / 1000;
+            return `${k % 1 === 0 ? k : k.toFixed(1)}K`;
+        }
+        return String(n);
+    }
+
+    get replaceWithOptions() {
+        return [
+            { label: 'Average', value: 'average' },
+            { label: 'Median', value: 'median' },
+            { label: 'Mode', value: 'mode' },
+            { label: 'Maximum', value: 'maximum' },
+            { label: 'Minimum', value: 'minimum' },
+        ];
+    }
+
+    get groupByOptions() {
+        return [
+            { label: 'Account Name', value: 'account-name' },
+            { label: 'Industry', value: 'industry' },
+            { label: 'Account Type', value: 'account-type' },
+            { label: 'Billing Country', value: 'billing-country' },
+        ];
+    }
+
+    get activeReplaceWith() {
+        if (!this.activeVariableId) return 'average';
+        return this.variableReplaceWith[this.activeVariableId] || 'average';
+    }
+
+    get activeGroupBy() {
+        if (!this.activeVariableId) return 'account-name';
+        return this.variableGroupBy[this.activeVariableId] || 'account-name';
+    }
+
+    get showReplaceMissingOptions() {
+        return this.activeTransformation === 'replace-missing';
+    }
+
+    get showDistribution() {
+        const v = this.activeVariable;
+        return !!v && (v.type === 'number' || v.type === 'date');
+    }
+
+    get distributionMin() {
+        const v = this.activeVariable;
+        return v && v.min !== undefined ? v.min : '';
+    }
+
+    get distributionMax() {
+        const v = this.activeVariable;
+        return v && v.max !== undefined ? v.max : '';
+    }
+
     get showPrevious() {
         return this.currentStep > 1;
     }
@@ -80,14 +420,25 @@ export default class ClusterBuilder extends LightningElement {
 
 
     get panelTitle() {
-        return this.currentStep === 2 ? Labels.Panel2Title : Labels.PanelTitle;
+        if (this.currentStep === 5) return Labels.Panel5Title;
+        if (this.currentStep === 4) return Labels.Panel4Title;
+        if (this.currentStep === 3) return Labels.Panel3Title;
+        if (this.currentStep === 2) return Labels.Panel2Title;
+        return Labels.PanelTitle;
     }
 
     get panelHeadline() {
-        return this.currentStep === 2 ? Labels.Panel2Headline : Labels.PanelHeadline;
+        if (this.currentStep === 5) return Labels.Panel5Headline;
+        if (this.currentStep === 4) return Labels.Panel4Headline;
+        if (this.currentStep === 3) return Labels.Panel3Headline;
+        if (this.currentStep === 2) return Labels.Panel2Headline;
+        return Labels.PanelHeadline;
     }
 
     get panelBody() {
+        if (this.currentStep === 5) return [{ id: 'b1', text: Labels.Panel5Body1 }];
+        if (this.currentStep === 4) return [];
+        if (this.currentStep === 3) return [];
         if (this.currentStep === 2) {
             return [
                 { id: 'b1', text: Labels.Panel2Body1 },
@@ -102,6 +453,21 @@ export default class ClusterBuilder extends LightningElement {
     }
 
     get panelCards() {
+        if (this.currentStep === 5) return [];
+        if (this.currentStep === 4) {
+            return [
+                { id: 'c1', title: Labels.Panel4Card1Title },
+                { id: 'c2', title: Labels.Panel4Card2Title },
+                { id: 'c3', title: Labels.Panel4Card3Title },
+            ];
+        }
+        if (this.currentStep === 3) {
+            return [
+                { id: 'c1', title: Labels.Panel3Card1Title },
+                { id: 'c2', title: Labels.Panel3Card2Title },
+                { id: 'c3', title: Labels.Panel3Card3Title },
+            ];
+        }
         if (this.currentStep === 2) {
             return [
                 { id: 'c1', title: Labels.Panel2Card1Title },
@@ -171,6 +537,152 @@ export default class ClusterBuilder extends LightningElement {
 
     handleSelectFilteredRecords() {
         this.filterSelection = 'filtered';
+    }
+
+    handleVariableSearch(event) {
+        this.variableSearchTerm = event.target.value;
+    }
+
+    handleToggleShowOnlySelected() {
+        this.showOnlySelected = !this.showOnlySelected;
+    }
+
+    handleToggleAccountSection() {
+        this.accountSectionOpen = !this.accountSectionOpen;
+    }
+
+    handleVariableToggle(event) {
+        const id = event.currentTarget.dataset.id;
+        const next = new Set(this.selectedVariableIds);
+        if (next.has(id)) {
+            next.delete(id);
+            const actions = { ...this.variableActions };
+            delete actions[id];
+            this.variableActions = actions;
+        } else {
+            next.add(id);
+        }
+        this.selectedVariableIds = next;
+    }
+
+    handleRemoveVariable(event) {
+        event.stopPropagation();
+        const id = event.currentTarget.dataset.id;
+        const next = new Set(this.selectedVariableIds);
+        next.delete(id);
+        this.selectedVariableIds = next;
+        const actions = { ...this.variableActions };
+        delete actions[id];
+        this.variableActions = actions;
+        const trans = { ...this.variableTransformations };
+        delete trans[id];
+        this.variableTransformations = trans;
+        if (this.activeVariableId === id) {
+            this.activeVariableId = null;
+        }
+    }
+
+    handleVariableNameClick(event) {
+        event.preventDefault();
+        const id = event.currentTarget.dataset.id;
+        this.activeVariableId = id;
+        this.showRightPanel = true;
+    }
+
+    handleCloseVariablePanel() {
+        this.activeVariableId = null;
+    }
+
+    handleTransformationChange(event) {
+        const id = this.activeVariableId;
+        if (!id) return;
+        const value = event.detail.value;
+        const trans = { ...this.variableTransformations };
+        const actions = { ...this.variableActions };
+        const next = new Set(this.selectedVariableIds);
+        if (value === 'none') {
+            delete trans[id];
+            delete actions[id];
+            next.delete(id);
+        } else {
+            trans[id] = value;
+            if (value === 'replace-missing') actions[id] = Labels.TransformationReplaceMissing;
+            else if (value === 'text-clustering') actions[id] = Labels.TransformationTextClustering;
+            else if (value === 'group-by-month') actions[id] = Labels.TransformationGroupByMonth;
+            else if (value === 'group-by-day') actions[id] = Labels.TransformationGroupByDay;
+            next.add(id);
+        }
+        this.variableTransformations = trans;
+        this.variableActions = actions;
+        this.selectedVariableIds = next;
+    }
+
+    handleReplaceWithChange(event) {
+        const id = this.activeVariableId;
+        if (!id) return;
+        this.variableReplaceWith = { ...this.variableReplaceWith, [id]: event.detail.value };
+    }
+
+    handleGroupByChange(event) {
+        const id = this.activeVariableId;
+        if (!id) return;
+        this.variableGroupBy = { ...this.variableGroupBy, [id]: event.detail.value };
+    }
+
+    handleBucketChange(event) {
+        const id = this.activeVariableId;
+        if (!id) return;
+        this.variableBuckets = { ...this.variableBuckets, [id]: parseInt(event.target.value, 10) };
+    }
+
+    handleSelectKMeans() {
+        this.selectedAlgorithm = 'kmeans';
+    }
+
+    handleSelectHdbscan() {
+        this.selectedAlgorithm = 'hdbscan';
+    }
+
+    handleToggleAutoCluster(event) {
+        this.autoClusterEnabled = event.target.checked;
+    }
+
+    handleClusterCountChange(event) {
+        const val = parseInt(event.target.value, 10);
+        if (!isNaN(val) && val >= 2 && val <= 10) {
+            this.numberOfClusters = val;
+        }
+    }
+
+    handleClusterDecrement() {
+        if (this.numberOfClusters > 2) {
+            this.numberOfClusters -= 1;
+        }
+    }
+
+    handleClusterIncrement() {
+        if (this.numberOfClusters < 10) {
+            this.numberOfClusters += 1;
+        }
+    }
+
+    handleModelNameChange(event) {
+        this.modelName = event.target.value;
+    }
+
+    handleClusterDescriptionChange(event) {
+        this.clusterDescription = event.target.value;
+    }
+
+    handleSaveTrain() {
+        // Prototype — no-op
+    }
+
+    handleEditStep(event) {
+        const step = parseInt(event.currentTarget.dataset.step, 10);
+        if (step && step >= 1 && step <= 5) {
+            this.currentStep = step;
+        }
     }
 
     handleNext() {
