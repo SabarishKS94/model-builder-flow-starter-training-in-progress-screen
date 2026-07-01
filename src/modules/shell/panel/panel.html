@@ -129,11 +129,11 @@
                                         height="13" />
                                 </button>
                                 <button type="button"
-                                    class="slds-button slds-button_icon slds-button_icon-bare shell-panel__header-slds-icon-btn"
+                                    class="slds-button slds-button_icon slds-button_icon-bare shell-panel__header-slds-icon-btn shell-panel__header-slds-icon-btn_close"
                                     title="Close Panel" aria-label="Close Panel" onclick={handleClosePanel}>
-                                    <img src={iconCloseSrc} alt=""
-                                        class="shell-panel__header-icon-img shell-panel__header-icon-img_close" width="10"
-                                        height="10" />
+                                    <lightning-icon icon-name="utility:close" size="x-small" alternative-text=""
+                                        class="shell-panel__header-close-icon-lbc" aria-hidden="true">
+                                    </lightning-icon>
                                 </button>
                             </div>
                         </div>

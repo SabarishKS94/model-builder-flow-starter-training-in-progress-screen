@@ -542,6 +542,15 @@
     height: 9.96px;
 }
 
+.shell-panel__header-close-icon-lbc {
+    --slds-c-icon-color-foreground-default: var(--slds-g-color-accent-2, #0250d9);
+    --slds-c-icon-color-foreground: var(--slds-g-color-accent-2, #0250d9);
+    --sds-c-icon-color-foreground-default: var(--slds-g-color-accent-2, #0250d9);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .shell-panel__header-chevron-img {
     display: block;
     width: 10.22px;

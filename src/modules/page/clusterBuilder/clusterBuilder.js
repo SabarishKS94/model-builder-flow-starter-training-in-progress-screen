@@ -125,16 +125,27 @@ export default class ClusterBuilder extends LightningElement {
     @track numberOfClusters = 4;
     @track modelName = Labels.ModelNameValue;
     @track clusterDescription = Labels.ClusterDescriptionValue;
+    @track activeArticleId = null;
+    @track isTraining = false;
+    @track isAgentforceOpen = false;
 
     get steps() {
         return STEPS.map((step) => {
             const isActive = step.id === this.currentStep;
             const isComplete = step.id < this.currentStep;
+            let iconName = 'utility:routing_offline';
+            let iconClass = 'step-icon step-icon_pending';
+            if (isActive) {
+                iconName = 'utility:choice';
+                iconClass = 'step-icon step-icon_active';
+            }
             return {
                 ...step,
                 number: step.id,
+                isComplete,
                 itemClass: `step-item${isActive ? ' step-item_active' : ''}${isComplete ? ' step-item_complete' : ''}`,
-                ringClass: `step-ring${isActive ? ' step-ring_active' : ''}${isComplete ? ' step-ring_complete' : ''}`,
+                iconName,
+                iconClass,
                 labelClass: isActive ? 'step-label step-label_active' : 'step-label',
             };
         });
@@ -195,7 +206,11 @@ export default class ClusterBuilder extends LightningElement {
     }
 
     get panelBadgeIcon() {
-        return this.currentStep === 5 ? 'utility:einstein' : 'utility:edit';
+        return this.currentStep === 5 ? 'utility:fallback' : 'utility:edit';
+    }
+
+    get panelBadgeClass() {
+        return this.currentStep === 5 ? 'panel-icon-badge panel-icon-badge_train' : 'panel-icon-badge';
     }
 
     get isKMeansSelected() {
@@ -239,6 +254,7 @@ export default class ClusterBuilder extends LightningElement {
                 action: this.variableActions[v.id] || null,
                 iconName,
                 rowClass: isSelected ? 'var-row var-row_selected' : 'var-row',
+                showDelete: v.type !== 'date',
             };
         });
     }
@@ -410,6 +426,10 @@ export default class ClusterBuilder extends LightningElement {
         return false;
     }
 
+    get showRightPanelContent() {
+        return this.showRightPanel && !this.isAgentforceOpen;
+    }
+
     get isAllRecordsSelected() {
         return this.filterSelection === 'all';
     }
@@ -436,15 +456,17 @@ export default class ClusterBuilder extends LightningElement {
     }
 
     get panelBody() {
-        if (this.currentStep === 5) return [{ id: 'b1', text: Labels.Panel5Body1 }];
-        if (this.currentStep === 4) return [];
-        if (this.currentStep === 3) return [];
-        if (this.currentStep === 2) {
+        if (this.currentStep === 5) {
             return [
-                { id: 'b1', text: Labels.Panel2Body1 },
-                { id: 'b2', text: Labels.Panel2Body2 },
+                { id: 'b1', text: Labels.Panel5Body1 },
+                { id: 'b2', text: Labels.Panel5Body2 },
+                { id: 'b3', text: Labels.Panel5Body3 },
+                { id: 'b4', text: Labels.Panel5Body4 },
             ];
         }
+        if (this.currentStep === 4) return [{ id: 'b1', text: Labels.Panel4Body1 }];
+        if (this.currentStep === 3) return [{ id: 'b1', text: Labels.Panel3Body1 }];
+        if (this.currentStep === 2) return [{ id: 'b1', text: Labels.Panel2Body1 }];
         return [
             { id: 'b1', text: Labels.PanelBody1 },
             { id: 'b2', text: Labels.PanelBody2 },
@@ -456,28 +478,25 @@ export default class ClusterBuilder extends LightningElement {
         if (this.currentStep === 5) return [];
         if (this.currentStep === 4) {
             return [
-                { id: 'c1', title: Labels.Panel4Card1Title },
-                { id: 'c2', title: Labels.Panel4Card2Title },
-                { id: 'c3', title: Labels.Panel4Card3Title },
+                { id: 'c1', title: Labels.Panel4Card1Title, articleId: 'choosing-an-algorithm' },
             ];
         }
         if (this.currentStep === 3) {
             return [
-                { id: 'c1', title: Labels.Panel3Card1Title },
-                { id: 'c2', title: Labels.Panel3Card2Title },
-                { id: 'c3', title: Labels.Panel3Card3Title },
+                { id: 'c1', title: Labels.Panel3Card1Title, articleId: 'which-variables-to-include' },
+                { id: 'c2', title: Labels.Panel3Card2Title, articleId: 'choosing-variables-manually' },
+                { id: 'c3', title: Labels.Panel3Card3Title, articleId: 'refine-variable-selection' },
             ];
         }
         if (this.currentStep === 2) {
             return [
-                { id: 'c1', title: Labels.Panel2Card1Title },
-                { id: 'c2', title: Labels.Panel2Card2Title },
-                { id: 'c3', title: Labels.Panel2Card3Title },
+                { id: 'c1', title: Labels.Panel2Card1Title, articleId: 'why-filtering-matters' },
+                { id: 'c2', title: Labels.Panel2Card2Title, articleId: 'what-should-i-filter' },
             ];
         }
         return [
-            { id: 'c1', title: Labels.Card1Title },
-            { id: 'c2', title: Labels.Card2Title },
+            { id: 'c1', title: Labels.Card1Title, articleId: 'clustering-vs-multiclass' },
+            { id: 'c2', title: Labels.Card2Title, articleId: 'prepare-data-for-clustering' },
         ];
     }
 
@@ -675,7 +694,11 @@ export default class ClusterBuilder extends LightningElement {
     }
 
     handleSaveTrain() {
-        // Prototype — no-op
+        this.isTraining = true;
+    }
+
+    handleCancelTraining() {
+        this.isTraining = false;
     }
 
     handleEditStep(event) {
@@ -688,12 +711,14 @@ export default class ClusterBuilder extends LightningElement {
     handleNext() {
         if (this.currentStep < 5) {
             this.currentStep += 1;
+            this.activeArticleId = null;
         }
     }
 
     handlePrevious() {
         if (this.currentStep > 1) {
             this.currentStep -= 1;
+            this.activeArticleId = null;
         }
     }
 
@@ -701,7 +726,67 @@ export default class ClusterBuilder extends LightningElement {
         const step = parseInt(event.currentTarget.dataset.step, 10);
         if (step && step >= 1 && step <= 5) {
             this.currentStep = step;
+            this.activeArticleId = null;
         }
+    }
+
+    handleOpenArticle(event) {
+        event.preventDefault();
+        const articleId = event.currentTarget.dataset.article;
+        if (articleId && Labels.ARTICLES[articleId]) {
+            this.activeArticleId = articleId;
+        }
+    }
+
+    handleCloseArticle() {
+        this.activeArticleId = null;
+    }
+
+    get isArticleOpen() {
+        return !!this.activeArticleId;
+    }
+
+    get activeArticle() {
+        if (!this.activeArticleId) return null;
+        const article = Labels.ARTICLES[this.activeArticleId];
+        if (!article) return null;
+        return {
+            title: article.title,
+            blocks: article.blocks.map((block, idx) => {
+                const id = `blk-${idx}`;
+                if (block.type === 'p') {
+                    return { id, isParagraph: true, text: block.text };
+                }
+                if (block.type === 'h') {
+                    return { id, isHeading: true, text: block.text };
+                }
+                if (block.type === 'ul') {
+                    return {
+                        id,
+                        isUnorderedList: true,
+                        items: block.items.map((it, i) => ({
+                            id: `${id}-i${i}`,
+                            strong: it.strong || '',
+                            hasStrong: !!it.strong,
+                            text: it.text,
+                        })),
+                    };
+                }
+                if (block.type === 'ol') {
+                    return {
+                        id,
+                        isOrderedList: true,
+                        items: block.items.map((it, i) => ({
+                            id: `${id}-i${i}`,
+                            strong: it.strong || '',
+                            hasStrong: !!it.strong,
+                            text: it.text,
+                        })),
+                    };
+                }
+                return { id, isParagraph: true, text: '' };
+            }),
+        };
     }
 
     handleToggleLeft() {
@@ -717,12 +802,14 @@ export default class ClusterBuilder extends LightningElement {
     }
 
     handleBack() {
-        this.dispatchEvent(
-            new CustomEvent('navigate', {
-                detail: { path: '/aim-cluster' },
-                bubbles: true,
-                composed: true,
-            })
-        );
+        window.location.href = '/app/aim-cluster';
+    }
+
+    handleToggleAgentforce() {
+        this.isAgentforceOpen = !this.isAgentforceOpen;
+    }
+
+    handleCloseAgentforce() {
+        this.isAgentforceOpen = false;
     }
 }
