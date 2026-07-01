@@ -464,7 +464,7 @@
                                         <div class="var-cell var-cell_settings">
                                             <template lwc:if={v.action}>
                                                 <lightning-button-group class="var-action-group">
-                                                    <lightning-button label={v.action} variant="neutral" class="var-action-btn" data-id={v.id} onclick={handleVariableNameClick}></lightning-button>
+                                                    <lightning-button label={v.actionLabel} variant={v.actionVariant} data-id={v.id} onclick={handleVariableNameClick}></lightning-button>
                                                     <template lwc:if={v.showDelete}>
                                                         <lightning-button-icon icon-name="utility:delete" variant="border-filled" size="medium" alternative-text="Remove" data-id={v.id} onclick={handleRemoveVariable}></lightning-button-icon>
                                                     </template>

@@ -1394,6 +1394,10 @@
     color: var(--slds-g-color-on-surface-1, #181818);
 }
 
+.var-action-group {
+    display: inline-flex;
+}
+
 /* Agentforce slot — hosts the shared shell-panel Agentforce experience */
 .builder-agentforce-slot {
     width: 400px;

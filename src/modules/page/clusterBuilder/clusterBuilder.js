@@ -25,7 +25,7 @@ const ACCOUNT_VARIABLES = [
         { label: 'CAD', count: 1300 },
         { label: 'AUD', count: 403 },
     ] },
-    { id: 'v8', name: 'Account Description', type: 'text', selected: true, action: 'Text Clustering' },
+    { id: 'v8', name: 'Account Description', type: 'text', isLargeText: true, avgChars: 2400 },
     { id: 'v9', name: 'Account Fax', type: 'text' },
     { id: 'v10', name: 'Account ID', type: 'text' },
     { id: 'v11', name: 'Account Name', type: 'text' },
@@ -68,6 +68,8 @@ const ACCOUNT_VARIABLES = [
         { label: 'Education', count: 1100 },
     ] },
     { id: 'v23', name: 'Last Modified By ID', type: 'text' },
+    { id: 'v26', name: 'Support Notes', type: 'text', isLargeText: true, avgChars: 3100 },
+    { id: 'v27', name: 'Sales Engagement Log', type: 'text', isLargeText: true, avgChars: 1850 },
 ];
 
 const DATA_MODEL_OBJECTS = [
@@ -99,10 +101,9 @@ export default class ClusterBuilder extends LightningElement {
     @track variableSearchTerm = '';
     @track showOnlySelected = false;
     @track accountSectionOpen = true;
-    @track selectedVariableIds = new Set(['v2', 'v8', 'v20', 'v21', 'v24', 'v25']);
+    @track selectedVariableIds = new Set(['v2', 'v20', 'v21', 'v24', 'v25']);
     @track variableActions = {
         v2: 'Replace Missing Values',
-        v8: 'Text Clustering',
         v20: 'Group by Day',
         v21: 'Group by Month',
         v24: 'Group by Month',
@@ -110,12 +111,11 @@ export default class ClusterBuilder extends LightningElement {
     };
     @track activeVariableId = null;
     @track variableTransformations = {
-        v2: 'replace-missing',
-        v8: 'text-clustering',
         v20: 'group-by-day',
         v21: 'group-by-month',
         v24: 'group-by-month',
         v25: 'group-by-month',
+        v2: 'replace-missing',
     };
     @track variableReplaceWith = { v2: 'average' };
     @track variableGroupBy = { v2: 'account-name' };
@@ -248,11 +248,16 @@ export default class ClusterBuilder extends LightningElement {
             let iconName = 'utility:text';
             if (v.type === 'number') iconName = 'utility:number_input';
             else if (v.type === 'date') iconName = 'utility:event';
+            if (v.isLargeText) iconName = 'utility:richtextindent';
+            const action = this.variableActions[v.id] || null;
             return {
                 ...v,
                 isSelected,
-                action: this.variableActions[v.id] || null,
+                action,
+                actionLabel: action,
+                actionVariant: 'neutral',
                 iconName,
+                showLargeTextInfo: !!v.isLargeText,
                 rowClass: isSelected ? 'var-row var-row_selected' : 'var-row',
                 showDelete: v.type !== 'date',
             };
@@ -619,6 +624,7 @@ export default class ClusterBuilder extends LightningElement {
         const trans = { ...this.variableTransformations };
         const actions = { ...this.variableActions };
         const next = new Set(this.selectedVariableIds);
+
         if (value === 'none') {
             delete trans[id];
             delete actions[id];
@@ -631,6 +637,7 @@ export default class ClusterBuilder extends LightningElement {
             else if (value === 'group-by-day') actions[id] = Labels.TransformationGroupByDay;
             next.add(id);
         }
+
         this.variableTransformations = trans;
         this.variableActions = actions;
         this.selectedVariableIds = next;
