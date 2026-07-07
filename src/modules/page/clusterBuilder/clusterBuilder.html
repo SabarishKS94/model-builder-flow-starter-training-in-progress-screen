@@ -13,9 +13,11 @@
                 <span class="nav-label">{labels.ModelName}</span>
                 <lightning-button-icon icon-name="utility:edit" variant="bare-inverse" size="x-small" alternative-text="Edit name"></lightning-button-icon>
             </div>
-            <button type="button" class="nav-item nav-item_help" onclick={handleToggleAgentforce} aria-label={labels.AgentforceTitle}>
-                <lightning-icon icon-name="utility:einstein" size="small" variant="inverse" class="nav-agentforce-icon"></lightning-icon>
-            </button>
+            <template lwc:if={showAgentforceToggle}>
+                <button type="button" class="nav-item nav-item_help" onclick={handleToggleAgentforce} aria-label={labels.AgentforceTitle}>
+                    <lightning-icon icon-name="utility:einstein" size="small" variant="inverse" class="nav-agentforce-icon"></lightning-icon>
+                </button>
+            </template>
         </div>
 
         <!-- Toolbar -->
@@ -23,7 +25,7 @@
             <div class="builder-toolbar builder-toolbar_training">
                 <div class="toolbar-left">
                     <div class="training-version-pill">
-                        <span class="training-version-label">{labels.TrainingVersionLabel}</span>
+                        <span class="training-version-label">{labels.TrainingVersionPillLabel}</span>
                         <lightning-icon icon-name="utility:chevrondown" size="xx-small" variant="bare" class="training-version-chevron"></lightning-icon>
                     </div>
                     <span class="training-last-updated">{labels.TrainingLastUpdatedLabel}</span>
@@ -55,15 +57,47 @@
         <!-- Body -->
         <template lwc:if={isTraining}>
             <div class="training-body">
-                <div class="training-center">
-                    <div class="training-spinner" role="status" aria-label={labels.TrainingSpinnerTitle}>
-                        <lightning-spinner size="medium" alternative-text={labels.TrainingSpinnerTitle}></lightning-spinner>
+                <div class="training-content" role="status" aria-live="polite">
+                    <h2 class="training-title">{labels.TrainingCardTitle}</h2>
+                    <p class="training-subtitle">{labels.TrainingCardSubtitle}</p>
+                    <div class="slds-scoped-notification slds-scoped-notification_light slds-media slds-media_center training-meta-bar" role="status">
+                        <div class="slds-media__body training-meta-body">
+                            <p>
+                                <strong>{labels.TrainingStartedTitle}</strong>
+                                <span class="training-meta-value">{labels.TrainingStartedValue}</span>
+                                <span class="training-meta-divider" aria-hidden="true">|</span>
+                                <strong>{labels.TrainingEtaTitle}</strong>
+                                <span class="training-meta-value">{labels.TrainingEtaValue}</span>
+                            </p>
+                        </div>
                     </div>
-                    <h2 class="training-title">{labels.TrainingSpinnerTitle}</h2>
-                    <p class="training-subtext">{labels.TrainingSpinnerBody}</p>
+
+                    <div class="training-progress" role="list">
+                        <template for:each={trainingStages} for:item="stage">
+                            <div key={stage.id} class={stage.itemClass} role="listitem">
+                                <div class="training-stage-rail" aria-hidden="true">
+                                    <span class="training-stage-connector training-stage-connector_top"></span>
+                                    <span class="training-stage-marker">
+                                        <template lwc:if={stage.isComplete}>
+                                            <svg viewBox="0 0 16 16" class="training-stage-check" focusable="false">
+                                                <path d="M12.5 5 L6.5 11 L3.5 8" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </template>
+                                    </span>
+                                    <span class="training-stage-connector training-stage-connector_bottom"></span>
+                                </div>
+                                <div class="training-stage-label">{stage.label}</div>
+                            </div>
+                        </template>
+                    </div>
                 </div>
+
                 <div class="training-footer">
-                    <lightning-button label={labels.CancelButton} variant="brand-outline" onclick={handleCancelTraining}></lightning-button>
+                    <button type="button" class="training-cancel-link" onclick={handleCancelTraining}>{labels.CancelTrainingLink}</button>
+                    <div class="training-footer-actions">
+                        <lightning-button label={labels.BackToClusterBuilderButton} variant="neutral" onclick={handleBackToClusterBuilder}></lightning-button>
+                        <lightning-button label={notifyButtonLabel} variant={notifyButtonVariant} icon-name={notifyButtonIcon} onclick={handleToggleNotify}></lightning-button>
+                    </div>
                 </div>
             </div>
         </template>

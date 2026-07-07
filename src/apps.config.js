@@ -25,7 +25,7 @@ export const apps = [
     label: 'Data 360',
     variant: 'vertical',
     pathPrefix: '/app',
-    defaultPath: '/app',
+    defaultPath: '/app/aim-cluster/builder',
     pages: ['home', 'nba-model-detail'],
     aiModelsNavItems: [
       {

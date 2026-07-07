@@ -115,10 +115,44 @@ export const ReviewAlgorithmValueHDBScan = 'HDBSCAN';
 export const SaveTrainButton = 'Save & Train';
 export const BackButton = 'Back';
 export const CancelButton = 'Cancel';
-export const TrainingVersionLabel = 'Version 1 (Training)';
+export const TrainingVersionLabel = 'Version 1';
+export const TrainingVersionPillLabel = 'Version 1 (Training)';
+export const TrainingStatusPill = 'Training';
 export const TrainingLastUpdatedLabel = 'Last Updated Jun 15, 2026, 01:49 PM';
-export const TrainingSpinnerTitle = 'Finding clusters...';
-export const TrainingSpinnerBody = 'Training can take up to 24 hours. Version 1 cannot be edited until training is complete. Check back later.';
+
+// Training progress card
+export const TrainingCardTitle = 'Training your model';
+export const TrainingCardSubtitle = "You can safely leave this page — we'll notify you when it's done.";
+export const TrainingStartedLabel = 'Started Jun 15, 2026 · 01:49 PM';
+export const TrainingEtaLabel = 'Estimated completion: today, 4–8 PM';
+export const TrainingStartedTitle = 'Started';
+export const TrainingStartedValue = 'Jun 15, 2026 · 01:49 PM';
+export const TrainingEtaTitle = 'Estimated completion:';
+export const TrainingEtaValue = 'today, 4–8 PM';
+export const TrainingElapsedLabel = 'Running · 34 min';
+
+// Training stages
+export const TrainingStage1 = 'Preparing data';
+export const TrainingStage2 = 'Extracting features';
+export const TrainingStage3 = 'Finding clusters';
+export const TrainingStage4 = 'Validating';
+export const TrainingStage5 = 'Finalizing';
+
+// Training tips (while-you-wait column)
+export const TrainingTipsTitle = 'While you wait';
+export const TrainingTipsSubtitle = 'Turn dead time into something useful.';
+export const TrainingTipDatasetTitle = 'Review your inputs';
+export const TrainingTipDatasetDesc = 'Confirm the data, filters, and variables used for this version.';
+export const TrainingTipCompareTitle = 'Compare with earlier versions';
+export const TrainingTipCompareDesc = 'See how this run stacks up against previous cluster models.';
+export const TrainingTipDocsTitle = 'How clustering works';
+export const TrainingTipDocsDesc = 'Refresh on K-Means, HDBSCAN, and how to read cluster quality.';
+
+// Training CTAs
+export const NotifyMeButton = 'Notify me when done';
+export const NotifyMeEnabledLabel = "You'll be notified when training finishes";
+export const BackToClusterBuilderButton = 'Back to Cluster Builder';
+export const CancelTrainingLink = 'Cancel training';
 export const Panel5Title = 'Create a Clustering Model';
 export const Panel5Headline = 'What happens next';
 export const Panel5Body1 = 'Make sure all filters, variables, and algorithm settings are correct before saving.';

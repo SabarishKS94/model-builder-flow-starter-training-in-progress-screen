@@ -126,8 +126,10 @@ export default class ClusterBuilder extends LightningElement {
     @track modelName = Labels.ModelNameValue;
     @track clusterDescription = Labels.ClusterDescriptionValue;
     @track activeArticleId = null;
-    @track isTraining = false;
+    @track isTraining = true;
     @track isAgentforceOpen = false;
+    @track notifyEnabled = false;
+    @track currentTrainingStage = 3;
 
     get steps() {
         return STEPS.map((step) => {
@@ -706,6 +708,59 @@ export default class ClusterBuilder extends LightningElement {
 
     handleCancelTraining() {
         this.isTraining = false;
+        this.notifyEnabled = false;
+        this.currentTrainingStage = 3;
+    }
+
+    get trainingStages() {
+        const stageLabels = [
+            Labels.TrainingStage1,
+            Labels.TrainingStage2,
+            Labels.TrainingStage3,
+            Labels.TrainingStage4,
+            Labels.TrainingStage5,
+        ];
+        const total = stageLabels.length;
+        return stageLabels.map((label, idx) => {
+            const number = idx + 1;
+            const isComplete = number < this.currentTrainingStage;
+            const isActive = number === this.currentTrainingStage;
+            const isFirst = idx === 0;
+            const isLast = idx === total - 1;
+            let itemClass = 'training-stage';
+            if (isComplete) itemClass += ' training-stage_complete';
+            else if (isActive) itemClass += ' training-stage_active';
+            else itemClass += ' training-stage_pending';
+            if (isFirst) itemClass += ' training-stage_first';
+            if (isLast) itemClass += ' training-stage_last';
+            return {
+                id: `stage-${number}`,
+                label,
+                itemClass,
+                isComplete,
+                isActive,
+            };
+        });
+    }
+
+get notifyButtonLabel() {
+        return this.notifyEnabled ? Labels.NotifyMeEnabledLabel : Labels.NotifyMeButton;
+    }
+
+    get notifyButtonVariant() {
+        return this.notifyEnabled ? 'success' : 'brand';
+    }
+
+    get notifyButtonIcon() {
+        return this.notifyEnabled ? 'utility:check' : 'utility:notification';
+    }
+
+    handleToggleNotify() {
+        this.notifyEnabled = !this.notifyEnabled;
+    }
+
+    handleBackToClusterBuilder() {
+        window.location.href = '/app/aim-cluster';
     }
 
     handleEditStep(event) {
@@ -810,6 +865,10 @@ export default class ClusterBuilder extends LightningElement {
 
     handleBack() {
         window.location.href = '/app/aim-cluster';
+    }
+
+    get showAgentforceToggle() {
+        return !this.isTraining;
     }
 
     handleToggleAgentforce() {
