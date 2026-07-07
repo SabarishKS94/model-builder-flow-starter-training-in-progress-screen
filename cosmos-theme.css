@@ -1,0 +1,1462 @@
+/* Cosmos glass theme — visual styling only.
+   Layout/positioning lives in cosmosApp.css.
+   See CLAUDE.md "Cosmos Glass Theme — CSS Split" for the full rule. */
+
+/* ══════════════════════════════════════════════════════════════════
+   TIER 1: SEMANTIC TOKENS
+   Modeled on SLDS's global → semantic → component pattern.
+   These define the design language; component rules consume them.
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── Global header icon button overrides (all modes) ─────────────── */
+
+.header-icon-button .slds-button__icon {
+    fill: light-dark(var(--slds-g-color-palette-neutral-60, #747474), var(--slds-g-color-palette-neutral-40, #aeaeae));
+}
+
+.header-icon-button:hover .slds-button__icon {
+    fill: light-dark(var(--slds-g-color-palette-neutral-50, #5a5a5a), var(--slds-g-color-palette-neutral-30, #c9c9c9));
+}
+
+.header-icon-button lightning-primitive-icon:nth-of-type(2) {
+    display: none;
+}
+
+.header-icon-button .slds-button_icon-container-more {
+    line-height: inherit;
+}
+
+/* ── Interactive icon token contract ──────────────────────────────── */
+
+/* Base defaults — applies to standard (non-glass) mode where no
+   body.cosmos-* class is present. Keeps icon buttons neutral grey
+   instead of falling through to the SLDS brand blue default. */
+:root {
+    --slds-c-button-icon-color-foreground: var(--slds-g-color-palette-neutral-60, #747474);
+    --slds-c-button-icon-color-foreground-hover: var(--slds-g-color-palette-neutral-50, #5a5a5a);
+    --slds-c-button-icon-color-foreground-active: var(--slds-g-color-palette-neutral-50, #5a5a5a);
+    --slds-c-button-icon-color-foreground-focus: var(--slds-g-color-palette-neutral-50, #5a5a5a);
+}
+
+/* Glass mode — adds the full token system for cosmos themes.
+   Light-mode defaults here; dark overrides below in body.cosmos-dark. */
+body.cosmos-dark,
+body.cosmos-light {
+    --cosmos-icon-interactive-rest: rgba(0, 0, 0, 0.55);
+    --cosmos-icon-interactive-hover: rgba(0, 0, 0, 0.75);
+    --cosmos-icon-interactive-active: rgba(0, 0, 0, 0.85);
+    --cosmos-icon-interactive-focus: var(--slds-g-color-border-accent-1, #0176d3);
+
+    --slds-c-button-icon-color-foreground: var(--cosmos-icon-interactive-rest);
+    --slds-c-button-icon-color-foreground-hover: var(--cosmos-icon-interactive-hover);
+    --slds-c-button-icon-color-foreground-active: var(--cosmos-icon-interactive-active);
+    --slds-c-button-icon-color-foreground-focus: var(--cosmos-icon-interactive-hover);
+    --slds-c-button-text-color: var(--cosmos-icon-interactive-rest);
+    --slds-c-button-text-color-hover: var(--cosmos-icon-interactive-hover);
+    --slds-c-button-text-color-active: var(--cosmos-icon-interactive-active);
+    --slds-c-button-stateful-color-text: var(--cosmos-icon-interactive-rest);
+    --slds-c-button-stateful-color-text-hover: var(--cosmos-icon-interactive-hover);
+    --slds-c-button-stateful-color-text-selected: var(--cosmos-icon-interactive-active);
+}
+
+body.cosmos-dark {
+    /* ── Icon interactive (dark overrides) ─────────────────────────── */
+    --cosmos-icon-interactive-rest: rgba(255, 255, 255, 0.75);
+    --cosmos-icon-interactive-hover: rgba(255, 255, 255, 0.95);
+    --cosmos-icon-interactive-active: rgba(255, 255, 255, 1);
+    --cosmos-icon-interactive-focus: rgba(167, 139, 250, 0.75);
+
+    /* ── Surface (background fills) ────────────────────────────────── */
+    --cos-color-surface:                  rgba(255, 255, 255, 0.04);
+    --cos-color-surface-interactive:      rgba(255, 255, 255, 0.06);
+    --cos-color-surface-interactive-hover: rgba(255, 255, 255, 0.10);
+    --cos-color-surface-elevated:         rgba(255, 255, 255, 0.08);
+    --cos-color-surface-strong:           rgba(255, 255, 255, 0.14);
+
+    /* ── On-surface (text & icons) ─────────────────────────────────── */
+    --cos-color-on-surface:               rgba(255, 255, 255, 0.95);
+    --cos-color-on-surface-strong:        rgba(255, 255, 255, 0.90);
+    --cos-color-on-surface-default:       rgba(255, 255, 255, 0.85);
+    --cos-color-on-surface-secondary:     rgba(255, 255, 255, 0.75);
+    --cos-color-on-surface-tertiary:      rgba(255, 255, 255, 0.65);
+    --cos-color-on-surface-muted:         rgba(255, 255, 255, 0.60);
+    --cos-color-on-surface-weak:          rgba(255, 255, 255, 0.50);
+    --cos-color-on-surface-placeholder:   rgba(255, 255, 255, 0.35);
+    --cos-color-on-surface-placeholder-hover: rgba(255, 255, 255, 0.55);
+
+    /* ── Border ────────────────────────────────────────────────────── */
+    --cos-color-border:                   rgba(255, 255, 255, 0.10);
+    --cos-color-border-subtle:            rgba(255, 255, 255, 0.06);
+    --cos-color-border-medium:            rgba(255, 255, 255, 0.14);
+    --cos-color-border-strong:            rgba(255, 255, 255, 0.20);
+    --cos-color-border-stronger:          rgba(255, 255, 255, 0.25);
+    --cos-color-border-hover:             rgba(255, 255, 255, 0.30);
+    --cos-color-border-hover-strong:      rgba(255, 255, 255, 0.35);
+
+    /* ── Shadow ────────────────────────────────────────────────────── */
+    --cos-shadow:                         0 2px 8px rgba(0, 0, 0, 0.30);
+    --cos-shadow-lg:                      0 2px 8px rgba(0, 0, 0, 0.30), 0 1px 3px rgba(0, 0, 0, 0.20);
+    --cos-shadow-xl:                      0 8px 32px -4px rgba(0, 0, 0, 0.50);
+    --cos-shadow-focus:                   0 0 0 1px rgba(73, 146, 254, 0.30);
+
+    /* ── Brand ─────────────────────────────────────────────────────── */
+    --cos-color-brand:                    #4a5fc7;
+    --cos-color-brand-hover:              #5a6fd4;
+    --cos-color-on-brand:                 #ffffff;
+
+    /* ── Accent (focus rings, active indicators) ───────────────────── */
+    --cos-color-accent:                   var(--slds-g-color-accent-2, #4992fe);
+    --cos-color-accent-border:            var(--slds-g-color-border-accent-1, #4992fe);
+    --cos-color-focus:                    rgba(73, 146, 254, 0.50);
+
+    /* ── Destructive ───────────────────────────────────────────────── */
+    --cos-color-destructive:              #d04555;
+    --cos-color-destructive-hover:        #da5565;
+
+    /* ── Success ───────────────────────────────────────────────────── */
+    --cos-color-success:                  #38956b;
+    --cos-color-success-hover:            #42a87a;
+
+    /* ── Backdrop ──────────────────────────────────────────────────── */
+    --cos-color-backdrop:                 rgba(0, 0, 0, 0.50);
+
+    /* ── Glass blur ────────────────────────────────────────────────── */
+    --cos-blur:                           blur(20px);
+    --cos-blur-heavy:                     blur(40px);
+
+    /* ── Ambient background ────────────────────────────────────────── */
+    --cos-bg-gradient: linear-gradient(135deg, #180f22 0%, #12101a 50%, #0a101e 100%);
+    --cos-glow-orb: rgba(59, 130, 246, 0.12);
+
+    /* ── Toast shared ──────────────────────────────────────────────── */
+    --cos-toast-inset:        inset 0 1px 0 0 rgba(255, 255, 255, 0.30);
+    --cos-toast-shadow-base:  0 6px 20px -2px rgba(0, 0, 0, 0.30);
+
+    /* ══════════════════════════════════════════════════════════════════
+       TIER 2: COMPONENT OVERRIDES — only where values DEVIATE from
+       semantic defaults. Each has a REVIEW comment explaining why.
+       ══════════════════════════════════════════════════════════════════ */
+
+    /* REVIEW: Shell uses heavy blur (40px) for depth vs standard 20px */
+    --cos-shell-blur: var(--cos-blur-heavy);
+
+    /* REVIEW: Dropdown border is subtle (0.06) not standard (0.10) — intentional to feel lighter/floatier */
+    --cos-dropdown-border: var(--cos-color-border-subtle);
+
+    /* REVIEW: Day hover (0.12) is unique — between interactive-hover (0.10) and strong (0.14). Needed for visual distinction from today (0.08). */
+    --cos-day-hover-bg: rgba(255, 255, 255, 0.12);
+
+    /* REVIEW: Day selected uses purple accent, not brand blue — differentiates from general active state */
+    --cos-day-selected-bg: rgba(99, 114, 235, 0.50);
+
+    /* REVIEW: Modal header shadow goes UP (-2px) to separate from content below */
+    --cos-modal-header-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
+
+    /* REVIEW: Modal close button gets its own shadow (lighter) to feel clickable but not heavy */
+    --cos-modal-close-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+
+    /* ── Badge palette (unique semantic colors per status) ──────────── */
+    --cos-badge-error-bg:     rgba(254, 138, 167, 0.15);
+    --cos-badge-error-color:  #fe8aa7;
+    --cos-badge-warning-bg:   rgba(228, 162, 1, 0.15);
+    --cos-badge-warning-color: #f9e3b6;
+    --cos-badge-success-bg:   rgba(4, 225, 203, 0.15);
+    --cos-badge-success-color: #7df5e7;
+    --cos-badge-default-bg:   rgba(59, 130, 246, 0.15);
+    --cos-badge-default-color: #78b0fd;
+
+    /* ── Toast palette (unique per status — bg, border, text, glow, icon) ── */
+    --cos-toast-success-bg:       rgba(26, 179, 166, 0.40);
+    --cos-toast-success-border:   rgba(38, 204, 179, 0.45);
+    --cos-toast-success-color:    #7df5e7;
+    --cos-toast-success-glow:     0 0 24px 0 rgba(26, 179, 166, 0.10), 0 0 35px 0 rgba(6, 165, 154, 0.25);
+    --cos-toast-success-icon-bg:  rgba(6, 165, 154, 0.6);
+
+    --cos-toast-default-bg:       rgba(59, 130, 246, 0.40);
+    --cos-toast-default-border:   rgba(73, 146, 254, 0.45);
+    --cos-toast-default-color:    #b8d4fe;
+    --cos-toast-default-glow:     0 0 24px 0 rgba(59, 130, 246, 0.10), 0 0 35px 0 rgba(59, 130, 246, 0.25);
+    --cos-toast-default-icon-bg:  rgba(59, 130, 246, 0.6);
+
+    --cos-toast-warning-bg:       rgba(228, 162, 1, 0.35);
+    --cos-toast-warning-border:   rgba(242, 183, 40, 0.45);
+    --cos-toast-warning-color:    #f9e3b6;
+    --cos-toast-warning-glow:     0 0 24px 0 rgba(228, 162, 1, 0.10), 0 0 35px 0 rgba(228, 162, 1, 0.20);
+    --cos-toast-warning-icon-bg:  rgba(228, 162, 1, 0.55);
+
+    --cos-toast-error-bg:         rgba(220, 50, 80, 0.38);
+    --cos-toast-error-border:     rgba(240, 80, 110, 0.45);
+    --cos-toast-error-color:      #fec0cf;
+    --cos-toast-error-glow:       0 0 24px 0 rgba(220, 50, 80, 0.10), 0 0 35px 0 rgba(220, 50, 80, 0.25);
+    --cos-toast-error-icon-bg:    rgba(220, 50, 80, 0.55);
+
+    /* ── Plan Builder (active/disabled states — unique glow combos) ── */
+    --cos-pb-step-active-bg:            rgba(59, 130, 246, 0.40);
+    --cos-pb-step-active-border:        rgba(73, 146, 254, 0.45);
+    --cos-pb-step-active-color:         #b8d4fe;
+    --cos-pb-step-active-shadow:        inset 0 1px 0 0 rgba(255, 255, 255, 0.30), 0 0 24px 0 rgba(59, 130, 246, 0.10), 0 0 35px 0 rgba(59, 130, 246, 0.25);
+    --cos-pb-step-active-hover-bg:      rgba(45, 110, 220, 0.55);
+    --cos-pb-step-active-hover-border:  rgba(60, 130, 240, 0.60);
+    --cos-pb-step-active-hover-shadow:  inset 0 1px 0 0 rgba(255, 255, 255, 0.35), 0 0 28px 0 rgba(59, 130, 246, 0.18), 0 0 40px 0 rgba(59, 130, 246, 0.32);
+    --cos-pb-step-disabled-bg:          rgba(255, 255, 255, 0.08);
+    --cos-pb-step-disabled-border:      rgba(255, 255, 255, 0.12);
+    --cos-pb-step-disabled-shadow:      inset 0 1px 0 0 rgba(255, 255, 255, 0.10);
+    --cos-pb-step-disabled-hover-bg:    rgba(255, 255, 255, 0.16);
+    --cos-pb-step-disabled-hover-border: rgba(255, 255, 255, 0.22);
+    --cos-pb-step-disabled-hover-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.18);
+    --cos-pb-collapsed-active-bg:       rgba(59, 130, 246, 0.25);
+    --cos-pb-collapsed-active-border:   rgba(73, 146, 254, 0.35);
+    --cos-pb-collapsed-active-shadow:   inset 0 1px 0 0 rgba(255, 255, 255, 0.20), 0 0 12px 0 rgba(59, 130, 246, 0.20);
+    /* REVIEW: Plan builder divider uses 0.15/0.20/0.30 — unique to draggable affordance */
+    --cos-pb-divider-hover:             rgba(255, 255, 255, 0.20);
+    --cos-pb-divider-collapsed:         rgba(255, 255, 255, 0.15);
+    --cos-pb-divider-collapsed-hover:   rgba(255, 255, 255, 0.30);
+}
+
+body.cosmos-light {
+    /* ── Surface ───────────────────────────────────────────────────── */
+    --cos-color-surface:                  rgba(255, 255, 255, 0.45);
+    --cos-color-surface-interactive:      rgba(255, 255, 255, 0.60);
+    --cos-color-surface-interactive-hover: rgba(255, 255, 255, 0.80);
+    --cos-color-surface-elevated:         rgba(255, 255, 255, 0.50);
+    --cos-color-surface-strong:           rgba(255, 255, 255, 0.60);
+
+    /* ── On-surface ────────────────────────────────────────────────── */
+    --cos-color-on-surface:               #1a1f36;
+    --cos-color-on-surface-strong:        rgba(0, 0, 0, 0.82);
+    --cos-color-on-surface-default:       #1a1f36;
+    --cos-color-on-surface-secondary:     #3e4a7a;
+    --cos-color-on-surface-tertiary:      #3e4a7a;
+    --cos-color-on-surface-muted:         #3e4a7a;
+    --cos-color-on-surface-weak:          #374182;
+    --cos-color-on-surface-placeholder:   #9ba3c7;
+    --cos-color-on-surface-placeholder-hover: #9ba3c7;
+
+    /* ── Border ────────────────────────────────────────────────────── */
+    --cos-color-border:                   rgba(255, 255, 255, 0.60);
+    --cos-color-border-subtle:            #eceef5;
+    --cos-color-border-medium:            #8e94ab;
+    --cos-color-border-strong:            rgba(0, 0, 0, 0.30);
+    --cos-color-border-stronger:          #7c85b3;
+    --cos-color-border-hover:             #7c85b3;
+    --cos-color-border-hover-strong:      rgba(0, 0, 0, 0.45);
+
+    /* ── Shadow ────────────────────────────────────────────────────── */
+    --cos-shadow:                         0 1px 3px rgba(26, 31, 54, 0.06);
+    --cos-shadow-lg:                      0 2px 8px rgba(26, 31, 54, 0.10), 0 1px 3px rgba(26, 31, 54, 0.06);
+    --cos-shadow-xl:                      0 8px 32px -4px rgba(26, 31, 54, 0.15);
+    --cos-shadow-focus:                   0 0 0 1px #374182;
+
+    /* ── Brand ─────────────────────────────────────────────────────── */
+    --cos-color-brand:                    #374182;
+    --cos-color-brand-hover:              #2d3569;
+    --cos-color-on-brand:                 #ffffff;
+
+    /* ── Accent ────────────────────────────────────────────────────── */
+    --cos-color-accent:                   var(--slds-g-color-accent-2, #0250d9);
+    --cos-color-accent-border:            var(--slds-g-color-border-accent-1, #0250d9);
+    --cos-color-focus:                    #374182;
+
+    /* ── Destructive ───────────────────────────────────────────────── */
+    --cos-color-destructive:              #c23d4b;
+    --cos-color-destructive-hover:        #c23d4b;
+
+    /* ── Success ───────────────────────────────────────────────────── */
+    --cos-color-success:                  #2e7d5b;
+    --cos-color-success-hover:            #2e7d5b;
+
+    /* ── Backdrop ──────────────────────────────────────────────────── */
+    --cos-color-backdrop:                 rgba(184, 186, 205, 0.40);
+
+    /* ── Glass blur ────────────────────────────────────────────────── */
+    --cos-blur:                           blur(20px);
+    --cos-blur-heavy:                     blur(40px);
+
+    /* ── Ambient background ────────────────────────────────────────── */
+    --cos-bg-gradient: linear-gradient(150.6deg, #f7e4d8 0%, #f0dfe8 35.7%, #dfe5f7 71.4%);
+    --cos-glow-orb: rgba(255, 255, 255, 0.45);
+
+    /* ── Toast shared ──────────────────────────────────────────────── */
+    --cos-toast-inset:        inset 0 1px 0 0 rgba(255, 255, 255, 0.50);
+    --cos-toast-shadow-base:  0 4px 12px -2px rgba(0, 0, 0, 0.08);
+
+    /* ══════════════════════════════════════════════════════════════════
+       TIER 2: COMPONENT OVERRIDES
+       ══════════════════════════════════════════════════════════════════ */
+
+    /* REVIEW: Shell uses same bg as surface (0.45) but dark uses heavy blur — light only needs standard blur */
+    --cos-shell-blur: var(--cos-blur);
+
+    /* REVIEW: Dropdown border same as standard border (0.60) in light — no deviation, keeping for parity */
+    --cos-dropdown-border: var(--cos-color-border);
+
+    /* REVIEW: Light icon buttons are much more transparent (0.10) than other surfaces (0.45) — intentional so they don't look like solid rectangles */
+    --cos-btn-icon-bg:          rgba(255, 255, 255, 0.10);
+    --cos-btn-icon-border:      rgba(255, 255, 255, 0.20);
+    --cos-btn-icon-hover-bg:    rgba(255, 255, 255, 0.25);
+    --cos-btn-icon-hover-border: rgba(255, 255, 255, 0.40);
+
+    /* REVIEW: Day hover uses brand-tinted bg instead of white-opacity — matches indigo palette */
+    --cos-day-hover-bg: rgba(55, 65, 130, 0.10);
+    --cos-day-today-bg: rgba(55, 65, 130, 0.08);
+    --cos-day-selected-bg: #374182;
+
+    /* REVIEW: Nav action hover uses brand-tinted rgba, not white-opacity */
+    --cos-nav-action-hover-bg: rgba(55, 65, 130, 0.06);
+    --cos-nav-active-bg: rgba(55, 65, 130, 0.06);
+
+    /* REVIEW: Dropdown hover bg is brand-tinted, not white */
+    --cos-dropdown-hover-bg: rgba(55, 65, 130, 0.08);
+
+    /* REVIEW: Modal header shadow goes up */
+    --cos-modal-header-shadow: 0 -2px 8px rgba(26, 31, 54, 0.06);
+    --cos-modal-close-shadow: 0 2px 8px rgba(26, 31, 54, 0.10);
+
+    /* REVIEW: Table has its own opacity progression (0.15 → 0.25 → 0.30 → 0.50 → 0.60) for layered depth */
+    --cos-table-container-bg:     rgba(255, 255, 255, 0.25);
+    --cos-table-container-border: rgba(255, 255, 255, 0.4);
+    --cos-table-fixed-bg:         rgba(255, 255, 255, 0.15);
+    --cos-table-bg:               rgba(255, 255, 255, 0.5);
+    --cos-table-outer-border:     1px solid rgba(255, 255, 255, 0.6);
+    --cos-table-cell-bg:          rgba(255, 255, 255, 0.3);
+
+    /* REVIEW: Global search input is nearly transparent (0.08) to blend with glass header */
+    --cos-search-input-bg: rgba(255, 255, 255, 0.08);
+
+    /* ── Badge palette ─────────────────────────────────────────────── */
+    --cos-badge-error-bg:     rgba(254, 138, 167, 0.15);
+    --cos-badge-error-color:  #b60554;
+    --cos-badge-warning-bg:   rgba(228, 162, 1, 0.15);
+    --cos-badge-warning-color: #8c4b02;
+    --cos-badge-success-bg:   rgba(4, 225, 203, 0.15);
+    --cos-badge-success-color: #056764;
+    --cos-badge-default-bg:   rgba(59, 130, 246, 0.15);
+    --cos-badge-default-color: #0b5cab;
+
+    /* ── Toast palette ─────────────────────────────────────────────── */
+    --cos-toast-success-bg:       rgba(26, 179, 166, 0.15);
+    --cos-toast-success-border:   rgba(38, 204, 179, 0.4);
+    --cos-toast-success-color:    #056764;
+    --cos-toast-success-glow:     0 0 20px 0 rgba(26, 179, 166, 0.06);
+    --cos-toast-success-icon-bg:  rgba(6, 165, 154, 0.2);
+
+    --cos-toast-default-bg:       rgba(59, 130, 246, 0.12);
+    --cos-toast-default-border:   rgba(73, 146, 254, 0.35);
+    --cos-toast-default-color:    #0b5cab;
+    --cos-toast-default-glow:     0 0 20px 0 rgba(59, 130, 246, 0.06);
+    --cos-toast-default-icon-bg:  rgba(59, 130, 246, 0.2);
+
+    --cos-toast-warning-bg:       rgba(228, 162, 1, 0.12);
+    --cos-toast-warning-border:   rgba(242, 183, 40, 0.4);
+    --cos-toast-warning-color:    #8c4b02;
+    --cos-toast-warning-glow:     0 0 20px 0 rgba(228, 162, 1, 0.06);
+    --cos-toast-warning-icon-bg:  rgba(228, 162, 1, 0.18);
+
+    --cos-toast-error-bg:         rgba(220, 50, 80, 0.12);
+    --cos-toast-error-border:     rgba(240, 80, 110, 0.35);
+    --cos-toast-error-color:      #b60554;
+    --cos-toast-error-glow:       0 0 20px 0 rgba(220, 50, 80, 0.06);
+    --cos-toast-error-icon-bg:    rgba(220, 50, 80, 0.15);
+
+    /* ── Plan Builder ──────────────────────────────────────────────── */
+    --cos-pb-step-active-bg:            rgba(59, 130, 246, 0.20);
+    --cos-pb-step-active-border:        rgba(73, 146, 254, 0.50);
+    --cos-pb-step-active-color:         #0b5cab;
+    --cos-pb-step-active-shadow:        inset 0 1px 0 0 rgba(255, 255, 255, 0.60), 0 0 20px 0 rgba(59, 130, 246, 0.08), 0 0 30px 0 rgba(59, 130, 246, 0.15);
+    --cos-pb-step-active-hover-bg:      rgba(45, 110, 220, 0.30);
+    --cos-pb-step-active-hover-border:  rgba(60, 130, 240, 0.65);
+    --cos-pb-step-active-hover-shadow:  inset 0 1px 0 0 rgba(255, 255, 255, 0.70), 0 0 24px 0 rgba(59, 130, 246, 0.14), 0 0 35px 0 rgba(59, 130, 246, 0.22);
+    --cos-pb-step-disabled-bg:          rgba(255, 255, 255, 0.30);
+    --cos-pb-step-disabled-border:      rgba(0, 0, 0, 0.08);
+    --cos-pb-step-disabled-shadow:      inset 0 1px 0 0 rgba(255, 255, 255, 0.50);
+    --cos-pb-step-disabled-hover-bg:    rgba(255, 255, 255, 0.50);
+    --cos-pb-step-disabled-hover-border: rgba(0, 0, 0, 0.12);
+    --cos-pb-step-disabled-hover-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.70);
+    --cos-pb-collapsed-active-bg:       rgba(59, 130, 246, 0.15);
+    --cos-pb-collapsed-active-border:   rgba(73, 146, 254, 0.40);
+    --cos-pb-collapsed-active-shadow:   inset 0 1px 0 0 rgba(255, 255, 255, 0.50), 0 0 10px 0 rgba(59, 130, 246, 0.12);
+    --cos-pb-divider-hover:             rgba(0, 0, 0, 0.12);
+    --cos-pb-divider-collapsed:         rgba(0, 0, 0, 0.08);
+    --cos-pb-divider-collapsed-hover:   rgba(0, 0, 0, 0.18);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   STRUCTURAL RULES — consume semantic tokens
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── Floating animation ──────────────────────────────────────────── */
+
+@keyframes floatPastel {
+    0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
+    33%  { transform: translate(40px, -50px) scale(1.05) rotate(0.5deg); }
+    66%  { transform: translate(-30px, 30px) scale(0.95) rotate(-0.5deg); }
+    100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+}
+
+/* ── Ambient gradient (::before) and glow orb (::after) ──────────── */
+
+body.cosmos-light::before,
+body.cosmos-dark::before {
+    content: '';
+    position: fixed;
+    inset: -30%;
+    z-index: 0;
+    pointer-events: none;
+    background: var(--cos-bg-gradient);
+    animation: floatPastel 30s ease-in-out infinite alternate;
+}
+
+body.cosmos-light::after,
+body.cosmos-dark::after {
+    content: '';
+    position: fixed;
+    width: 75vw;
+    height: 75vw;
+    max-width: 1444px;
+    max-height: 1444px;
+    top: 15%;
+    left: 12%;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: 50%;
+    filter: blur(600px);
+    background: var(--cos-glow-orb);
+    animation: floatPastel 30s ease-in-out infinite alternate;
+    animation-delay: -5s;
+}
+
+body.cosmos-light > #app,
+body.cosmos-dark > #app {
+    position: relative;
+    z-index: 1;
+}
+
+/* ── SLDS global token overrides ──────────────────────────────────
+   Remap platform tokens so all components (custom + Lightning base)
+   auto-theme in cosmos mode without per-component property overrides. */
+
+body.cosmos-dark {
+    --slds-g-color-surface-1: transparent;
+    --slds-g-color-surface-2: var(--cos-color-surface-interactive);
+    --slds-g-color-surface-container-1: transparent;
+    --slds-g-color-surface-container-2: transparent;
+    --slds-g-color-border-1: var(--cos-color-border-subtle);
+    --slds-g-color-border-2: var(--cos-color-border-medium);
+    --slds-g-color-on-surface-1: var(--cos-color-on-surface);
+    --slds-g-color-on-surface-2: var(--cos-color-on-surface-secondary);
+    --slds-g-shadow-2: none;
+    --slds-g-shadow-4: var(--cos-shadow);
+    background-color: transparent !important;
+}
+
+body.cosmos-light {
+    --slds-g-color-surface-1: transparent;
+    --slds-g-color-surface-2: var(--cos-color-surface-interactive);
+    --slds-g-color-surface-container-1: transparent;
+    --slds-g-color-surface-container-2: transparent;
+    --slds-g-color-border-1: var(--cos-color-border-subtle);
+    --slds-g-color-border-2: var(--cos-color-border-medium);
+    --slds-g-color-on-surface-1: var(--cos-color-on-surface);
+    --slds-g-color-on-surface-2: var(--cos-color-on-surface-secondary);
+    --slds-g-shadow-2: none;
+    --slds-g-shadow-4: var(--cos-shadow);
+    background-color: transparent !important;
+}
+
+html:has(body.cosmos-dark),
+html:has(body.cosmos-light) {
+    background-color: transparent;
+}
+
+body.cosmos-light .slds-container_x-large,
+body.cosmos-dark .slds-container_x-large,
+body.cosmos-light .slds-container_large,
+body.cosmos-dark .slds-container_large {
+    max-width: 100%;
+}
+
+/* Higher specificity needed to beat .slds-color-scheme_dark from SLDS 2 */
+body.cosmos-dark.slds-color-scheme_dark {
+    --slds-g-color-surface-1: transparent;
+    --slds-g-color-surface-2: var(--cos-color-surface-interactive);
+    --slds-g-color-surface-container-1: transparent;
+    --slds-g-color-surface-container-2: transparent;
+    --slds-g-color-border-1: var(--cos-color-border-subtle);
+    --slds-g-color-border-2: var(--cos-color-border-medium);
+    --slds-g-color-on-surface-1: var(--cos-color-on-surface);
+    --slds-g-color-on-surface-2: var(--cos-color-on-surface-secondary);
+}
+
+/* ── Shell chrome: strip SLDS defaults ───────────────────────────── */
+
+body.cosmos-light .slds-global-header,
+body.cosmos-dark .slds-global-header {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    border-bottom: none;
+}
+
+body.cosmos-light .slds-context-bar,
+body.cosmos-dark .slds-context-bar {
+    background: transparent;
+    background-color: transparent;
+    border-bottom: none;
+    box-shadow: none;
+}
+
+body.cosmos-light .global-shell::before,
+body.cosmos-dark .global-shell::before {
+    display: none;
+}
+
+/* Entire header interior — uniform transparent */
+body.cosmos-dark .global-header,
+body.cosmos-dark .slds-global-header,
+body.cosmos-dark .slds-global-header_container,
+body.cosmos-dark .slds-global-header__item,
+body.cosmos-dark .slds-context-bar__primary,
+body.cosmos-dark .slds-context-bar__secondary,
+body.cosmos-dark .slds-context-bar__item,
+body.cosmos-dark .slds-context-bar__vertical-divider,
+body.cosmos-light .global-header,
+body.cosmos-light .slds-global-header,
+body.cosmos-light .slds-global-header_container,
+body.cosmos-light .slds-global-header__item,
+body.cosmos-light .slds-context-bar__primary,
+body.cosmos-light .slds-context-bar__secondary,
+body.cosmos-light .slds-context-bar__item,
+body.cosmos-light .slds-context-bar__vertical-divider {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+}
+
+/* ── Header icon/search/avatar overrides ─────────────────────────── */
+
+body.cosmos-dark .header-icon-button .slds-button__icon {
+    fill: var(--cosmos-icon-interactive-rest) !important;
+}
+
+body.cosmos-dark .header-icon-button:hover .slds-button__icon {
+    fill: var(--cosmos-icon-interactive-hover) !important;
+}
+
+body.cosmos-light .header-icon-button .slds-button__icon {
+    fill: var(--cosmos-icon-interactive-rest) !important;
+}
+
+body.cosmos-light .header-icon-button:hover .slds-button__icon {
+    fill: var(--cosmos-icon-interactive-hover) !important;
+}
+
+body.cosmos-dark .cosmos-shell-header .slds-global-header__item_search,
+body.cosmos-light .cosmos-shell-header .slds-global-header__item_search {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30rem;
+    max-width: 40%;
+}
+
+body.cosmos-dark .cosmos-shell-header .slds-container_small.slds-container_center .slds-form-element,
+body.cosmos-dark .cosmos-shell-header .slds-container_small.slds-container_center .slds-input,
+body.cosmos-light .cosmos-shell-header .slds-container_small.slds-container_center .slds-form-element,
+body.cosmos-light .cosmos-shell-header .slds-container_small.slds-container_center .slds-input {
+    border-radius: 50rem;
+}
+
+body.cosmos-dark .cosmos-shell-header .slds-container_small.slds-container_center .slds-input__icon_left,
+body.cosmos-light .cosmos-shell-header .slds-container_small.slds-container_center .slds-input__icon_left {
+    left: 0.75rem;
+}
+
+body.cosmos-dark .cosmos-shell-header .slds-container_small.slds-container_center .slds-input_search,
+body.cosmos-dark .cosmos-shell-header .slds-container_small.slds-container_center .slds-has-input-focus .slds-input,
+body.cosmos-light .cosmos-shell-header .slds-container_small.slds-container_center .slds-input_search,
+body.cosmos-light .cosmos-shell-header .slds-container_small.slds-container_center .slds-has-input-focus .slds-input {
+    padding-left: 2.25rem;
+}
+
+body.cosmos-dark .cosmos-shell-header lightning-avatar img,
+body.cosmos-dark .cosmos-shell-header .slds-avatar_circle,
+body.cosmos-dark .cosmos-shell-header .slds-avatar,
+body.cosmos-light .cosmos-shell-header lightning-avatar img,
+body.cosmos-light .cosmos-shell-header .slds-avatar_circle,
+body.cosmos-light .cosmos-shell-header .slds-avatar {
+    border-radius: 8px;
+    --slds-c-avatar-radius-border: 8px;
+}
+
+/* ── Global header icon overrides ────────────────────────────────── */
+
+body.cosmos-dark .slds-icon.slds-icon_large,
+body.cosmos-light .slds-icon.slds-icon_large {
+    width: 2rem;
+    height: 2rem;
+}
+
+body.cosmos-dark .slds-icon.slds-icon-text-default,
+body.cosmos-light .slds-icon.slds-icon-text-default {
+    fill: #00A1E0;
+}
+
+/* ── Inter font ──────────────────────────────────────────────────── */
+
+@font-face {
+    font-family: 'Inter';
+    src: url('./fonts/Inter-VariableFont.ttf') format('truetype');
+    font-weight: 100 900;
+    font-display: swap;
+}
+
+/* ── Waffle icon ─────────────────────────────────────────────────── */
+
+body.cosmos-dark .slds-icon-waffle .slds-r1,
+body.cosmos-dark .slds-icon-waffle .slds-r2,
+body.cosmos-dark .slds-icon-waffle .slds-r3,
+body.cosmos-dark .slds-icon-waffle .slds-r4,
+body.cosmos-dark .slds-icon-waffle .slds-r5,
+body.cosmos-dark .slds-icon-waffle .slds-r6,
+body.cosmos-dark .slds-icon-waffle .slds-r7,
+body.cosmos-dark .slds-icon-waffle .slds-r8,
+body.cosmos-dark .slds-icon-waffle .slds-r9,
+body.cosmos-light .slds-icon-waffle .slds-r1,
+body.cosmos-light .slds-icon-waffle .slds-r2,
+body.cosmos-light .slds-icon-waffle .slds-r3,
+body.cosmos-light .slds-icon-waffle .slds-r4,
+body.cosmos-light .slds-icon-waffle .slds-r5,
+body.cosmos-light .slds-icon-waffle .slds-r6,
+body.cosmos-light .slds-icon-waffle .slds-r7,
+body.cosmos-light .slds-icon-waffle .slds-r8,
+body.cosmos-light .slds-icon-waffle .slds-r9 {
+    background-color: var(--cos-color-on-surface);
+}
+
+/* ── Context bar app name ────────────────────────────────────────── */
+
+body.cosmos-dark .slds-context-bar__app-name .slds-truncate,
+body.cosmos-light .slds-context-bar__app-name .slds-truncate {
+    font-weight: 600 !important;
+    color: var(--cos-color-on-surface-strong) !important;
+}
+
+/* ── Nav/header bridge ───────────────────────────────────────────── */
+
+body.cosmos-dark .vertical-nav__footer-link_active,
+body.cosmos-light .vertical-nav__footer-link_active {
+    color: var(--cos-color-on-surface) !important;
+    background: var(--cos-nav-active-bg, var(--cos-color-surface-elevated)) !important;
+    box-shadow: inset 2px 0 0 var(--cos-color-accent-border) !important;
+}
+
+body.cosmos-dark .vertical-nav_collapsed .vertical-nav__search .slds-button.slds-button_icon-border-filled,
+body.cosmos-light .vertical-nav_collapsed .vertical-nav__search .slds-button.slds-button_icon-border-filled {
+    border-color: var(--cos-color-border-strong) !important;
+}
+
+body.cosmos-dark .vertical-nav_collapsed .vertical-nav__search .slds-button.slds-button_icon-border-filled:hover,
+body.cosmos-light .vertical-nav_collapsed .vertical-nav__search .slds-button.slds-button_icon-border-filled:hover {
+    border-color: var(--cos-color-border-hover-strong) !important;
+}
+
+body.cosmos-dark .globalNavigation-dropdownItem > a,
+body.cosmos-light .globalNavigation-dropdownItem > a {
+    color: inherit;
+}
+
+body.cosmos-dark .vertical-nav lightning-icon svg,
+body.cosmos-dark .vertical-nav .slds-button__icon,
+body.cosmos-light .vertical-nav lightning-icon svg,
+body.cosmos-light .vertical-nav .slds-button__icon {
+    fill: var(--cos-color-on-surface-default) !important;
+    color: var(--cos-color-on-surface-default) !important;
+}
+
+body.cosmos-dark .vertical-nav .vertical-nav__footer-link_active lightning-icon svg,
+body.cosmos-dark .vertical-nav .vertical-nav__footer-link_active .slds-button__icon,
+body.cosmos-light .vertical-nav .vertical-nav__footer-link_active lightning-icon svg,
+body.cosmos-light .vertical-nav .vertical-nav__footer-link_active .slds-button__icon {
+    fill: var(--cos-color-accent) !important;
+    color: var(--cos-color-accent) !important;
+}
+
+
+body.cosmos-dark .slds-card__header-title,
+body.cosmos-dark .slds-card__header-title .slds-text-heading--label,
+body.cosmos-dark .slds-card__header-title .slds-text-heading_label,
+body.cosmos-dark .slds-card__header-link,
+body.cosmos-light .slds-card__header-title,
+body.cosmos-light .slds-card__header-title .slds-text-heading--label,
+body.cosmos-light .slds-card__header-title .slds-text-heading_label,
+body.cosmos-light .slds-card__header-link {
+    font-weight: 600 !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   FROSTED-GLASS SURFACES
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── Typography ── */
+
+body.cosmos-dark .slds-text-heading_large,
+body.cosmos-light .slds-text-heading_large {
+    font-family: 'Inter', sans-serif;
+    color: var(--cos-color-on-surface) !important;
+    font-weight: 700 !important;
+    font-size: 36px !important;
+}
+
+body.cosmos-dark .slds-card__header-title,
+body.cosmos-dark .slds-card__header-title .slds-text-heading--label,
+body.cosmos-dark .slds-card__header-title .slds-text-heading_label,
+body.cosmos-dark .slds-card__header-link,
+body.cosmos-light .slds-card__header-title,
+body.cosmos-light .slds-card__header-title .slds-text-heading--label,
+body.cosmos-light .slds-card__header-title .slds-text-heading_label,
+body.cosmos-light .slds-card__header-link {
+    font-weight: 600 !important;
+    color: var(--cos-color-on-surface-default) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    font-size: 11px !important;
+}
+
+body.cosmos-dark .intro-copy,
+body.cosmos-light .intro-copy {
+    color: var(--cos-color-on-surface-muted) !important;
+}
+
+body.cosmos-dark .slds-text-body_regular,
+body.cosmos-dark .slds-form-element__label,
+body.cosmos-light .slds-text-body_regular,
+body.cosmos-light .slds-form-element__label {
+    color: var(--cos-color-on-surface-tertiary) !important;
+}
+
+/* ── Cards ── */
+
+body.cosmos-dark .slds-card,
+body.cosmos-light .slds-card {
+    background: var(--cos-color-surface) !important;
+    border: 1px solid var(--cos-color-border) !important;
+    border-radius: 12px !important;
+    box-shadow: var(--cos-shadow) !important;
+    -webkit-backdrop-filter: var(--cos-blur) !important;
+    backdrop-filter: var(--cos-blur) !important;
+    padding-bottom: 12px !important;
+}
+
+body.cosmos-dark .slds-card::before,
+body.cosmos-light .slds-card::before {
+    display: none !important;
+}
+
+body.cosmos-dark lightning-card {
+    --slds-c-card-color-background: rgba(255, 255, 255, 0.04);
+    --slds-c-card-color-border: rgba(255, 255, 255, 0.10);
+}
+
+body.cosmos-light lightning-card {
+    --slds-c-card-color-background: rgba(255, 255, 255, 0.45);
+    --slds-c-card-color-border: rgba(255, 255, 255, 0.60);
+}
+
+/* ── Datatable ── */
+
+body.cosmos-dark lightning-datatable .slds-table_header-fixed_container,
+body.cosmos-light lightning-datatable .slds-table_header-fixed_container {
+    background: var(--cos-table-container-bg, var(--cos-color-surface));
+    border-color: var(--cos-table-container-border, var(--cos-color-border));
+    --slds-s-table-header-color-background: var(--cos-table-fixed-bg, var(--cos-color-surface-elevated));
+    -webkit-backdrop-filter: var(--cos-blur);
+    backdrop-filter: var(--cos-blur);
+}
+
+body.cosmos-dark lightning-datatable .slds-cell-fixed,
+body.cosmos-light lightning-datatable .slds-cell-fixed {
+    background: var(--cos-table-fixed-bg, var(--cos-color-surface-elevated));
+}
+
+body.cosmos-dark lightning-datatable .slds-table,
+body.cosmos-light lightning-datatable .slds-table {
+    background: var(--cos-table-bg, transparent);
+    border: var(--cos-table-outer-border, 1px solid var(--cos-color-border-medium));
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+body.cosmos-dark lightning-datatable .slds-table thead th,
+body.cosmos-light lightning-datatable .slds-table thead th {
+    background: var(--cos-color-surface-strong);
+    border-color: var(--cos-color-border-medium);
+}
+
+body.cosmos-dark lightning-datatable .slds-table tbody td,
+body.cosmos-dark lightning-datatable .slds-table tbody th,
+body.cosmos-light lightning-datatable .slds-table tbody td,
+body.cosmos-light lightning-datatable .slds-table tbody th {
+    background: var(--cos-table-cell-bg, var(--cos-color-surface));
+    border-color: var(--cos-color-border-medium);
+}
+
+/* ── Panel ── */
+
+body.cosmos-dark .slds-panel,
+body.cosmos-light .slds-panel {
+    background: var(--cos-color-surface) !important;
+    border: 1px solid var(--cos-color-border) !important;
+    border-radius: 12px !important;
+    -webkit-backdrop-filter: var(--cos-blur) !important;
+    backdrop-filter: var(--cos-blur) !important;
+    box-shadow: var(--cos-shadow) !important;
+    position: relative;
+    height: 100%;
+}
+
+body.cosmos-dark .slds-panel::before,
+body.cosmos-light .slds-panel::before {
+    display: none !important;
+}
+
+body.cosmos-dark .slds-panel.slds-panel_docked-right,
+body.cosmos-light .slds-panel.slds-panel_docked-right {
+    display: block;
+    width: 0 !important;
+    min-width: 0 !important;
+    overflow: hidden;
+    opacity: 0;
+    border: none;
+    transition: width 350ms cubic-bezier(0.4, 0, 0.2, 1),
+                min-width 350ms cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 250ms ease,
+                margin 350ms cubic-bezier(0.4, 0, 0.2, 1),
+                padding 350ms cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    box-shadow: none;
+    border-radius: 12px;
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+}
+
+body.cosmos-dark .slds-panel.slds-panel_docked-right.slds-is-open,
+body.cosmos-light .slds-panel.slds-panel_docked-right.slds-is-open {
+    width: 320px !important;
+    min-width: 320px !important;
+    overflow: visible;
+    opacity: 1;
+    pointer-events: auto;
+    margin-top: 0;
+    margin-left: 20px;
+    margin-right: 0;
+    height: 100%;
+}
+
+/* ── Vertical nav internals ── */
+
+body.cosmos-dark .vertical-nav__search,
+body.cosmos-light .vertical-nav__search {
+    border-bottom-color: var(--cos-color-border-subtle) !important;
+}
+
+body.cosmos-dark .vertical-nav__group-header,
+body.cosmos-light .vertical-nav__group-header {
+    color: var(--cos-color-on-surface-weak) !important;
+}
+
+body.cosmos-dark .vertical-nav__group-header:hover,
+body.cosmos-light .vertical-nav__group-header:hover {
+    background: var(--cos-nav-action-hover-bg, var(--cos-color-surface-interactive)) !important;
+}
+
+body.cosmos-dark .vertical-nav__footer,
+body.cosmos-light .vertical-nav__footer {
+    border-top-color: var(--cos-color-border-subtle) !important;
+}
+
+body.cosmos-dark .slds-nav-vertical__action,
+body.cosmos-light .slds-nav-vertical__action {
+    color: var(--cos-color-on-surface-secondary) !important;
+}
+
+body.cosmos-dark .slds-nav-vertical__action:hover,
+body.cosmos-light .slds-nav-vertical__action:hover {
+    background: var(--cos-nav-action-hover-bg, var(--cos-color-surface-interactive)) !important;
+}
+
+body.cosmos-dark .vertical-nav,
+body.cosmos-light .vertical-nav {
+    transition: width 350ms cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 250ms ease !important;
+}
+
+body.cosmos-dark .vertical-nav_collapsed,
+body.cosmos-light .vertical-nav_collapsed {
+    opacity: 0.85 !important;
+}
+
+/* ── Sections (light only) ── */
+
+body.cosmos-light .slds-section {
+    background: transparent;
+    border: none;
+}
+
+/* ── Buttons ── */
+
+body.cosmos-dark .slds-button_brand,
+body.cosmos-dark .slds-button--brand,
+body.cosmos-light .slds-button_brand,
+body.cosmos-light .slds-button--brand {
+    background: var(--cos-color-brand) !important;
+    border-color: var(--cos-color-brand) !important;
+    color: var(--cos-color-on-brand) !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+}
+
+body.cosmos-dark .slds-button_brand:hover,
+body.cosmos-dark .slds-button--brand:hover,
+body.cosmos-light .slds-button_brand:hover,
+body.cosmos-light .slds-button--brand:hover {
+    background: var(--cos-color-brand-hover) !important;
+    border-color: var(--cos-color-brand-hover) !important;
+}
+
+body.cosmos-dark .slds-button_neutral,
+body.cosmos-dark .slds-button--neutral,
+body.cosmos-light .slds-button_neutral,
+body.cosmos-light .slds-button--neutral {
+    background: var(--cos-color-surface-interactive) !important;
+    border: 1px solid var(--cos-color-border-medium) !important;
+    color: var(--cos-color-on-surface-default) !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+body.cosmos-dark .slds-button_neutral:hover,
+body.cosmos-dark .slds-button--neutral:hover,
+body.cosmos-light .slds-button_neutral:hover,
+body.cosmos-light .slds-button--neutral:hover {
+    background: var(--cos-color-surface-interactive-hover) !important;
+    border-color: var(--cos-color-border-stronger) !important;
+}
+
+body.cosmos-dark .slds-button_destructive,
+body.cosmos-dark .slds-button--destructive,
+body.cosmos-light .slds-button_destructive,
+body.cosmos-light .slds-button--destructive {
+    background: var(--cos-color-destructive) !important;
+    border-color: var(--cos-color-destructive) !important;
+    color: #ffffff !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+}
+
+body.cosmos-dark .slds-button_destructive:hover,
+body.cosmos-dark .slds-button--destructive:hover,
+body.cosmos-light .slds-button_destructive:hover,
+body.cosmos-light .slds-button--destructive:hover {
+    background: var(--cos-color-destructive-hover) !important;
+    border-color: var(--cos-color-destructive-hover) !important;
+}
+
+body.cosmos-dark .slds-button_success,
+body.cosmos-light .slds-button_success {
+    background: var(--cos-color-success) !important;
+    border-color: var(--cos-color-success) !important;
+    color: #ffffff !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+}
+
+body.cosmos-dark .slds-button_success:hover,
+body.cosmos-light .slds-button_success:hover {
+    background: var(--cos-color-success-hover) !important;
+    border-color: var(--cos-color-success-hover) !important;
+}
+
+body.cosmos-dark .slds-button.slds-button_icon-border,
+body.cosmos-dark .slds-button.slds-button_icon-border-filled {
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: var(--cosmos-icon-interactive-rest);
+    border-radius: 50%;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+body.cosmos-dark .slds-button.slds-button_icon-border:hover,
+body.cosmos-dark .slds-button.slds-button_icon-border-filled:hover {
+    background-color: rgba(255, 255, 255, 0.10);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: var(--cosmos-icon-interactive-hover);
+}
+
+body.cosmos-dark .slds-button.slds-button_icon-border:hover lightning-primitive-icon svg,
+body.cosmos-dark .slds-button.slds-button_icon-border-filled:hover lightning-primitive-icon svg,
+body.cosmos-dark .slds-button.slds-button_icon-border:hover .slds-button__icon,
+body.cosmos-dark .slds-button.slds-button_icon-border-filled:hover .slds-button__icon {
+    fill: var(--cosmos-icon-interactive-hover) !important;
+    color: var(--cosmos-icon-interactive-hover) !important;
+}
+
+body.cosmos-light .slds-button.slds-button_icon-border,
+body.cosmos-light .slds-button.slds-button_icon-border-filled {
+    background-color: var(--cos-btn-icon-bg, rgba(255, 255, 255, 0.10));
+    border: 1px solid var(--cos-btn-icon-border, rgba(255, 255, 255, 0.20));
+    color: var(--cosmos-icon-interactive-rest);
+    border-radius: 50%;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+body.cosmos-light .slds-button.slds-button_icon-border:hover,
+body.cosmos-light .slds-button.slds-button_icon-border-filled:hover {
+    background-color: var(--cos-btn-icon-hover-bg, rgba(255, 255, 255, 0.25));
+    border-color: var(--cos-btn-icon-hover-border, rgba(255, 255, 255, 0.40));
+    color: var(--cosmos-icon-interactive-hover);
+}
+
+body.cosmos-light .slds-button.slds-button_icon-border:hover lightning-primitive-icon svg,
+body.cosmos-light .slds-button.slds-button_icon-border-filled:hover lightning-primitive-icon svg,
+body.cosmos-light .slds-button.slds-button_icon-border:hover .slds-button__icon,
+body.cosmos-light .slds-button.slds-button_icon-border-filled:hover .slds-button__icon {
+    fill: var(--cosmos-icon-interactive-hover) !important;
+    color: var(--cosmos-icon-interactive-hover) !important;
+}
+
+/* Normalize icon-bearing button controls (icon/container/menu triggers). */
+body.cosmos-dark .slds-button_icon,
+body.cosmos-dark .slds-button_icon-container,
+body.cosmos-dark .slds-button_icon-border,
+body.cosmos-dark .slds-button_icon-border-filled,
+body.cosmos-dark .slds-button_icon-bare,
+body.cosmos-dark .slds-button_icon-more {
+    color: var(--cosmos-icon-interactive-rest) !important;
+}
+
+body.cosmos-dark .slds-button_icon:hover,
+body.cosmos-dark .slds-button_icon-container:hover,
+body.cosmos-dark .slds-button_icon-border:hover,
+body.cosmos-dark .slds-button_icon-border-filled:hover,
+body.cosmos-dark .slds-button_icon-bare:hover,
+body.cosmos-dark .slds-button_icon-more:hover {
+    color: var(--cosmos-icon-interactive-hover) !important;
+}
+
+body.cosmos-dark .slds-button_icon .slds-button__icon,
+body.cosmos-dark .slds-button_icon-container .slds-button__icon,
+body.cosmos-dark .slds-button_icon-border .slds-button__icon,
+body.cosmos-dark .slds-button_icon-border-filled .slds-button__icon,
+body.cosmos-dark .slds-button_icon-bare .slds-button__icon,
+body.cosmos-dark .slds-button_icon-more .slds-button__icon,
+body.cosmos-dark .slds-button_icon lightning-primitive-icon svg,
+body.cosmos-dark .slds-button_icon-container lightning-primitive-icon svg,
+body.cosmos-dark .slds-button_icon-border lightning-primitive-icon svg,
+body.cosmos-dark .slds-button_icon-border-filled lightning-primitive-icon svg,
+body.cosmos-dark .slds-button_icon-bare lightning-primitive-icon svg,
+body.cosmos-dark .slds-button_icon-more lightning-primitive-icon svg {
+    fill: currentColor !important;
+    color: currentColor !important;
+}
+
+body.cosmos-light .slds-button_icon,
+body.cosmos-light .slds-button_icon-container,
+body.cosmos-light .slds-button_icon-border,
+body.cosmos-light .slds-button_icon-border-filled,
+body.cosmos-light .slds-button_icon-bare,
+body.cosmos-light .slds-button_icon-more {
+    color: var(--cosmos-icon-interactive-rest) !important;
+}
+
+body.cosmos-light .slds-button_icon:hover,
+body.cosmos-light .slds-button_icon-container:hover,
+body.cosmos-light .slds-button_icon-border:hover,
+body.cosmos-light .slds-button_icon-border-filled:hover,
+body.cosmos-light .slds-button_icon-bare:hover,
+body.cosmos-light .slds-button_icon-more:hover {
+    color: var(--cosmos-icon-interactive-hover) !important;
+}
+
+body.cosmos-light .slds-button_icon .slds-button__icon,
+body.cosmos-light .slds-button_icon-container .slds-button__icon,
+body.cosmos-light .slds-button_icon-border .slds-button__icon,
+body.cosmos-light .slds-button_icon-border-filled .slds-button__icon,
+body.cosmos-light .slds-button_icon-bare .slds-button__icon,
+body.cosmos-light .slds-button_icon-more .slds-button__icon,
+body.cosmos-light .slds-button_icon lightning-primitive-icon svg,
+body.cosmos-light .slds-button_icon-container lightning-primitive-icon svg,
+body.cosmos-light .slds-button_icon-border lightning-primitive-icon svg,
+body.cosmos-light .slds-button_icon-border-filled lightning-primitive-icon svg,
+body.cosmos-light .slds-button_icon-bare lightning-primitive-icon svg,
+body.cosmos-light .slds-button_icon-more lightning-primitive-icon svg {
+    fill: currentColor !important;
+    color: currentColor !important;
+}
+
+/* ── Inputs ── */
+
+body.cosmos-dark .slds-input,
+body.cosmos-dark .slds-textarea,
+body.cosmos-dark .slds-combobox__input,
+body.cosmos-dark .slds-select,
+body.cosmos-light .slds-input,
+body.cosmos-light .slds-textarea,
+body.cosmos-light .slds-combobox__input,
+body.cosmos-light .slds-select {
+    background: var(--cos-color-surface) !important;
+    border: 1px solid var(--cos-color-border-medium) !important;
+    border-radius: 8px !important;
+    color: var(--cos-color-on-surface-default) !important;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+body.cosmos-light .slds-input,
+body.cosmos-light .slds-textarea,
+body.cosmos-light .slds-combobox__input,
+body.cosmos-light .slds-select {
+    background: var(--cos-color-surface-elevated) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+body.cosmos-dark .slds-input:hover,
+body.cosmos-dark .slds-textarea:hover,
+body.cosmos-dark .slds-combobox__input:hover,
+body.cosmos-dark .slds-select:hover,
+body.cosmos-light .slds-input:hover,
+body.cosmos-light .slds-textarea:hover,
+body.cosmos-light .slds-combobox__input:hover,
+body.cosmos-light .slds-select:hover {
+    background: var(--cos-color-surface-interactive-hover) !important;
+    border-color: var(--cos-color-border-hover) !important;
+}
+
+body.cosmos-dark .slds-input:focus,
+body.cosmos-dark .slds-textarea:focus,
+body.cosmos-dark .slds-combobox__input:focus,
+body.cosmos-dark .slds-select:focus,
+body.cosmos-dark .slds-has-input-focus .slds-input,
+body.cosmos-light .slds-input:focus,
+body.cosmos-light .slds-textarea:focus,
+body.cosmos-light .slds-combobox__input:focus,
+body.cosmos-light .slds-select:focus,
+body.cosmos-light .slds-has-input-focus {
+    background: var(--cos-color-surface-elevated) !important;
+    border-color: var(--cos-color-focus) !important;
+    box-shadow: var(--cos-shadow-focus) !important;
+}
+
+body.cosmos-dark .slds-input::placeholder,
+body.cosmos-dark .slds-textarea::placeholder,
+body.cosmos-dark .slds-combobox__input::placeholder,
+body.cosmos-light .slds-input::placeholder,
+body.cosmos-light .slds-textarea::placeholder,
+body.cosmos-light .slds-combobox__input::placeholder {
+    color: var(--cos-color-on-surface-placeholder) !important;
+}
+
+body.cosmos-dark .slds-input:hover::placeholder,
+body.cosmos-dark .slds-textarea:hover::placeholder,
+body.cosmos-dark .slds-combobox__input:hover::placeholder,
+body.cosmos-light .slds-input:hover::placeholder,
+body.cosmos-light .slds-textarea:hover::placeholder,
+body.cosmos-light .slds-combobox__input:hover::placeholder {
+    color: var(--cos-color-on-surface-placeholder-hover) !important;
+}
+
+/* ── Search input in global header ── */
+
+body.cosmos-dark .slds-global-header__item_search .slds-input,
+body.cosmos-light .slds-global-header__item_search .slds-input {
+    background: var(--cos-search-input-bg, var(--cos-color-surface)) !important;
+    border: 1px solid var(--cos-color-border-medium) !important;
+    border-radius: 50rem !important;
+    color: var(--cos-color-on-surface-default) !important;
+}
+
+body.cosmos-light .slds-global-header__item_search .slds-input {
+    -webkit-backdrop-filter: blur(10px) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+body.cosmos-dark .slds-global-header__item_search .slds-input:hover,
+body.cosmos-light .slds-global-header__item_search .slds-input:hover {
+    background: var(--cos-color-surface-interactive-hover) !important;
+    border-color: var(--cos-color-border-hover) !important;
+}
+
+body.cosmos-dark .slds-global-header__item_search .slds-input::placeholder,
+body.cosmos-light .slds-global-header__item_search .slds-input::placeholder {
+    color: var(--cos-color-on-surface-placeholder) !important;
+}
+
+body.cosmos-dark .slds-global-header__item_search .slds-input:hover::placeholder,
+body.cosmos-light .slds-global-header__item_search .slds-input:hover::placeholder {
+    color: var(--cos-color-on-surface-placeholder-hover) !important;
+}
+
+/* ── Dropdowns & datepicker ── */
+
+body.cosmos-dark .slds-dropdown,
+body.cosmos-dark .slds-combobox .slds-listbox,
+body.cosmos-dark .slds-datepicker,
+body.cosmos-dark .slds-datepicker .slds-dropdown,
+body.cosmos-light .slds-dropdown,
+body.cosmos-light .slds-combobox .slds-listbox,
+body.cosmos-light .slds-datepicker,
+body.cosmos-light .slds-datepicker .slds-dropdown {
+    background: var(--cos-color-surface) !important;
+    border: 1px solid var(--cos-dropdown-border) !important;
+    border-radius: 12px !important;
+    -webkit-backdrop-filter: var(--cos-shell-blur) !important;
+    backdrop-filter: var(--cos-shell-blur) !important;
+    box-shadow: var(--cos-shadow-xl) !important;
+}
+
+body.cosmos-light .slds-dropdown,
+body.cosmos-light .slds-combobox .slds-listbox,
+body.cosmos-light .slds-datepicker,
+body.cosmos-light .slds-datepicker .slds-dropdown {
+    -webkit-backdrop-filter: var(--cos-blur) !important;
+    backdrop-filter: var(--cos-blur) !important;
+}
+
+body.cosmos-dark .slds-datepicker .slds-datepicker__filter,
+body.cosmos-dark .slds-datepicker table,
+body.cosmos-dark .slds-datepicker thead,
+body.cosmos-dark .slds-datepicker tbody,
+body.cosmos-dark .slds-datepicker tr,
+body.cosmos-light .slds-datepicker .slds-datepicker__filter,
+body.cosmos-light .slds-datepicker table,
+body.cosmos-light .slds-datepicker thead,
+body.cosmos-light .slds-datepicker tbody,
+body.cosmos-light .slds-datepicker tr {
+    background: transparent !important;
+}
+
+body.cosmos-dark .slds-datepicker td > span,
+body.cosmos-dark .slds-day,
+body.cosmos-light .slds-datepicker td > span,
+body.cosmos-light .slds-day {
+    border-radius: 6px !important;
+    color: var(--cos-color-on-surface-default) !important;
+}
+
+body.cosmos-dark .slds-datepicker td > span:hover,
+body.cosmos-dark .slds-day:hover,
+body.cosmos-light .slds-datepicker td > span:hover,
+body.cosmos-light .slds-day:hover {
+    background: var(--cos-day-hover-bg, var(--cos-color-surface-interactive-hover)) !important;
+}
+
+body.cosmos-dark .slds-is-today .slds-day,
+body.cosmos-light .slds-is-today .slds-day {
+    background: var(--cos-day-today-bg, var(--cos-color-surface-elevated)) !important;
+    font-weight: 700 !important;
+}
+
+body.cosmos-dark .slds-is-selected .slds-day,
+body.cosmos-light .slds-is-selected .slds-day {
+    background: var(--cos-day-selected-bg) !important;
+    color: #fff !important;
+}
+
+body.cosmos-dark .slds-datepicker .slds-select,
+body.cosmos-dark .slds-datepicker__filter .slds-select {
+    background: var(--cos-color-surface-interactive) !important;
+    border-color: var(--cos-color-border) !important;
+    color: var(--cos-color-on-surface-default) !important;
+}
+
+body.cosmos-dark .slds-listbox__option:hover,
+body.cosmos-dark .slds-listbox__option.slds-has-focus,
+body.cosmos-light .slds-listbox__option:hover,
+body.cosmos-light .slds-listbox__option.slds-has-focus {
+    background-color: var(--cos-dropdown-hover-bg, var(--cos-color-surface-interactive-hover)) !important;
+    border-radius: 6px !important;
+}
+
+/* ── Modal ── */
+
+body.cosmos-dark .slds-modal__container,
+body.cosmos-light .slds-modal__container {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+}
+
+body.cosmos-dark .slds-modal__header,
+body.cosmos-light .slds-modal__header {
+    background: var(--cos-color-surface) !important;
+    border: 1px solid var(--cos-color-border) !important;
+    border-bottom: 1px solid var(--cos-color-border-subtle) !important;
+    border-top-left-radius: 12px !important;
+    border-top-right-radius: 12px !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    -webkit-backdrop-filter: var(--cos-shell-blur) !important;
+    backdrop-filter: var(--cos-shell-blur) !important;
+    box-shadow: var(--cos-modal-header-shadow) !important;
+}
+
+body.cosmos-light .slds-modal__header {
+    -webkit-backdrop-filter: var(--cos-blur) !important;
+    backdrop-filter: var(--cos-blur) !important;
+}
+
+body.cosmos-dark .slds-modal__content,
+body.cosmos-light .slds-modal__content {
+    background: var(--cos-color-surface) !important;
+    border-left: 1px solid var(--cos-color-border) !important;
+    border-right: 1px solid var(--cos-color-border) !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    border-radius: 0 !important;
+    -webkit-backdrop-filter: var(--cos-shell-blur) !important;
+    backdrop-filter: var(--cos-shell-blur) !important;
+    box-shadow: none !important;
+}
+
+body.cosmos-light .slds-modal__content {
+    -webkit-backdrop-filter: var(--cos-blur) !important;
+    backdrop-filter: var(--cos-blur) !important;
+}
+
+body.cosmos-dark .slds-modal__footer,
+body.cosmos-light .slds-modal__footer {
+    background: var(--cos-color-surface) !important;
+    border: 1px solid var(--cos-color-border) !important;
+    border-top: 1px solid var(--cos-color-border-subtle) !important;
+    border-bottom-left-radius: 12px !important;
+    border-bottom-right-radius: 12px !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    -webkit-backdrop-filter: var(--cos-shell-blur) !important;
+    backdrop-filter: var(--cos-shell-blur) !important;
+    box-shadow: var(--cos-shadow) !important;
+}
+
+body.cosmos-light .slds-modal__footer {
+    -webkit-backdrop-filter: var(--cos-blur) !important;
+    backdrop-filter: var(--cos-blur) !important;
+}
+
+body.cosmos-dark .slds-modal__title,
+body.cosmos-light .slds-modal__title {
+    color: var(--cos-color-on-surface);
+    font-weight: 600;
+}
+
+body.cosmos-dark .slds-modal__close,
+body.cosmos-light .slds-modal__close {
+    background: var(--cos-color-surface-interactive) !important;
+    -webkit-backdrop-filter: var(--cos-shell-blur) !important;
+    backdrop-filter: var(--cos-shell-blur) !important;
+    border: 1px solid var(--cos-color-border) !important;
+    border-radius: 8px !important;
+    box-shadow: var(--cos-modal-close-shadow) !important;
+}
+
+body.cosmos-light .slds-modal__close {
+    -webkit-backdrop-filter: var(--cos-blur) !important;
+    backdrop-filter: var(--cos-blur) !important;
+}
+
+body.cosmos-dark .slds-backdrop,
+body.cosmos-light .slds-backdrop {
+    background: var(--cos-color-backdrop) !important;
+}
+
+/* ── Spinner ── */
+
+body.cosmos-dark .slds-spinner_container,
+body.cosmos-dark lightning-spinner,
+body.cosmos-light .slds-spinner_container,
+body.cosmos-light lightning-spinner {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+body.cosmos-dark .slds-spinner::before,
+body.cosmos-dark .slds-spinner__dot-a::before,
+body.cosmos-dark .slds-spinner__dot-b::before,
+body.cosmos-dark .slds-spinner::after,
+body.cosmos-dark .slds-spinner__dot-a::after,
+body.cosmos-dark .slds-spinner__dot-b::after,
+body.cosmos-light .slds-spinner::before,
+body.cosmos-light .slds-spinner__dot-a::before,
+body.cosmos-light .slds-spinner__dot-b::before,
+body.cosmos-light .slds-spinner::after,
+body.cosmos-light .slds-spinner__dot-a::after,
+body.cosmos-light .slds-spinner__dot-b::after {
+    background: var(--slds-g-color-accent-container-1) !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   BADGES
+   ══════════════════════════════════════════════════════════════════ */
+
+body.cosmos-dark lightning-badge.badge-error,
+body.cosmos-dark .badge-error.slds-badge,
+body.cosmos-light lightning-badge.badge-error,
+body.cosmos-light .badge-error.slds-badge {
+    background-color: var(--cos-badge-error-bg) !important;
+    color: var(--cos-badge-error-color) !important;
+    border-radius: 8px !important;
+    border-color: transparent !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+}
+
+body.cosmos-dark lightning-badge.badge-warning,
+body.cosmos-dark .badge-warning.slds-badge,
+body.cosmos-light lightning-badge.badge-warning,
+body.cosmos-light .badge-warning.slds-badge {
+    background-color: var(--cos-badge-warning-bg) !important;
+    color: var(--cos-badge-warning-color) !important;
+    border-radius: 8px !important;
+    border-color: transparent !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+}
+
+body.cosmos-dark lightning-badge.badge-success,
+body.cosmos-dark .badge-success.slds-badge,
+body.cosmos-light lightning-badge.badge-success,
+body.cosmos-light .badge-success.slds-badge {
+    background-color: var(--cos-badge-success-bg) !important;
+    color: var(--cos-badge-success-color) !important;
+    border-radius: 8px !important;
+    border-color: transparent !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+}
+
+body.cosmos-dark lightning-badge.badge-default,
+body.cosmos-dark .badge-default.slds-badge,
+body.cosmos-light lightning-badge.badge-default,
+body.cosmos-light .badge-default.slds-badge {
+    background-color: var(--cos-badge-default-bg) !important;
+    color: var(--cos-badge-default-color) !important;
+    border-radius: 8px !important;
+    border-color: transparent !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+}
+
+/* Glass toast styles live in ui/glassToast/glassToast.css */
+
+/* Plan builder styles live in ui/planBuilder/planBuilder.css */
