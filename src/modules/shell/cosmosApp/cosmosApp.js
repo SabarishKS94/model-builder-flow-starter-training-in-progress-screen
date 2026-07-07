@@ -332,6 +332,9 @@ export default class CosmosApp extends LightningElement {
     }
 
     _promptForApiKeyIfNeeded() {
+        if (import.meta.env?.MODE === 'gh-pages') {
+            return;
+        }
         if (!hasApiKey()) {
             this._openApiKeyModal();
         }

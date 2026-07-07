@@ -295,6 +295,9 @@ export default class App extends LightningElement {
     }
 
     _promptForApiKeyIfNeeded() {
+        if (import.meta.env?.MODE === 'gh-pages') {
+            return;
+        }
         if (!hasApiKey()) {
             this._openApiKeyModal();
         }
