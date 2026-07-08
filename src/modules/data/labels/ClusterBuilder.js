@@ -156,9 +156,9 @@ export const CancelTrainingLink = 'Cancel training';
 
 // Prototype variant switcher
 export const VariantSwitcherLabel = 'Prototype variant';
-export const VariantALabel = 'A';
-export const VariantBLabel = 'B';
-export const VariantCLabel = 'C';
+export const VariantALabel = 'Stages';
+export const VariantBLabel = 'Activity';
+export const VariantCLabel = 'Ambient';
 
 // Variant B — Activity feed
 export const TrainingActivityTitle = 'Activity';
