@@ -153,6 +153,30 @@ export const NotifyMeButton = 'Notify me when done';
 export const NotifyMeEnabledLabel = "You'll be notified when training finishes";
 export const BackToClusterBuilderButton = 'Back to Cluster Builder';
 export const CancelTrainingLink = 'Cancel training';
+
+// Prototype variant switcher
+export const VariantSwitcherLabel = 'Prototype variant';
+export const VariantALabel = 'A';
+export const VariantBLabel = 'B';
+export const VariantCLabel = 'C';
+
+// Variant B — Activity feed
+export const TrainingActivityTitle = 'Activity';
+export const TrainingActivityNowLabel = 'Now';
+export const TrainingActivityNowText = 'Finding clusters — evaluating K = 4 of 12';
+export const TrainingActivityFeaturesTime = '01:52 PM';
+export const TrainingActivityFeaturesText = 'Feature extraction complete · 147 features';
+export const TrainingActivityDataTime = '01:49 PM';
+export const TrainingActivityDataText = 'Data preparation complete · 4.2M rows';
+export const TrainingActivityStartTime = '01:49 PM';
+export const TrainingActivityStartText = 'Training started · Model v1';
+
+// Variant C — Ambient / walk-away mode
+export const TrainingAmbientHeadline = 'Training in progress';
+export const TrainingAmbientCurrentStageLabel = 'finding clusters';
+export const TrainingAmbientRemainingLabel = 'about 3–7 hours left';
+export const TrainingAmbientCaption = 'Started Jun 15, 2026 · 01:49 PM';
+export const TrainingSeeDetailsLink = 'See detailed progress';
 export const Panel5Title = 'Create a Clustering Model';
 export const Panel5Headline = 'What happens next';
 export const Panel5Body1 = 'Make sure all filters, variables, and algorithm settings are correct before saving.';

@@ -30,6 +30,14 @@
                     </div>
                     <span class="training-last-updated">{labels.TrainingLastUpdatedLabel}</span>
                 </div>
+                <div class="toolbar-right">
+                    <span class="variant-switcher-label">{labels.VariantSwitcherLabel}</span>
+                    <div class="variant-switcher" role="tablist" aria-label={labels.VariantSwitcherLabel}>
+                        <button type="button" role="tab" aria-selected={isVariantA} class={variantAClass} onclick={handleSelectVariantA}>{labels.VariantALabel}</button>
+                        <button type="button" role="tab" aria-selected={isVariantB} class={variantBClass} onclick={handleSelectVariantB}>{labels.VariantBLabel}</button>
+                        <button type="button" role="tab" aria-selected={isVariantC} class={variantCClass} onclick={handleSelectVariantC}>{labels.VariantCLabel}</button>
+                    </div>
+                </div>
             </div>
         </template>
         <template lwc:else>
@@ -57,46 +65,155 @@
         <!-- Body -->
         <template lwc:if={isTraining}>
             <div class="training-body">
-                <div class="training-content" role="status" aria-live="polite">
-                    <h2 class="training-title">{labels.TrainingCardTitle}</h2>
-                    <p class="training-subtitle">{labels.TrainingCardSubtitle}</p>
-                    <div class="slds-scoped-notification slds-scoped-notification_light slds-media slds-media_center training-meta-bar" role="status">
-                        <div class="slds-media__body training-meta-body">
-                            <p>
-                                <strong>{labels.TrainingStartedTitle}</strong>
-                                <span class="training-meta-value">{labels.TrainingStartedValue}</span>
-                                <span class="training-meta-divider" aria-hidden="true">|</span>
-                                <strong>{labels.TrainingEtaTitle}</strong>
-                                <span class="training-meta-value">{labels.TrainingEtaValue}</span>
-                            </p>
+                <template lwc:if={isVariantA}>
+                    <div class="training-content" role="status" aria-live="polite">
+                        <h2 class="training-title">{labels.TrainingCardTitle}</h2>
+                        <p class="training-subtitle">{labels.TrainingCardSubtitle}</p>
+                        <div class="slds-scoped-notification slds-scoped-notification_light slds-media slds-media_center training-meta-bar" role="status">
+                            <div class="slds-media__body training-meta-body">
+                                <p>
+                                    <strong>{labels.TrainingStartedTitle}</strong>
+                                    <span class="training-meta-value">{labels.TrainingStartedValue}</span>
+                                    <span class="training-meta-divider" aria-hidden="true">|</span>
+                                    <strong>{labels.TrainingEtaTitle}</strong>
+                                    <span class="training-meta-value">{labels.TrainingEtaValue}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="training-progress" role="list">
+                            <template for:each={trainingStages} for:item="stage">
+                                <div key={stage.id} class={stage.itemClass} role="listitem">
+                                    <div class="training-stage-rail" aria-hidden="true">
+                                        <span class="training-stage-connector training-stage-connector_top"></span>
+                                        <span class="training-stage-marker">
+                                            <template lwc:if={stage.isComplete}>
+                                                <svg viewBox="0 0 16 16" class="training-stage-check" focusable="false">
+                                                    <path d="M12.5 5 L6.5 11 L3.5 8" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </template>
+                                        </span>
+                                        <span class="training-stage-connector training-stage-connector_bottom"></span>
+                                    </div>
+                                    <div class="training-stage-label">{stage.label}</div>
+                                </div>
+                            </template>
                         </div>
                     </div>
+                </template>
 
-                    <div class="training-progress" role="list">
-                        <template for:each={trainingStages} for:item="stage">
-                            <div key={stage.id} class={stage.itemClass} role="listitem">
-                                <div class="training-stage-rail" aria-hidden="true">
-                                    <span class="training-stage-connector training-stage-connector_top"></span>
-                                    <span class="training-stage-marker">
-                                        <template lwc:if={stage.isComplete}>
-                                            <svg viewBox="0 0 16 16" class="training-stage-check" focusable="false">
-                                                <path d="M12.5 5 L6.5 11 L3.5 8" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                        </template>
-                                    </span>
-                                    <span class="training-stage-connector training-stage-connector_bottom"></span>
-                                </div>
-                                <div class="training-stage-label">{stage.label}</div>
+                <template lwc:elseif={isVariantB}>
+                    <div class="training-content training-content_feed" role="status" aria-live="polite">
+                        <h2 class="training-title">{labels.TrainingCardTitle}</h2>
+                        <p class="training-subtitle">{labels.TrainingCardSubtitle}</p>
+
+                        <div class="slds-scoped-notification slds-scoped-notification_light slds-media slds-media_center training-meta-bar" role="status">
+                            <div class="slds-media__body training-meta-body">
+                                <p>
+                                    <strong>{labels.TrainingStartedTitle}</strong>
+                                    <span class="training-meta-value">{labels.TrainingStartedValue}</span>
+                                    <span class="training-meta-divider" aria-hidden="true">|</span>
+                                    <strong>{labels.TrainingEtaTitle}</strong>
+                                    <span class="training-meta-value">{labels.TrainingEtaValue}</span>
+                                </p>
                             </div>
-                        </template>
+                        </div>
+
+                        <div class="hbar-wrap" aria-hidden="true">
+                            <div class="hbar-track">
+                                <div class="hbar-fill" style={horizontalBarFillStyle}></div>
+                                <template for:each={horizontalStages} for:item="stage">
+                                    <span key={stage.id} class={stage.tickClass}></span>
+                                </template>
+                            </div>
+                            <div class="hbar-labels">
+                                <template for:each={horizontalStages} for:item="stage">
+                                    <span key={stage.id} class={stage.labelClass}>{stage.label}</span>
+                                </template>
+                            </div>
+                        </div>
+
+                        <div class="activity-section">
+                            <h3 class="activity-title">{labels.TrainingActivityTitle}</h3>
+                            <ul class="activity-list">
+                                <template for:each={activityEntries} for:item="entry">
+                                    <li key={entry.id} class="activity-row">
+                                        <template lwc:if={entry.isNow}>
+                                            <span class="activity-time activity-time_now">{entry.time}</span>
+                                            <span class="activity-text activity-text_now">{entry.text}</span>
+                                        </template>
+                                        <template lwc:else>
+                                            <span class="activity-time">{entry.time}</span>
+                                            <span class="activity-text">{entry.text}</span>
+                                        </template>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                </template>
+
+                <template lwc:elseif={isVariantC}>
+                    <div class="training-content training-content_ambient" role="status" aria-live="polite">
+                        <div class="ambient-stack">
+                            <span class="ambient-glyph" aria-hidden="true"></span>
+                            <h2 class="ambient-headline">{labels.TrainingAmbientHeadline}</h2>
+                            <p class="ambient-substatus">
+                                Currently <em class="ambient-em">{labels.TrainingAmbientCurrentStageLabel}</em> · {labels.TrainingAmbientRemainingLabel}
+                            </p>
+                            <div class="ambient-bar" aria-hidden="true">
+                                <div class="ambient-bar-fill" style={horizontalBarFillStyle}></div>
+                            </div>
+                            <span class="ambient-caption">{labels.TrainingAmbientCaption}</span>
+
+                            <div class="ambient-cta-wrap">
+                                <lightning-button
+                                    label={notifyButtonLabel}
+                                    variant={notifyButtonVariant}
+                                    icon-name={notifyButtonIcon}
+                                    onclick={handleToggleNotify}
+                                    class="ambient-cta"
+                                ></lightning-button>
+                            </div>
+
+                            <button type="button" class="ambient-details-link" onclick={handleToggleAmbientDetails}>
+                                {ambientToggleLabel}
+                            </button>
+
+                            <template lwc:if={ambientDetailsOpen}>
+                                <div class="ambient-details" role="list">
+                                    <template for:each={trainingStages} for:item="stage">
+                                        <div key={stage.id} class={stage.itemClass} role="listitem">
+                                            <div class="training-stage-rail" aria-hidden="true">
+                                                <span class="training-stage-connector training-stage-connector_top"></span>
+                                                <span class="training-stage-marker">
+                                                    <template lwc:if={stage.isComplete}>
+                                                        <svg viewBox="0 0 16 16" class="training-stage-check" focusable="false">
+                                                            <path d="M12.5 5 L6.5 11 L3.5 8" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                    </template>
+                                                </span>
+                                                <span class="training-stage-connector training-stage-connector_bottom"></span>
+                                            </div>
+                                            <div class="training-stage-label">{stage.label}</div>
+                                        </div>
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
 
                 <div class="training-footer">
                     <button type="button" class="training-cancel-link" onclick={handleCancelTraining}>{labels.CancelTrainingLink}</button>
                     <div class="training-footer-actions">
                         <lightning-button label={labels.BackToClusterBuilderButton} variant="neutral" onclick={handleBackToClusterBuilder}></lightning-button>
-                        <lightning-button label={notifyButtonLabel} variant={notifyButtonVariant} icon-name={notifyButtonIcon} onclick={handleToggleNotify}></lightning-button>
+                        <template lwc:if={isVariantC}>
+                            <!-- Variant C promotes Notify to hero area; hide duplicate in footer -->
+                        </template>
+                        <template lwc:else>
+                            <lightning-button label={notifyButtonLabel} variant={notifyButtonVariant} icon-name={notifyButtonIcon} onclick={handleToggleNotify}></lightning-button>
+                        </template>
                     </div>
                 </div>
             </div>

@@ -130,6 +130,8 @@ export default class ClusterBuilder extends LightningElement {
     @track isAgentforceOpen = false;
     @track notifyEnabled = false;
     @track currentTrainingStage = 3;
+    @track trainingVariant = 'a';
+    @track ambientDetailsOpen = false;
 
     get steps() {
         return STEPS.map((step) => {
@@ -741,6 +743,113 @@ export default class ClusterBuilder extends LightningElement {
                 isActive,
             };
         });
+    }
+
+    get isVariantA() {
+        return this.trainingVariant === 'a';
+    }
+
+    get isVariantB() {
+        return this.trainingVariant === 'b';
+    }
+
+    get isVariantC() {
+        return this.trainingVariant === 'c';
+    }
+
+    get variantAClass() {
+        return this.isVariantA ? 'variant-chip variant-chip_active' : 'variant-chip';
+    }
+
+    get variantBClass() {
+        return this.isVariantB ? 'variant-chip variant-chip_active' : 'variant-chip';
+    }
+
+    get variantCClass() {
+        return this.isVariantC ? 'variant-chip variant-chip_active' : 'variant-chip';
+    }
+
+    handleSelectVariantA() {
+        this.trainingVariant = 'a';
+    }
+
+    handleSelectVariantB() {
+        this.trainingVariant = 'b';
+    }
+
+    handleSelectVariantC() {
+        this.trainingVariant = 'c';
+    }
+
+    get horizontalStages() {
+        const stageLabels = [
+            Labels.TrainingStage1,
+            Labels.TrainingStage2,
+            Labels.TrainingStage3,
+            Labels.TrainingStage4,
+            Labels.TrainingStage5,
+        ];
+        return stageLabels.map((label, idx) => {
+            const number = idx + 1;
+            const isComplete = number < this.currentTrainingStage;
+            const isActive = number === this.currentTrainingStage;
+            let itemClass = 'hstage';
+            if (isComplete) itemClass += ' hstage_complete';
+            else if (isActive) itemClass += ' hstage_active';
+            else itemClass += ' hstage_pending';
+            return {
+                id: `hstage-${number}`,
+                label,
+                itemClass,
+                tickClass: `hstage-tick${isComplete ? ' hstage-tick_complete' : ''}${isActive ? ' hstage-tick_active' : ''}`,
+                labelClass: `hstage-label${isActive ? ' hstage-label_active' : ''}`,
+            };
+        });
+    }
+
+    get horizontalBarFillStyle() {
+        const total = 5;
+        const completed = Math.max(0, this.currentTrainingStage - 1);
+        const active = this.currentTrainingStage <= total ? 0.5 : 0;
+        const pct = ((completed + active) / (total - 1)) * 100;
+        return `width: ${Math.min(100, Math.max(0, pct))}%`;
+    }
+
+    get activityEntries() {
+        return [
+            {
+                id: 'act-now',
+                isNow: true,
+                time: Labels.TrainingActivityNowLabel,
+                text: Labels.TrainingActivityNowText,
+            },
+            {
+                id: 'act-features',
+                isNow: false,
+                time: Labels.TrainingActivityFeaturesTime,
+                text: Labels.TrainingActivityFeaturesText,
+            },
+            {
+                id: 'act-data',
+                isNow: false,
+                time: Labels.TrainingActivityDataTime,
+                text: Labels.TrainingActivityDataText,
+            },
+            {
+                id: 'act-start',
+                isNow: false,
+                time: Labels.TrainingActivityStartTime,
+                text: Labels.TrainingActivityStartText,
+            },
+        ];
+    }
+
+    get ambientToggleLabel() {
+        return this.ambientDetailsOpen ? 'Hide detailed progress' : Labels.TrainingSeeDetailsLink;
+    }
+
+    handleToggleAmbientDetails() {
+        this.ambientDetailsOpen = !this.ambientDetailsOpen;
     }
 
 get notifyButtonLabel() {
