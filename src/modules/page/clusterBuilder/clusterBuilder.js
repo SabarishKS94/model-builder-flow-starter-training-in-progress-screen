@@ -809,9 +809,8 @@ export default class ClusterBuilder extends LightningElement {
 
     get horizontalBarFillStyle() {
         const total = 5;
-        const completed = Math.max(0, this.currentTrainingStage - 1);
-        const active = this.currentTrainingStage <= total ? 0.5 : 0;
-        const pct = ((completed + active) / (total - 1)) * 100;
+        const reached = Math.max(0, Math.min(total, this.currentTrainingStage) - 1);
+        const pct = (reached / (total - 1)) * 100;
         return `width: ${Math.min(100, Math.max(0, pct))}%`;
     }
 
